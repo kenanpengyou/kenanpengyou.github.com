@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Hello World!
+title: ACGtoFE --a personal blog with info about both acg and front-end  
 tagline: Supporting tagline
 ---
 {% include JB/setup %}
