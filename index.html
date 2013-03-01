@@ -1,0 +1,36 @@
+---
+layout: page
+title: "acgtofe-动漫与前端技术的综合博客"
+navflag: home
+---
+{% include JB/setup %}
+
+<h1 class="h1_hidden">acgtofe-动漫与前端技术的综合博客</h1>
+<section class="posts">
+    <ul class="post_list">
+        <li class="post_item">
+            <h2 class="post_title"><a class="post_title_link" href="#0" title="">PopSub制作时间轴</a></h2>
+            <div class="post_info">
+            	<span class="post_date">日期：2013-01-18</span><span class="post_categories">分类：<a class="post_categories_link" href="#0" title="">acg</a></span>
+            </div>
+            <div class="post_preview">南家的二姐，中学二年级学生。人如其名，像夏日的太阳，三姐妹中最有活力的一个，也是相当 的神经大条。对食物有超强的执著，料理水平却很差，喜欢睡懒觉，经常因此而错过早饭。最喜爱的食物是柠檬奶酪软冻奶油派。擅长游泳，很怕晕车。部分行为想法比妹妹千秋还要单纯幼稚，被千秋称为“愚蠢家伙”三姐妹中担任装傻兼吐槽的角色。但有时却能身兼“天然的谋略家”，经常跟会向千秋一起研究。从故事中可以看得出酒量出乎一般的好，属于千杯不醉的类型...</div>
+            <div class="read_post"><a class="read_post_link" href="#0" title="">阅读全文 &raquo;</a>
+            </div>
+        </li>
+        {% for post in site.posts %}
+        <li class="post_item">
+            <h2 class="post_title"><a class="post_title_link" href="{{ BASE_PATH }}{{ post.url }}" title="">{{ post.title }}</a></h2>
+            <div class="post_info">
+                <span class="post_date">日期：{{ post.date | date:"%Y-%m-%d" }}</span><span class="post_categories">分类：<a class="post_categories_link" href="#0" title="">{{ post.categories }}</a></span>
+            </div>
+            <div class="post_preview">{{ post.content | truncatewords: 200 }}</div>
+            <div class="read_post"><a class="read_post_link" href="{{ BASE_PATH }}{{ post.url }}" title="">阅读全文 &raquo;</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="page_flip">
+        <a class="flip_next_btn" href="#0" title=""></a>
+        <a class="flip_prev_btn" href="#0" title=""></a>
+        <div class="flip_data">1 / 2</div>
+    </div>
+</section>

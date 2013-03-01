@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>{{ page.title }}</title>
+   <meta name="author" content="{{ site.author.name }}" />
+   <link href="http://feeds.feedburner.com/{{ site.author.feedburner }}" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
+   <link rel="stylesheet" href="{{ ASSET_PATH }}/css/syntax.css" />
+   <link rel="stylesheet" href="{{ ASSET_PATH }}/css/imaimo-style.css" />
+   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Inconsolata" />
+   <script src="{{ PURE_ASSET_PATH }}/js/modernizr-2.6.2-min.js"></script>
+</head>
+<body>
+<div class="total_container">
+  <div class="wrapper">
+        <header class="site_header">
+            <div class="site_logo">
+                <a class="logo_link" href="{{ HOME_PATH }}" title=""><img class="acgtofe_logo" src="{{ ASSET_PATH }}/images/transparent.gif" alt="{{ site.title }}" /></a>
+            </div>
+            <nav class="site_nav">
+                <ul class="nav_list">
+                    <li class="nav_item{% if page.navflag == 'home' %} nav_current{% endif %}"><a class="nav_link nav_link_home" href="{{ HOME_PATH }}" title="Home"><img class="nav_img nav_img_home" width="74" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Home" /><img class="nav_img nav_img_home_hover img_hover" width="74" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Home" /></a></li>
+                    <li class="nav_item{% if page.navflag == 'demo pages' %} nav_current{% endif %}"><a class="nav_link nav_link_demo" href="{{ HOME_PATH }}" title="Demo pages"><img class="nav_img nav_img_demo" width="132" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Demo pages" /><img class="nav_img nav_img_demo_hover img_hover" width="132" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Demo pages" /></a></li>
+                    <li class="nav_item{% if page.navflag == 'about' %} nav_current{% endif %}"><a class="nav_link nav_link_about" href="{{ BASE_PATH }}/about.html" title="About"><img class="nav_img nav_img_about" width="68" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="About" /><img class="nav_img nav_img_about_hover img_hover" width="68" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="About" /></a></li>    
+                </ul>
+            </nav>
+            <div class="site_top_img"><img class="top_img" width="960" height="200" src="{{ ASSET_PATH }}/images/banner-example.jpg" alt="" /></div>
+        </header>
+        <div class="content clearfix">
+            {{ content }}
+        </div>
+    </div>
+    <div class="footer_placeholder"></div>
+</div>
+<footer class="site_footer">
+  <div class="footer_wrapper">
+        <div class="footer_note">
+            <p class="theme_declare">The current theme is imaimo.</p>
+            <p class="copyright">&copy; 2013 <a href="{{ HOME_PATH }}" title="">{{ site.author.name }}</a>. Built with <a href="http://jekyllbootstrap.com/" title="Jekyll Bootstrap">Jekyll Bootstrap</a>.</p>
+        </div>
+    </div>
+</footer>
+<div class="return_top_tab"><a class="return_top_link" href="javascript:;" title=""></a></div>
+  {% include JB/analytics %}
+</body>
+</html>
