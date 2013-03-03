@@ -4,6 +4,7 @@ http://kenanpengyou.github.com/archive.html
 http://kenanpengyou.github.com/atom.xml
 http://kenanpengyou.github.com/categories.html
 http://kenanpengyou.github.com/index.html
+http://kenanpengyou.github.com/pages.html
 http://kenanpengyou.github.com/sitemap.txt
 http://kenanpengyou.github.com/tags.html
 

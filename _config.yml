@@ -10,7 +10,7 @@ pygments: true
 # so be sure to set them if your theme uses them.
 #
 title : ACGTOFE
-tagline: 动漫与前端技术的综合博客
+tagline: 
 author :
   name : Liang Zhu
   email : kenanpengyou@gmail.com

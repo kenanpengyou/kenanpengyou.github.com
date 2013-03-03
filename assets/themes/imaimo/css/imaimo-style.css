@@ -37,6 +37,7 @@ a:hover{text-decoration:underline;}
 body{background:url(../images/total_bg.png) repeat;color:#333;word-wrap:break-word;}
 a{color:#6c3e1e;}
 .content{font-size:14px;}
+::selection{background-color:#ec2a45;color:#fff;};
 
 /*-------全站基础样式 end-------*/
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "google reader使用详解"
+title: google reader
 category : 其他内容
 tags : [intro, beginner, jekyll, tutorial]
 ---
