@@ -35,9 +35,12 @@ a:hover{text-decoration:underline;}
 /*-------全站基础样式 start-------*/
 
 body{background:url(../images/total_bg.png) repeat;color:#333;word-wrap:break-word;}
-a{color:#6c3e1e;}
+a{color:#99592b;}
 .content{font-size:14px;}
-::selection{background-color:#ec2a45;color:#fff;}
+::selection{background:#ed465d;color:#fff;}
+::-moz-selection{background:#ed465d;color:#fff;}
+::-webkit-selection{background:#ed465d;color:#fff;}
+pre,code{font-family:Inconsolata;}
 
 /*-------全站基础样式 end-------*/
 
@@ -99,11 +102,9 @@ a{color:#6c3e1e;}
 /*首页文章列表*/
 .posts .post_item{padding:30px 0;background:url(../images/separate_line.png) center bottom no-repeat;zoom:1;}
 .posts .post_title{padding-left:30px;background:url(../images/post_title_prefix.png) no-repeat;font-size:18px;line-height:1.6;}
-.posts .post_title_link:hover{color:#906e55;text-decoration:none;}
-.posts .post_info{padding:5px 0 5px 30px;color:#666;font-size:12px;}
+.posts .post_title_link:hover{color:#b97849;text-decoration:none;}
+.posts .post_info{padding:10px 0 10px 30px;color:#666;font-size:12px;}
 .posts .post_preview{padding-top:10px;line-height:1.7;}
-.posts .post_categories{margin-left:40px;}
-.posts .post_categories_link{color:#666;}
 .posts .read_post{padding-top:15px;}
 
 /*翻页*/
@@ -117,6 +118,41 @@ a{color:#6c3e1e;}
 .page_flip .flip_data{overflow:hidden;color:#666;font-weight:bold;}
 
 /*-------主内容 end-------*/
+
+/*-------每一篇文章 start-------*/
+
+/*基础*/
+.single_post{padding:30px 0;}
+.single_post_title{color:#99592b;font-size:20px;line-height:1.6;}
+
+/*文章信息*/
+.single_post_info{padding:10px 0;color:#666;font-size:12px;}
+.post_categories{margin-left:40px;}
+.post_categories_link{color:#666;}
+.post_tags_exhibit{padding:10px 0 20px 0;}
+.icon_tag{float:left;width:21px;height:22px;margin-right:5px;}
+.tags_exhibit{padding-top:2px;overflow:hidden;}
+.tags_exhibit .tag_link{margin:0 10px;}
+
+/*下一篇和上一篇*/
+.post_nav{height:20px;padding:30px 0 15px 0;background:url(../images/separate_line.png) center bottom no-repeat;font-size:12px;line-height:18px;}
+.post_nav .post_next_link{float:right;padding-right:20px;background:url(../images/post_ui_items.png) right -20px no-repeat;}
+.post_nav .post_prev_link{float:left;padding-left:20px;background:url(../images/post_ui_items.png) left 0 no-repeat;}
+
+/*文章实际内容样式 for markdown*/
+.post_content{padding-top:15px;line-height:1.7;}
+.post_content p{margin-bottom:1.5em;}
+.post_content h2{margin-bottom:1em;padding-bottom:5px;border-bottom:1px dotted #977f6e;font-size:16px;}
+.post_content h3{margin-bottom:.5em;font-size:14px;}
+.post_content em,
+.post_content strong{font-weight:bold;}
+.post_content p code{margin:0 2px;color:#148fa5;}
+.post_content blockquote{margin:0;padding-left:10px;border-left:5px solid #e9887d;}
+.post_content ul{margin-bottom:1.5em;padding-left:30px;}
+.post_content li{list-style-image:url(../images/list_cube.gif);list-style-type:none;padding:5px 0;}
+.post_content pre{padding:10px;background:#333;box-shadow:inset 0 1px 10px rgba(0,0,0,.2);overflow:auto;color:#fff;white-space:pre;word-wrap:normal;}
+
+/*-------每一篇文章 end-------*/
 
 /*-------侧边栏 start-------*/
 
