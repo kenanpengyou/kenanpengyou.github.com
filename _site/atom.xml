@@ -4,7 +4,7 @@
  <title>acgtofe-动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-05T15:56:15+08:00</updated>
+ <updated>2013-03-05T16:11:42+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>U2分享園@動漫花園 __ 首页 - Powered by NexusPHP</title>
-   <link href="http://acgtofe.com/2013/03/style-set"/>
-   <updated>2013-03-05T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2013/03/style-set</id>
+   <link href="http://acgtofe.com/2013/03/senaAili"/>
+   <updated>2013-03-04T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/2013/03/senaAili</id>
    <content type="html">&lt;p&gt;我们常以“整齐”，“易读”，“亲切”，“易于维护”，“复用性强”等来形容一些优秀的开发者所写的代码。现在，对代码的好评还有一个更为时尚的词“优雅”，是不是听起来觉得很亲切呢？&lt;/p&gt;
 
 &lt;p&gt;页面是互联网产品的表现层面，不仅讲求外观，而且会应对更新迅速的互联网产品需求。&lt;/p&gt;

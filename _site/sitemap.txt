@@ -6,7 +6,7 @@ http://acgtofe.com/categories.html
 http://acgtofe.com/index.html
 http://acgtofe.com/sitemap.txt
 
-http://acgtofe.com/2013/03/style-set
+http://acgtofe.com/2013/03/senaAili
 http://acgtofe.com/2013/02/tsdm
 http://acgtofe.com/2011/12/jekyll
 http://acgtofe.com/2011/06/GoogleReader
