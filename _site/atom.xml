@@ -4,7 +4,7 @@
  <title>acgtofe-动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-04T18:49:35+08:00</updated>
+ <updated>2013-03-05T15:56:15+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>U2分享園@動漫花園 __ 首页 - Powered by NexusPHP</title>
-   <link href="http://acgtofe.com/2013/03/style"/>
-   <updated>2013-03-04T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2013/03/style</id>
+   <link href="http://acgtofe.com/2013/03/style-set"/>
+   <updated>2013-03-05T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/2013/03/style-set</id>
    <content type="html">&lt;p&gt;我们常以“整齐”，“易读”，“亲切”，“易于维护”，“复用性强”等来形容一些优秀的开发者所写的代码。现在，对代码的好评还有一个更为时尚的词“优雅”，是不是听起来觉得很亲切呢？&lt;/p&gt;
 
 &lt;p&gt;页面是互联网产品的表现层面，不仅讲求外观，而且会应对更新迅速的互联网产品需求。&lt;/p&gt;
@@ -25,7 +25,7 @@
 
 &lt;p&gt;从UI设计稿到静态页面一般都称作“切图”。这个词很容易令人联想到Photoshop中的“切片工具”，无视语义并限定标签的使用，是为了尽可能减少组件被引用的站点的样式，对组件本身样式的干扰。&lt;code&gt;&amp;lt;cite&amp;gt;&lt;/code&gt;和&lt;code&gt;&amp;lt;u&amp;gt;&lt;/code&gt;都是很少使用的标签，&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;又是非语义的标签。&lt;/p&gt;
 
-&lt;h3 id='id89'&gt;视觉元素的分离和拼合&lt;/h3&gt;
+&lt;h3 id='id1'&gt;视觉元素的分离和拼合&lt;/h3&gt;
 
 &lt;p&gt;快速更新的互联网产品需求使得UI设计师需要优先保证UI设计稿的视觉效果，也因此有时候没有时间整理UI设计稿源文件。所以，拿到手边的UI设计稿，可能存在图层缺少命名，分组混乱等问题。&lt;/p&gt;
 
