@@ -15,9 +15,9 @@
       <div class="unit_container">
           <div class="aside_title title_categories">文章分类</div>
             <ul class="category_list clearfix">
-                
-                <li class="category_item"><a class="category_link" href="#0" title="">css</a><span class="post_count">(7)</span></li>
-                <li class="category_item"><a class="category_link" href="#0" title="">javascript</a><span class="post_count">(12)</span></li>
+                {% for category in site.categories  %}
+                <li class="category_item"><a class="category_link" href="{{ BASE_PATH }}/category/{{ category | first }}/" title="">{{ category | first }}</a><span class="post_count">({{ category | last | size }})</span></li>
+                {% endfor  %}
             </ul>
         </div>
     </div>

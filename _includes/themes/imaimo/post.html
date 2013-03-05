@@ -8,6 +8,7 @@
             <div class="post_content">
                 {{ content }}
             </div>
+            {% if page.tags.size > 0 %}
             <div class="post_tags_exhibit">
                 <i class="icon_sprite icon_tag"></i>
                 <div class="tags_exhibit">
@@ -15,6 +16,7 @@
                     <a class="tag_link" href="#0" title="">{{ tag }}</a>
                     {% endfor %}
                 </div>
+            {% endif %}
             </div>
             <div class="post_nav">
                 {% if page.next %}

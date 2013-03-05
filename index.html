@@ -1,27 +1,44 @@
 ---
 layout: page
-title: "acgtofe-动漫与前端技术的综合博客"
+title: "acgtofe - 动漫与前端技术的综合博客"
 navflag: home
 ---
 {% include JB/setup %}
 
-<h1 class="h1_hidden">acgtofe-动漫与前端技术的综合博客</h1>
+<h1 class="h1_hidden">acgtofe - 动漫与前端技术的综合博客</h1>
 <section class="posts">
     <ul class="post_list">
-        {% for post in site.posts %}
+        {% for post in paginator.posts %}
         <li class="post_item">
             <h2 class="post_title"><a class="post_title_link" href="{{ BASE_PATH }}{{ post.url }}" title="">{{ post.title }}</a></h2>
             <div class="post_info">
                 <span class="post_date">日期：{{ post.date | date:"%Y-%m-%d" }}</span><span class="post_categories">分类：<a class="post_categories_link" href="#0" title="">{{ post.categories }}</a></span>
             </div>
-            <div class="post_preview">{{ post.content | truncatewords: 10 }}</div>
+            <div class="post_preview">
+                {% if post.description %}
+                    {{ post.description }}
+                {% else %}
+                    {{ post.content | truncate: 200 }}
+                {% endif %}
+            </div>
             <div class="read_post"><a class="read_post_link" href="{{ BASE_PATH }}{{ post.url }}" title="">阅读全文 &raquo;</a>
         </li>
         {% endfor %}
     </ul>
+
+    {% if paginator.total_pages > 1 %}
     <div class="page_flip">
-        <a class="flip_next_btn" href="#0" title=""></a>
-        <a class="flip_prev_btn" href="#0" title=""></a>
-        <div class="flip_data">1 / 2</div>
+        {% if paginator.next_page %}
+        <a class="flip_next_btn" href="/page{{ paginator.next_page }}" title=""></a>
+        {% endif %}
+        {% if paginator.previous_page %}
+            {% if paginator.previous_page == 1 %}
+            <a class="flip_prev_btn" href="/" title=""></a>
+            {% else %}
+            <a class="flip_prev_btn" href="/page{{ paginator.previous_page }}" title=""></a>
+            {% endif %}
+        {% endif %}
+        <div class="flip_data">{{ paginator.page }} / {{ paginator.total_pages }}</div>
     </div>
+    {% endif %}
 </section>
