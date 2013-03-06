@@ -21,6 +21,14 @@
    
 </head>
 <body>
+
+<div class="img_prefetch">
+    <img src="{{ ASSET_PATH }}/images/total_bg.jpg" alt="" />
+    {% if page.navflag == 'about' %}
+    <img src="{{ ASSET_PATH }}/images/notebook.png" alt="" />
+    {% endif %}
+</div>
+
 <div class="total_container">
   <div class="wrapper">
         <header class="site_header">
@@ -30,7 +38,7 @@
             <nav class="site_nav">
                 <ul class="nav_list">
                     <li class="nav_item{% if page.navflag == 'home' %} nav_current{% endif %}"><a class="nav_link nav_link_home" href="{{ HOME_PATH }}" title="Home"><img class="nav_img nav_img_home" width="74" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Home" /><img class="nav_img nav_img_home_hover img_hover" width="74" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Home" /></a></li>
-                    <li class="nav_item{% if page.navflag == 'demo pages' %} nav_current{% endif %}"><a class="nav_link nav_link_demo" href="{{ HOME_PATH }}" title="Demo pages"><img class="nav_img nav_img_demo" width="132" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Demo pages" /><img class="nav_img nav_img_demo_hover img_hover" width="132" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Demo pages" /></a></li>
+                    <li class="nav_item{% if page.navflag == 'demo pages' %} nav_current{% endif %}"><a class="nav_link nav_link_demo" href="{{ BASE_PATH }}/demo_pages/" title="Demo pages"><img class="nav_img nav_img_demo" width="132" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Demo pages" /><img class="nav_img nav_img_demo_hover img_hover" width="132" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="Demo pages" /></a></li>
                     <li class="nav_item{% if page.navflag == 'about' %} nav_current{% endif %}"><a class="nav_link nav_link_about" href="{{ BASE_PATH }}/about.html" title="About"><img class="nav_img nav_img_about" width="68" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="About" /><img class="nav_img nav_img_about_hover img_hover" width="68" height="36" src="{{ ASSET_PATH }}/images/transparent.gif" alt="About" /></a></li>    
                 </ul>
             </nav>

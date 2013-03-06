@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>acgtofe-动漫与前端技术的综合博客</title>
+ <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-05T18:52:36+08:00</updated>
+ <updated>2013-03-06T16:02:54+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -25,7 +25,7 @@
 
 &lt;p&gt;从UI设计稿到静态页面一般都称作“切图”。这个词很容易令人联想到Photoshop中的“切片工具”，无视语义并限定标签的使用，是为了尽可能减少组件被引用的站点的样式，对组件本身样式的干扰。&lt;code&gt;&amp;lt;cite&amp;gt;&lt;/code&gt;和&lt;code&gt;&amp;lt;u&amp;gt;&lt;/code&gt;都是很少使用的标签，&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;又是非语义的标签。&lt;/p&gt;
 
-&lt;h3 id='id110'&gt;视觉元素的分离和拼合&lt;/h3&gt;
+&lt;h3 id='id15'&gt;视觉元素的分离和拼合&lt;/h3&gt;
 
 &lt;p&gt;快速更新的互联网产品需求使得UI设计师需要优先保证UI设计稿的视觉效果，也因此有时候没有时间整理UI设计稿源文件。所以，拿到手边的UI设计稿，可能存在图层缺少命名，分组混乱等问题。&lt;/p&gt;
 

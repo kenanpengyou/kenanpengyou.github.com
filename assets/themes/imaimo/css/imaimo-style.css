@@ -1,7 +1,7 @@
 @charset "utf-8";
 /*
 * Imaimo-style.css
-* The theme name is imaimo, A theme for Jekyll.
+* The theme name is imaimo, a theme for Jekyll.
 * By Liang Zhu(kenanpengyou@yeah.net)
 * Date 2013-02-25
 */
@@ -34,13 +34,15 @@ a:hover{text-decoration:underline;}
 
 /*-------全站基础样式 start-------*/
 
-body{background:url(../images/total_bg.png) repeat;color:#333;word-wrap:break-word;}
+body{background:url(../images/total_bg.jpg) repeat;color:#333;word-wrap:break-word;}
 a{color:#99592b;}
 .content{font-size:14px;}
 ::selection{background:#ed465d;color:#fff;}
 ::-moz-selection{background:#ed465d;color:#fff;}
 ::-webkit-selection{background:#ed465d;color:#fff;}
 pre,code{font-family:Inconsolata;}
+code{font-size:15px;}
+.img_prefetch{display:none;}
 
 /*-------全站基础样式 end-------*/
 
@@ -193,6 +195,24 @@ pre,code{font-family:Inconsolata;}
 /*-------回到顶部按钮 end-------*/
 
 /*-------其他分页的额外样式 start-------*/
+
+/*其他分页的标题*/
+.special_title{height:40px;background:url(../images/special_titles.png) no-repeat;text-indent:-999em;}
+
+/*实例页-demo pages*/
+.title_demo_pages{background-position:0 0;}
+.contruction_note{height:100px;padding:80px 0 80px 0;}
+.note_img_container{float:left;width:80px;padding:0 30px 0 120px;}
+.note_text{padding-top:80px;overflow:hidden;}
+
+/*分类-categories*/
+.title_categories{background-position:0 -40px;}
+.category_exhibit{;}
+.category_exhibit_item{padding:30px 0 22px 0;background:url(../images/separate_line.png) center bottom no-repeat;}
+.category_note{font-size:16px;}
+.post_list_in_category{padding:10px 0 0 20px;}
+.post_item_in_category{height:16px;padding:8px 0;}
+.post_date_in_category{float:right;color:#666;}
 
 /*关于-about*/
 .notebook_with_about{width:960x;height:620px;background:url(../images/notebook.png) center center no-repeat;}
