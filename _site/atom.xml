@@ -4,13 +4,24 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-07T11:14:30+08:00</updated>
+ <updated>2013-03-07T15:07:22+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>奇怪的标题</title>
+   <link href="http://acgtofe.com/2013/03/senaAili2"/>
+   <updated>2013-03-04T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/2013/03/senaAili2</id>
+   <content type="html">&lt;p&gt;我们常以“整齐”，“易读”，“亲切”，“易于维护”，“复用性强”等来形容一些优秀的开发者所写的代码。现在，对代码的好评还有一个更为时尚的词“优雅”，是不是听起来觉得很亲切呢？&lt;/p&gt;
+
+&lt;p&gt;页面是互联网产品的表现层面，不仅讲求外观，而且会应对更新迅速的互联网产品需求。&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>U2分享園@動漫花園 __ 首页</title>
@@ -31,7 +42,7 @@
 
 &lt;p&gt;如何快速找到需要分离的视觉元素所在的图层？这时候应该使用的是Photoshop的&lt;em&gt;自动选择&lt;/em&gt;。另外要注意的是，某些边缘阴影及高光是由图层样式生成的，在选取这些部分时应选取旁边的实际绘图内容。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/themes//images/img_example_in_post.jpg&quot; title=&quot;img example in post&quot; alt=&quot;img example in post&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/temp/img_example_in_post.jpg&quot; title=&quot;img example1 in post&quot; alt=&quot;img example in post&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;CSS Wizardry的Harry Roberts对此做了简单的解释说明。&lt;/p&gt;
 
@@ -49,6 +60,8 @@ That’s how we used to write HTML &gt;.&amp;lt;&lt;/p&gt;&lt;/blockquote&gt;
 
 
 &lt;p&gt;参考如下的js代码：&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;?prettify?&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;function contains(relNode, otherNode) {
     if(typeof refNode.contains == &quot;function&quot;){

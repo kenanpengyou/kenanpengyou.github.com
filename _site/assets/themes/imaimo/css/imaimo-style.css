@@ -34,7 +34,7 @@ a:hover{text-decoration:underline;}
 
 /*-------全站基础样式 start-------*/
 
-body{background:#e9e4df url(../images/total_bg.jpg) repeat;color:#333;word-wrap:break-word;}
+body{background:#fdfbf6 url(../images/total_bg.jpg) repeat;color:#333;word-wrap:break-word;}
 a{color:#99592b;}
 .content{font-size:14px;}
 ::selection{background:#ed465d;color:#fff;}
