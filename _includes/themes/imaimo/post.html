@@ -3,7 +3,7 @@
         <div class="single_post">
             <h1 class="single_post_title">{{ page.title }}</h1>
             <div class="single_post_info">
-                <span class="post_date">日期：{{ page.date | date:"%Y-%m-%d" }}</span><span class="post_categories">分类：<a class="post_categories_link" href="#0" title="">{{ page.categories }}</a></span>
+                <span class="post_date">日期：{{ page.date | date:"%Y-%m-%d" }}</span><span class="post_categories">分类：<a class="post_categories_link" href="{{ BASE_PATH }}{{ site.JB.categories_path }}#{{ page.categories }}-ref" title="">{{ page.categories }}</a></span>
             </div>
             <div class="post_content">
                 {{ content }}

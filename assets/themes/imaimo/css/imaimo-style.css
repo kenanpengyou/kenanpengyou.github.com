@@ -14,7 +14,7 @@ em,var{font-style:normal;}
 ul,ol{padding:0;list-style-type:none;}
 body,dl,dd,ul,ol,h1,h2,h3,h4,h5,h6,form,p{margin:0;}
 body{font:12px/1.125 Arial,Verdana,sans-serif;}
-th,td,h1,h2,h3,h4,h5,h6{font-size:12px;}
+th,td,h1,h2,h3,h4,h5,h6{font-size:14px;}
 input,textarea,a,button{outline:none;}
 input::-moz-focus-inner{border:0;}
 a:hover{text-decoration:underline;}

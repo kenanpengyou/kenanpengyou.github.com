@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-07T15:07:22+08:00</updated>
+ <updated>2013-03-07T18:30:50+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>奇怪的标题</title>
-   <link href="http://acgtofe.com/2013/03/senaAili2"/>
+   <link href="http://acgtofe.com/posts/2013/03/senaAili2"/>
    <updated>2013-03-04T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2013/03/senaAili2</id>
+   <id>http://acgtofe.com/posts/2013/03/senaAili2</id>
    <content type="html">&lt;p&gt;我们常以“整齐”，“易读”，“亲切”，“易于维护”，“复用性强”等来形容一些优秀的开发者所写的代码。现在，对代码的好评还有一个更为时尚的词“优雅”，是不是听起来觉得很亲切呢？&lt;/p&gt;
 
 &lt;p&gt;页面是互联网产品的表现层面，不仅讲求外观，而且会应对更新迅速的互联网产品需求。&lt;/p&gt;
@@ -25,9 +25,9 @@
  
  <entry>
    <title>U2分享園@動漫花園 __ 首页</title>
-   <link href="http://acgtofe.com/2013/03/senaAili"/>
+   <link href="http://acgtofe.com/posts/2013/03/senaAili"/>
    <updated>2013-03-04T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2013/03/senaAili</id>
+   <id>http://acgtofe.com/posts/2013/03/senaAili</id>
    <content type="html">&lt;p&gt;我们常以“整齐”，“易读”，“亲切”，“易于维护”，“复用性强”等来形容一些优秀的开发者所写的代码。现在，对代码的好评还有一个更为时尚的词“优雅”，是不是听起来觉得很亲切呢？&lt;/p&gt;
 
 &lt;p&gt;页面是互联网产品的表现层面，不仅讲求外观，而且会应对更新迅速的互联网产品需求。&lt;/p&gt;
@@ -61,16 +61,15 @@ That’s how we used to write HTML &gt;.&amp;lt;&lt;/p&gt;&lt;/blockquote&gt;
 
 &lt;p&gt;参考如下的js代码：&lt;/p&gt;
 
-&lt;p&gt;&amp;lt;?prettify?&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;relNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;otherNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;function&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;otherNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;compareDocumentPosition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;function&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;compareDocumentPosition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;otherNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;pre&gt;&lt;code&gt;function contains(relNode, otherNode) {
-    if(typeof refNode.contains == &quot;function&quot;){
-        return refNode.contains(otherNode);
-    }else if(typeof refNode.compareDocumentPosition==&quot;function&quot;){
-        return !!(refNode.compareDocumentPosition(otherNode)&amp;amp;16);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;本文到此结束，欢迎收看。&lt;/p&gt;
 </content>
@@ -78,9 +77,9 @@ That’s how we used to write HTML &gt;.&amp;lt;&lt;/p&gt;&lt;/blockquote&gt;
  
  <entry>
    <title>天使动漫论坛-梦开始的地方-动漫下载_TSDM字幕组_动漫音乐_720P高清1080P_天使动漫论坛</title>
-   <link href="http://acgtofe.com/2013/02/tsdm"/>
+   <link href="http://acgtofe.com/posts/2013/02/tsdm"/>
    <updated>2013-02-18T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2013/02/tsdm</id>
+   <id>http://acgtofe.com/posts/2013/02/tsdm</id>
    <content type="html">&lt;p&gt;挑选合适的字体需要花费大量时间。但是不要一遍又一遍地让自己陷入对同一类型的字体挑选中。因为人们往往习惯于从自己熟悉的字体或者偏爱的字体开始。多花些时间去发现探索新的类型，这样你才能慢慢地发现自己对一种字体的细微差别的敏锐度，真正地让字体自己告诉你合适不合适。&lt;/p&gt;
 
 &lt;p&gt;当你选择字体，将他们放在一起时，确保他们的字体相互独立的而不是相互接近的。因为如果您选择两个相似的字体放在一起，会给大家一种错别字的感觉。&lt;/p&gt;
@@ -89,9 +88,9 @@ That’s how we used to write HTML &gt;.&amp;lt;&lt;/p&gt;&lt;/blockquote&gt;
  
  <entry>
    <title>Jekyll</title>
-   <link href="http://acgtofe.com/2011/12/jekyll"/>
+   <link href="http://acgtofe.com/posts/2011/12/jekyll"/>
    <updated>2011-12-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/12/jekyll</id>
+   <id>http://acgtofe.com/posts/2011/12/jekyll</id>
    <content type="html">&lt;p&gt;This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
 Directly following the intro we'll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
 
@@ -502,9 +501,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader9"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader9"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader9</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader9</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -515,9 +514,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader8"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader8"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader8</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader8</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -528,9 +527,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader7"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader7"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader7</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader7</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -541,9 +540,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader6"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader6"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader6</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader6</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -554,9 +553,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader5"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader5"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader5</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader5</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -567,9 +566,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader4"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader4"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader4</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader4</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -580,9 +579,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader3"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader3"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader3</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader3</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -593,9 +592,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader2"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader2"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader2</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader2</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
@@ -606,9 +605,9 @@ or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you'd like.&lt;
  
  <entry>
    <title>google reader</title>
-   <link href="http://acgtofe.com/2011/06/GoogleReader"/>
+   <link href="http://acgtofe.com/posts/2011/06/GoogleReader"/>
    <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/2011/06/GoogleReader</id>
+   <id>http://acgtofe.com/posts/2011/06/GoogleReader</id>
    <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
 
 &lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
