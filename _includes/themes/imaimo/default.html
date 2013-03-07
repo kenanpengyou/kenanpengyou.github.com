@@ -9,6 +9,11 @@
    <title>{{ page.title }}{% if page.navflag != 'home' %}{{ site.title_suffix }}{% endif %}</title>
 
    <meta name="author" content="{{ site.author.name }}" />
+   {% if page.description %}
+   <meta name="description" content="{{ page.description }}" />
+   {% else %}
+   <meta name="description" content="{{ site.tagline }}" />
+   {% endif %}
 
    <link rel="shortcut icon" href="{{ BASE_PATH }}/favicon.ico" />
    <link rel="alternate" type="application/atom+xml" href="{{ BASE_PATH }}/atom.xml" title="Atom feed">

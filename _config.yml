@@ -5,14 +5,14 @@ permalink: /:year/:month/:title
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 auto: true
 pygments: false
-# markdown: rdiscount
+markdown: rdiscount
 paginate: 5
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
 title : "acgtofe - 动漫与前端技术的综合博客"
-tagline: acgtofe
+tagline: "acgtofe - 动漫与前端技术的综合博客"
 title_suffix: " - acgtofe - 动漫与前端技术的综合博客"
 author :
   name : Liang Zhu
