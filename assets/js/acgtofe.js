@@ -69,6 +69,7 @@
     //functions which run after page ready
     $(function() {
         returnToTop();
+        
     });
 
 })(jQuery);
