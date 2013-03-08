@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*
-* Imaimo-style.css
+* imaimo-style.css
 * The theme name is imaimo, a theme for Jekyll.
 * By Liang Zhu(kenanpengyou@yeah.net)
 * Date 2013-02-25
@@ -138,7 +138,7 @@ code{font-size:15px;}
 
 /*下一篇和上一篇*/
 .post_nav{height:20px;padding:30px 0 15px 0;background:url(../images/separate_line.png) center bottom no-repeat;font-size:12px;line-height:18px;}
-.post_nav .post_nav_link{width:220px;background:url(../images/post_ui_items.png) no-repeat;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.post_nav .post_nav_link{width:160px;background:url(../images/post_ui_items.png) no-repeat;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .post_nav .post_next_link{float:right;padding-right:20px;background-position:right -20px;}
 .post_nav .post_prev_link{float:left;padding-left:20px;background-position:left 0;}
 
@@ -153,7 +153,7 @@ code{font-size:15px;}
 .post_content blockquote{margin:0;padding-left:10px;border-left:5px solid #e9887d;}
 .post_content ul{margin-bottom:1.5em;padding-left:30px;}
 .post_content li{list-style-image:url(../images/list_cube.gif);list-style-type:none;padding:5px 0;}
-.post_content pre{padding:10px;background:#333;box-shadow:inset 0 1px 10px rgba(0,0,0,.2);overflow:auto;color:#fff;white-space:pre;word-wrap:normal;}
+.post_content pre{padding:10px;background:#333;box-shadow:inset 0 1px 10px rgba(0,0,0,.2);overflow:auto;color:#fff;white-space:pre;word-wrap:normal;zoom:1;}
 
 /*-------每一篇文章 end-------*/
 
@@ -181,6 +181,7 @@ code{font-size:15px;}
 .sidebar .avatar_container{padding-bottom:15px;text-align:center;}
 .sidebar .author_avatar{width:80px;height:80px;border:1px solid #bbb;-ms-interpolation-mode:bicubic;}
 .sidebar .info_note_line{padding-bottom:15px;}
+.sidebar .weibo_link{color:#333;}
 .sidebar .RSS_link{display:inline-block;margin-left:5px;vertical-align:middle;}
 .sidebar .icon_RSS{display:inline-block;width:18px;height:18px;background-position:-25px 0;cursor:pointer;}
 
@@ -189,7 +190,7 @@ code{font-size:15px;}
 
 /*-------回到顶部按钮 start-------*/
 
-.return_top_tab{position:absolute;right:0;bottom:10px;}
+.return_top_tab{display:none;}
 .return_top_tab .return_top_link{display:block;width:47px;height:18px;background:url(../images/return_top.png) 0 0 no-repeat;}
 .return_top_tab .return_top_link:hover{background-position:0 -20px;}
 
