@@ -7,20 +7,14 @@ http://acgtofe.com/demo_pages/index.html
 http://acgtofe.com/index.html
 http://acgtofe.com/sitemap.txt
 http://acgtofe.com/page2/index.html
-http://acgtofe.com/page3/index.html
 http://acgtofe.com/page2/index.html
-http://acgtofe.com/page3/index.html
 
+http://acgtofe.com/posts/2013/03/senaAili6
+http://acgtofe.com/posts/2013/03/senaAili5
+http://acgtofe.com/posts/2013/03/senaAili4
+http://acgtofe.com/posts/2013/03/senaAili3
 http://acgtofe.com/posts/2013/03/senaAili2
 http://acgtofe.com/posts/2013/03/senaAili
 http://acgtofe.com/posts/2013/02/tsdm
 http://acgtofe.com/posts/2011/12/jekyll
-http://acgtofe.com/posts/2011/06/GoogleReader9
-http://acgtofe.com/posts/2011/06/GoogleReader8
-http://acgtofe.com/posts/2011/06/GoogleReader7
-http://acgtofe.com/posts/2011/06/GoogleReader6
-http://acgtofe.com/posts/2011/06/GoogleReader5
-http://acgtofe.com/posts/2011/06/GoogleReader4
-http://acgtofe.com/posts/2011/06/GoogleReader3
-http://acgtofe.com/posts/2011/06/GoogleReader2
 http://acgtofe.com/posts/2011/06/GoogleReader
