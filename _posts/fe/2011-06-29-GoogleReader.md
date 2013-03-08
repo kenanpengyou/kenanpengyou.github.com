@@ -2,7 +2,6 @@
 layout: post
 title: google reader
 category : 其他内容
-tags : [intro, beginner, jekyll, tutorial]
 ---
 {% include JB/setup %}
 

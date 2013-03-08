@@ -20,10 +20,10 @@
             {% endif %}
             <div class="post_nav">
                 {% if page.next %}
-                <a class="post_next_link" href="{{ page.next.url }}" title="{{ page.next.title }}">{{ page.next.title | truncate:20 }}</a>
+                <a class="post_nav_link post_next_link" href="{{ page.next.url }}" title="{{ page.next.title }}">{{ page.next.title }}</a>
                 {% endif %}
                 {% if page.previous %}
-                <a class="post_prev_link" href="{{ page.previous.url }}" title="{{ page.previous.title }}">{{ page.previous.title | truncate:20 }}</a>
+                <a class="post_nav_link post_prev_link" href="{{ page.previous.url }}" title="{{ page.previous.title }}">{{ page.previous.title }}</a>
                 {% endif %}
             </div>
             <div class="post_comments">
