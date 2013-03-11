@@ -75,10 +75,8 @@
          $.each(resultPathArray, function(index, value) {
              resultPathArray[index] = siteURL + themeImgPath + value;
          });
-         $.imgpreloader({
-             paths: resultPathArray
-         }).done(function($allImages) {
-             alert("preload ok!");
+         $.imgpreload(resultPathArray, function(){
+            alert("load ok!");
          });
      }
 
