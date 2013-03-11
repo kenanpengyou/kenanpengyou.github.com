@@ -68,6 +68,7 @@
 
      //preload imgs, based on jquery.imgpreloader
      var preloadImgs = function() {
+        $("body").hide();
          var siteURL = "http://acgtofe.com",
              themeImgPath = "/assets/themes/imaimo/images/",
              basePathArray = ["total_bg.jpg", "notebook.png"],
@@ -76,7 +77,7 @@
              resultPathArray[index] =  themeImgPath + value;
          });
          $.imgpreload(resultPathArray, function(){
-            alert("load ok!");
+            $("body").show();
          });
      }
 
