@@ -76,7 +76,7 @@
             resultPathArray[index] = themeImgPath + value;
         });
         $.imgpreload(resultPathArray, function() {
-            $("body").show();
+            $(".total_container, .site_footer").show().removeAttr("style");
         });
     }
 
@@ -85,7 +85,7 @@
 
     //functions which run after page ready
     $(function() {
-        $("body").hide();
+        $(".total_container, .site_footer").hide();
         returnToTop();
     });
 
