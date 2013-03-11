@@ -66,26 +66,8 @@
         })
     }
 
-    //preload imgs, based on jquery.imgpreloader
-    var preloadImgs = function() {
-        var siteURL = "http://acgtofe.com",
-            themeImgPath = "/assets/themes/imaimo/images/",
-            basePathArray = ["total_bg.jpg", "notebook.png"],
-            resultPathArray = basePathArray;
-        $.each(resultPathArray, function(index, value) {
-            resultPathArray[index] = themeImgPath + value;
-        });
-        $.imgpreload(resultPathArray, function() {
-            $(".total_container, .site_footer").show().removeAttr("style");
-        });
-    }
-
-    //functions which run before page show
-    preloadImgs();
-
     //functions which run after page ready
     $(function() {
-        $(".total_container, .site_footer").hide();
         returnToTop();
     });
 
