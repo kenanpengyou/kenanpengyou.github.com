@@ -2,19 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <meta name="viewport" content="width=device-width, minimum-scale=1.0">
 
    <link rel="dns-prefetch" href="//fonts.googleapis.com">
    <link rel="dns-prefetch" href="//ajax.googleapis.com">
 
    <title>{{ page.title }}{% if page.navflag != 'home' %}{{ site.title_suffix }}{% endif %}</title>
 
-   <meta name="author" content="{{ site.author.name }}">
    {% if page.description %}
    <meta name="description" content="{{ page.description }}">
    {% else %}
    <meta name="description" content="{{ site.tagline }}">
    {% endif %}
+   <meta name="keywords" content="{{ site.keywords | join: "," }}">
+   <meta name="author" content="{{ site.author.name }}">
 
    <link rel="shortcut icon" href="{{ BASE_PATH }}/favicon.ico">
    <link rel="alternate" type="application/atom+xml" href="{{ BASE_PATH }}/atom.xml" title="Atom feed">
@@ -26,7 +26,6 @@
 
    <script src="{{ PURE_ASSET_PATH }}/js/modernizr-2.6.2.min.js"></script>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-   <script src="jquery.lazyload.js?v=1.8.3"></script>
    <script src="{{ PURE_ASSET_PATH }}/js/acgtofe.js"></script>
    
 </head>
