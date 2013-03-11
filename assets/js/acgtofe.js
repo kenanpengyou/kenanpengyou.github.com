@@ -73,7 +73,7 @@
              basePathArray = ["total_bg.jpg", "notebook.png"],
              resultPathArray = basePathArray;
          $.each(resultPathArray, function(index, value) {
-             resultPathArray[index] = siteURL + themeImgPath + value;
+             resultPathArray[index] =  themeImgPath + value;
          });
          $.imgpreload(resultPathArray, function(){
             alert("load ok!");
