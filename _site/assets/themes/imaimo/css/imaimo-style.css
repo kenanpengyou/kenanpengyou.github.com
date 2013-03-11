@@ -215,6 +215,7 @@ code{font-size:15px;}
 .post_list_in_category{padding:10px 0 0 20px;}
 .post_item_in_category{height:16px;padding:8px 0;}
 .post_date_in_category{float:right;color:#666;}
+.post_link_in_category{float:left;max-width:400px;_width:400px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 
 /*关于-about*/
 .notebook_with_about{width:960x;height:620px;background:url(../images/notebook.png) center center no-repeat;}

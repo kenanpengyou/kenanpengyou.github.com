@@ -1,0 +1,5 @@
+{% comment %}
+  评论功能提供：友言 
+{% endcomment %}
+<div id="uyan_frame"></div>
+<script id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1752433" async=""></script>
