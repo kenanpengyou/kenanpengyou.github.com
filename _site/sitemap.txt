@@ -7,6 +7,4 @@ http://acgtofe.com/demo_pages/index.html
 http://acgtofe.com/index.html
 http://acgtofe.com/sitemap.txt
 
-http://acgtofe.com/posts/2013/03/senaAili
-http://acgtofe.com/posts/2013/02/tsdm
-http://acgtofe.com/posts/2011/06/GoogleReader
+http://acgtofe.com/posts/2013/03/acgtofe-complete

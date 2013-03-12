@@ -11,6 +11,7 @@
 {% endif %}
 
 {% capture PURE_ASSET_PATH %}{{ BASE_PATH }}/assets{% endcapture %}
+{% capture POSTS_IMG_PATH %}{{ BASE_PATH }}/assets/used-images/posts{% endcapture %}
 
 {% if site.JB.ASSET_PATH %}
   {% assign ASSET_PATH = site.JB.ASSET_PATH %}

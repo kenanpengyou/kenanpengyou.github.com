@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-12T10:30:15+08:00</updated>
+ <updated>2013-03-12T15:44:35+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -13,78 +13,23 @@
 
  
  <entry>
-   <title>全文内容</title>
-   <link href="http://acgtofe.com/posts/2013/03/senaAili"/>
-   <updated>2013-03-04T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/posts/2013/03/senaAili</id>
-   <content type="html">&lt;p&gt;我们常以“整齐”，“易读”，“亲切”，“易于维护”，“复用性强”等来形容一些优秀的开发者所写的代码。现在，对代码的好评还有一个更为时尚的词“优雅”，是不是听起来觉得很亲切呢？&lt;/p&gt;
+   <title>acgtofe博客建设完结纪念</title>
+   <link href="http://acgtofe.com/posts/2013/03/acgtofe-complete"/>
+   <updated>2013-03-12T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2013/03/acgtofe-complete</id>
+   <content type="html">&lt;p&gt;到写下这段文字时，本博客也宣布初步完工。&lt;/p&gt;
 
-&lt;p&gt;页面是互联网产品的表现层面，不仅讲求外观，而且会应对更新迅速的互联网产品需求。&lt;/p&gt;
+&lt;p&gt;本博客的名字是acgtofe，如简介介绍的那样，我会在这里发布有关动漫、游戏、前端技术的博文，你也许看到了demo pages，这是我最开始构思博客的时候觉得可以加入的内容，字面意思理解的话，就是指实例，不过之后具体会是什么，我还在思考中，所以敬请期待。这也是为什么只说本博客是初步完工。&lt;/p&gt;
 
-&lt;h2&gt;从Photoshop开始&lt;/h2&gt;
+&lt;p&gt;说起来，把动漫和前端技术结合起来放在一起，还拼凑了这么一个名字，真是预想不到呢。ACG已经是一个很多人都知道的词了，而这个to虽然我是想说就是表示什么“和”什么，不过现在看来，单纯理解为英文介词to也不错...而FE所指的前端开发（Frond-End），相对来说就很少会有人知道了。这也难免，前端开发一词用作职业描述，已经算是比较新的事了。我自己则是前一段时间看国外的博文，偶然看到了这个词，然后查询了一下，才知道这个意思。有没有觉得，中文的翻译特别的直接？&lt;/p&gt;
 
-&lt;p&gt;从UI设计稿到静态页面一般都称作“切图”。这个词很容易令人联想到Photoshop中的“切片工具”，无视语义并限定标签的使用，是为了尽可能减少组件被引用的站点的样式，对组件本身样式的干扰。&lt;code&gt;&amp;lt;cite&amp;gt;&lt;/code&gt;和&lt;code&gt;&amp;lt;u&amp;gt;&lt;/code&gt;都是很少使用的标签，&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;又是非语义的标签。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201303/bookmark_start.jpg&quot; title=&quot;acgtofe博客建设完结纪念&quot; alt=&quot;acgtofe博客建设完结纪念&quot; /&gt;&lt;/p&gt;
 
-&lt;h3&gt;视觉元素的分离和拼合&lt;/h3&gt;
+&lt;p&gt;“爱好ACG并从事web前端工作”，参考这样的描述，所以我做了这样的一个博客。希望本博客的内容，无论是对作为ACG同好的你，还是在从事前端工作的你，都能带来一些有用的信息，或者是有学习价值的知识，也或者是一点点的生活乐趣。&lt;/p&gt;
 
-&lt;p&gt;快速更新的互联网产品需求使得UI设计师需要优先保证UI设计稿的视觉效果，也因此有时候没有时间整理UI设计稿源文件。所以，拿到手边的UI设计稿，可能存在图层缺少命名，分组混乱等问题。&lt;/p&gt;
+&lt;p&gt;本博客通过&lt;a href=&quot;http://jekyllbootstrap.com/&quot; title=&quot;Jekyll Bootstrap&quot;&gt;Jekyll Bootstrap&lt;/a&gt;搭建，如果你也对做这样的一个博客有兴趣，可以自己搜索相关的介绍信息及教程。&lt;/p&gt;
 
-&lt;p&gt;如何快速找到需要分离的视觉元素所在的图层？这时候应该使用的是Photoshop的&lt;em&gt;自动选择&lt;/em&gt;。另外要注意的是，某些边缘阴影及高光是由图层样式生成的，在选取这些部分时应选取旁边的实际绘图内容。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/used-images/temp/img_example_in_post.jpg&quot; title=&quot;img example1 in post&quot; alt=&quot;img example in post&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;CSS Wizardry的Harry Roberts对此做了简单的解释说明。&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;Imagine a teacher trying to control a class of kids who have no names.
-That’s how we used to write HTML &gt;.&amp;lt;&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;动画版除&lt;a href=&quot;http://www.google.com/&quot; title=&quot;google link&quot;&gt;直枝理树&lt;/a&gt;、西园美鱼、笹濑川佐佐美之外，其他主要角色声优与游戏版为同一人。一些其他的介绍如下：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;过着异常多彩青春的普通少年&lt;/li&gt;
-&lt;li&gt;不擅长与他人交流的高贵小猫&lt;/li&gt;
-&lt;li&gt;在KEY 10TH Anniversary官方人气投票中排名为Little Busters系列之第3名（总排名第7）
-；此外他是前10名中唯一的男性角色。&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;参考如下的js代码：&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;relNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;otherNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;function&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;otherNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;compareDocumentPosition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;function&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;refNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;compareDocumentPosition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;otherNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;本文到此结束，欢迎收看。&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>天使动漫论坛-梦开始的地方-动漫下载_TSDM字幕组_动漫音乐_720P高清1080P_天使动漫论坛</title>
-   <link href="http://acgtofe.com/posts/2013/02/tsdm"/>
-   <updated>2013-02-18T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/posts/2013/02/tsdm</id>
-   <content type="html">&lt;p&gt;挑选合适的字体需要花费大量时间。但是不要一遍又一遍地让自己陷入对同一类型的字体挑选中。因为人们往往习惯于从自己熟悉的字体或者偏爱的字体开始。多花些时间去发现探索新的类型，这样你才能慢慢地发现自己对一种字体的细微差别的敏锐度，真正地让字体自己告诉你合适不合适。&lt;/p&gt;
-
-&lt;p&gt;当你选择字体，将他们放在一起时，确保他们的字体相互独立的而不是相互接近的。因为如果您选择两个相似的字体放在一起，会给大家一种错别字的感觉。&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>google reader</title>
-   <link href="http://acgtofe.com/posts/2011/06/GoogleReader"/>
-   <updated>2011-06-29T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/posts/2011/06/GoogleReader</id>
-   <content type="html">&lt;p&gt;内容为试试&lt;/p&gt;
-
-&lt;p&gt;试试效果吧！这一段被强调的内容。&lt;/p&gt;
-
-&lt;p&gt;这是下一段&lt;/p&gt;
+&lt;p&gt;博客建设完结，撒花！&lt;/p&gt;
 </content>
  </entry>
  
