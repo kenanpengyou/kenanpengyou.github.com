@@ -5,3 +5,17 @@
 * By Liang Zhu
 * Date 2013-03-12
 */
+
+/*评论用户的昵称*/
+.uyan_cmt_uname{color:#99592b !important;}
+
+/*"喜欢"按钮*/
+#uyan_like{display:none !important;}
+
+/*去掉回复时的按钮的下划线*/
+#uyan_stat_btn_r a:hover,
+#uyan_stat_info_r a:hover{text-decoration:none !important;}
+
+/*发布按钮*/
+#uyan_cmt_btn{background:#977f6e !important;color:#fff !important;text-shadow:none !important;}
+#uyan_cmt_btn:hover{background:#ef8484 !important;text-decoration:none !important;}
