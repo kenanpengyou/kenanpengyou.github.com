@@ -7,7 +7,7 @@
 */
 
 /*评论用户的昵称*/
-.uyan_cmt_uname{color:#99592b !important;}
+#uyan_frame .uyan_cmt_uname{color:#99592b !important;}
 
 /*"喜欢"按钮*/
 #uyan_like{display:none !important;}
