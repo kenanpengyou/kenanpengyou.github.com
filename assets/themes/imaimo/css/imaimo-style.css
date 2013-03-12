@@ -142,6 +142,9 @@ code{font-size:15px;}
 .post_nav .post_next_link{float:right;padding-right:20px;background-position:right -20px;}
 .post_nav .post_prev_link{float:left;padding-left:20px;background-position:left 0;}
 
+/*评论*/
+.post_comments{padding:10px 0;}
+
 /*文章实际内容样式 for markdown*/
 .post_content{padding-top:15px;line-height:1.7;word-wrap:break-word;}
 .post_content p{margin-bottom:1.5em;}
