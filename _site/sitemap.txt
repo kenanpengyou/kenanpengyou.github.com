@@ -7,4 +7,5 @@ http://acgtofe.com/demo_pages/index.html
 http://acgtofe.com/index.html
 http://acgtofe.com/sitemap.txt
 
+http://acgtofe.com/posts/2013/03/sticky-footer
 http://acgtofe.com/posts/2013/03/acgtofe-complete
