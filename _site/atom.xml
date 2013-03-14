@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-13T17:48:05+08:00</updated>
+ <updated>2013-03-14T11:26:33+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -23,7 +23,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201303/footer_distance.jpg&quot; title=&quot;页面内容不足的时候，页脚将不能贴到底部&quot; alt=&quot;页脚不能贴到底部&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;由于页脚基本上是一个网站的所有页面公用的部分，不同页面的内容量有所差异，因此确实有可能某些页面内容不够而出现这样的问题。另外，尤其是包含了底色的页脚（比如本站的页脚），发生这种问题会很影响美观。&lt;/p&gt;
+&lt;p&gt;由于页脚基本上是一个网站的所有页面公用的部分，不同页面的内容量有所差异，因此确实有可能某些页面内容不够而出现这样的问题。另外，尤其是包含了底色的页脚，发生这种问题会很影响美观。&lt;/p&gt;
 
 &lt;p&gt;所以，我们希望页脚能够无论网页内容量多少，都能够&lt;em&gt;准确地位于底部&lt;/em&gt;。&lt;/p&gt;
 
@@ -77,7 +77,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;所有网页内容都在这个&lt;code&gt;div.wrapper&lt;/code&gt;中，定义最小高度（IE6使用hack），由于这个元素的父元素就是定义了100%高度的&lt;code&gt;body&lt;/code&gt;，因此无论内容多少，`div.wrapper'这个元素的高度都会占据整个浏览器可视范围。然后，依照页脚的高度，设置相等的下边距负值，这样页脚就会恰好出现在页面内容的最后。&lt;/p&gt;
+&lt;p&gt;所有网页内容都在这个&lt;code&gt;div.wrapper&lt;/code&gt;中，定义最小高度（IE6使用hack），由于这个元素的父元素就是定义了100%高度的&lt;code&gt;body&lt;/code&gt;，因此无论内容多少，&lt;code&gt;div.wrapper&lt;/code&gt;这个元素的高度都会占据整个浏览器可视范围。然后，依照页脚的高度，设置相等的下边距负值，这样页脚就会恰好出现在页面内容的最后。&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.footer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.footer_placeholder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;120px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;/*假定页脚的高度为120px*/&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -87,7 +87,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201303/footer_placeholder.jpg&quot; title=&quot;页脚占位符的作用&quot; alt=&quot;页脚占位符的作用&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;到此，这个固定页脚就完成了。css部分合起来就是：&lt;/p&gt;
+&lt;p&gt;到这里，固定在底部的页脚就已经实现了。css部分合起来就是：&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
 &lt;span class=&quot;nc&quot;&gt;.wrapper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
