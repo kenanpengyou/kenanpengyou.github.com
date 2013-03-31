@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-26T18:29:24+08:00</updated>
+ <updated>2013-03-30T11:43:25+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -152,7 +152,7 @@
 
 &lt;p&gt;由于页脚基本上是一个网站的所有页面公用的部分，不同页面的内容量有所差异，因此确实有可能某些页面内容不够而出现这样的问题。另外，尤其是包含了底色的页脚，发生这种问题会很影响美观。&lt;/p&gt;
 
-&lt;p&gt;所以，我们希望页脚能够无论网页内容量多少，都能够&lt;em&gt;准确地位于底部&lt;/em&gt;。&lt;/p&gt;
+&lt;p&gt;所以，我们希望页脚能够&lt;em&gt;无论网页内容量多少，都准确地位于底部&lt;/em&gt;。&lt;/p&gt;
 
 &lt;h2&gt;固定页脚到底部的方法&lt;/h2&gt;
 
@@ -164,7 +164,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;网页内容较多时，在滚动到底部的时候才看到位于最下方的页脚。&lt;/li&gt;
-&lt;li&gt;网页内容较少时，页脚仍然位于整个页面的最下方，其余部分都是空白。&lt;/li&gt;
+&lt;li&gt;网页内容较少时，页脚仍然位于整个页面的最下方，其余部分留白。&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -194,7 +194,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;当网页内容不足的时候，&lt;code&gt;body&lt;/code&gt;和&lt;code&gt;html&lt;/code&gt;的实际高度可能小于浏览器的可视范围，因此给&lt;code&gt;body&lt;/code&gt;和&lt;code&gt;html&lt;/code&gt;写上高度100%。&lt;/p&gt;
+&lt;p&gt;当网页内容不足的时候，&lt;code&gt;body&lt;/code&gt;和&lt;code&gt;html&lt;/code&gt;的实际高度可能小于浏览器的可视范围，因此给&lt;code&gt;body&lt;/code&gt;和&lt;code&gt;html&lt;/code&gt;写上高度100%。此外，接下来的直接子元素也会使用百分比的写法，百分比的写法必须在直接父元素有确定的高度定义时才有效。&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.wrapper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;min-height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -210,11 +210,11 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;code&gt;div.footer_placeholder&lt;/code&gt;，如字面意义，页脚的占位元素，它只是一个空的&lt;code&gt;div&lt;/code&gt;，定义高度和页脚相同。如果没有它，可能会发生这样的事情↓&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;div.footer_placeholder&lt;/code&gt;，如字面意义，页脚的占位元素，它只是一个空的&lt;code&gt;div&lt;/code&gt;，定义高度和页脚相同，它的存在是为了给页脚留下位置。如果没有它，可能会发生这样的事情↓&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201303/footer_placeholder.jpg&quot; title=&quot;页脚占位符的作用&quot; alt=&quot;页脚占位符的作用&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;到这里，固定在底部的页脚就已经实现了。css部分合起来就是：&lt;/p&gt;
+&lt;p&gt;到这里，&lt;em&gt;固定在底部的页脚就已经实现了&lt;/em&gt;。css部分合起来是：&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
 &lt;span class=&quot;nc&quot;&gt;.wrapper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
