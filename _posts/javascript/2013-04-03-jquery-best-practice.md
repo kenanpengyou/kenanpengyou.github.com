@@ -8,17 +8,17 @@ description: "jQuery是我们平时最为熟悉，实际应用也最多的javasc
 
 ##引言##
 
-jQuery可以说是web开发领域应用最为广泛的轻量级javascript库，不仅专业的web开发者使用它，很多刚入门的web开发者或者web爱好者也通过使用jQuery轻松地融入到了javascript的开发。
+*jQuery*可以说是web开发领域应用最为广泛的轻量级javascript库，不仅专业的web开发者使用它，很多刚入门的web开发者或者web爱好者也通过使用jQuery轻松地融入到了javascript的开发。
 
-而如果你还希望在这方面做得更好，就应学习和了解最佳实践。最佳实践（Best Practice）是随某一技术领域的发展而逐渐建立起来的关于最新技术和开发方法的信息，在web开发领域也非常有用。
+而如果你还希望在这方面做得更好，就应学习和了解最佳实践。*最佳实践*（*Best Practice*）是随某一技术领域的发展而逐渐建立起来的关于最新技术和开发方法的信息，在web开发领域也非常有用。
 
-本文内容参考了杰出前端工程师[Addy Osmani][]的[jQuery Performance TIPs & Tricks][]，如果有兴趣，你也可以自己看看这位大师的这个演说PPT，Addy Osmani本人也是jQuery的核心团队（jQuery Core teams）的成员之一。
+本文内容参考了杰出前端工程师 [Addy Osmani][] 的 [jQuery Performance TIPs & Tricks][] ，如果有兴趣，你也可以自己看看这位大师的这个演说PPT，Addy Osmani本人也是jQuery的核心团队（jQuery Core teams）的成员之一。
 
 ##为什么需要遵循jQuery最佳实践##
 
-web开发领域对于性能的追求是永不停滞的。jQuery虽然是非常强大的开发工具，但不当的使用方法仍会给浏览器带来额外的工作和负担，也会使开发的web应用占用更多的系统资源，运行起来也更慢。而我们都知道，好的web应用需要的是清爽灵活。
+*web开发领域对于性能的追求是永不停滞的*。jQuery虽然是非常强大的开发工具，但不当的使用方法仍会给浏览器带来额外的工作和负担，也会使开发的web应用占用更多的系统资源，运行起来也更慢。而我们都知道，好的web应用需要的是清爽灵活。
 
-如何判断javascript的性能呢？现在，这种性能测试都可以归纳为运行速度，简单的说，同一项功能，某一种写法如果比另一种写法运行起来更快，那么这种写法就可以实现更好的性能。当然，这里只单纯从性能角度来考虑，并不包含代码的可维护性。如果你想自己测试不同的javascript代码段的性能，推荐使用[jsPerf.com][]，这个站点可以帮助你轻松创建javascript性能测试用例，还可以保存和分享测试结果。jQuery团队也使用它进行javascript性能测试。
+如何判断javascript的性能呢？现在，这种性能测试都可以归纳为运行速度，简单的说，*同一项功能，某一种写法如果比另一种写法运行起来更快，那么这种写法就可以实现更好的性能*。当然，这里只单纯从性能角度来考虑，并不包含代码的可维护性。如果你想自己测试不同的javascript代码段的性能，推荐使用 [jsPerf.com][] ，这个站点可以帮助你轻松创建javascript性能测试用例，还可以保存和分享测试结果。jQuery团队也使用它进行javascript性能测试。
 
 ##jQuery使用建议##
 
@@ -95,10 +95,10 @@ $('#elem').data(key, value);    //common way
 但改为下边的写法会快很多：
 
 {% highlight javascript %}
-$.data(elem, key, value);   //significantly fater
+$.data(elem, key, value);   //significantly faster
 {% endhighlight %}
 
-需要的注意的是，虽然下边的方法更快，但作为参数传入的元素不能用选择符，而要用元素本身。
+需要的注意的是，虽然下面这种方法更快，但作为参数传入的元素不能用选择符，而要用元素本身。
 
 ##结语##
 

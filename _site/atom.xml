@@ -4,13 +4,121 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-03-30T11:43:25+08:00</updated>
+ <updated>2013-04-03T16:55:27+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>jQuery使用的最佳实践</title>
+   <link href="http://acgtofe.com/posts/2013/04/jquery-best-practice"/>
+   <updated>2013-04-03T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2013/04/jquery-best-practice</id>
+   <content type="html">&lt;h2&gt;引言&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;jQuery&lt;/em&gt;可以说是web开发领域应用最为广泛的轻量级javascript库，不仅专业的web开发者使用它，很多刚入门的web开发者或者web爱好者也通过使用jQuery轻松地融入到了javascript的开发。&lt;/p&gt;
+
+&lt;p&gt;而如果你还希望在这方面做得更好，就应学习和了解最佳实践。&lt;em&gt;最佳实践&lt;/em&gt;（&lt;em&gt;Best Practice&lt;/em&gt;）是随某一技术领域的发展而逐渐建立起来的关于最新技术和开发方法的信息，在web开发领域也非常有用。&lt;/p&gt;
+
+&lt;p&gt;本文内容参考了杰出前端工程师 &lt;a href=&quot;http://addyosmani.com/blog/&quot; title=&quot;Addy Osmani&quot;&gt;Addy Osmani&lt;/a&gt; 的 &lt;a href=&quot;https://speakerdeck.com/addyosmani/jquery-performance-tips-tricks&quot; title=&quot;jQuery Performance TIPs &amp;amp; Tricks&quot;&gt;jQuery Performance TIPs &amp;amp; Tricks&lt;/a&gt; ，如果有兴趣，你也可以自己看看这位大师的这个演说PPT，Addy Osmani本人也是jQuery的核心团队（jQuery Core teams）的成员之一。&lt;/p&gt;
+
+&lt;h2&gt;为什么需要遵循jQuery最佳实践&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;web开发领域对于性能的追求是永不停滞的&lt;/em&gt;。jQuery虽然是非常强大的开发工具，但不当的使用方法仍会给浏览器带来额外的工作和负担，也会使开发的web应用占用更多的系统资源，运行起来也更慢。而我们都知道，好的web应用需要的是清爽灵活。&lt;/p&gt;
+
+&lt;p&gt;如何判断javascript的性能呢？现在，这种性能测试都可以归纳为运行速度，简单的说，&lt;em&gt;同一项功能，某一种写法如果比另一种写法运行起来更快，那么这种写法就可以实现更好的性能&lt;/em&gt;。当然，这里只单纯从性能角度来考虑，并不包含代码的可维护性。如果你想自己测试不同的javascript代码段的性能，推荐使用 &lt;a href=&quot;http://jsperf.com/&quot; title=&quot;jsperf.com&quot;&gt;jsPerf.com&lt;/a&gt; ，这个站点可以帮助你轻松创建javascript性能测试用例，还可以保存和分享测试结果。jQuery团队也使用它进行javascript性能测试。&lt;/p&gt;
+
+&lt;h2&gt;jQuery使用建议&lt;/h2&gt;
+
+&lt;h3&gt;1.使用最新版&lt;/h3&gt;
+
+&lt;p&gt;新版本的jQuery提供的API会在性能上有所提升，而且修复了一些存在的bug。由于非常多的网站都在使用jQuery，所以jQuery每一个新版本的更改都会经过非常严格的测试，升级一般都不会带来问题。&lt;/p&gt;
+
+&lt;p&gt;此外，新版本的jQuery可能会在API上做非常有用的改动，让开发工作更加简单。比如在jQuery 1.7之前，事件绑定使用&lt;code&gt;bind()&lt;/code&gt;、&lt;code&gt;delegate()&lt;/code&gt;以及&lt;code&gt;live()&lt;/code&gt;这几个方法。虽然都是事件绑定，但每个方法各有针对，这就产生了“什么时候应该使用哪个”的麻烦事。而从jQuery 1.7开始，新增并推荐使用&lt;code&gt;on()&lt;/code&gt;和&lt;code&gt;off()&lt;/code&gt;这2个方法来完成所有的事件绑定与移除，理解起来就要容易多了。&lt;/p&gt;
+
+&lt;h3&gt;2.理解你的选择符&lt;/h3&gt;
+
+&lt;p&gt;在jQuery中，不是所有的选择符（Selectors）都是同等性能的。也就是说，虽然某一些元素你可以用很多种不同的选择符写法来选取，但不要认为它们在性能上也是一样的。&lt;/p&gt;
+
+&lt;p&gt;jQuery的选择符的运行速度是不同的，从最快到最慢依次是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ID选择符（&lt;code&gt;$(#ElementId)&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;元素选择符（&lt;code&gt;$(form)&lt;/code&gt;，&lt;code&gt;$(input)&lt;/code&gt;等）&lt;/li&gt;
+&lt;li&gt;Class选择符（&lt;code&gt;$(.someClass)&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;伪类和属性选择符（&lt;code&gt;$(:hidden)&lt;/code&gt;，&lt;code&gt;$([attribute=value])&lt;/code&gt;等）&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;由于浏览器支持的原生DOM操作方法（比如&lt;code&gt;document.getElementById()&lt;/code&gt;）就可用，所以ID选择符和元素选择符是最快的。而稍慢的Class选择符是因为IE6-IE8不支持原生的&lt;code&gt;getElementsByClassName()&lt;/code&gt;，而在支持这个原生方法的其他现代浏览器中，Class选择符仍是很快的。&lt;/p&gt;
+
+&lt;p&gt;至于最慢的伪类和属性选择符，则是因为浏览器并不提供对应功能的可用原生方法。尽管jQuery尝试了使用&lt;code&gt;querySelector()&lt;/code&gt;和&lt;code&gt;querySelectorAll()&lt;/code&gt;这两个原生选择符API（属于css查询API）来提升部分jQuery选择符在部分现代浏览器中的性能，但综合起来，仍然是比较慢的。当然，这也是在于jQuery对伪类和属性选择符这个API要求较高，不仅要支持&lt;code&gt;input[type=&quot;text&quot;]&lt;/code&gt;这种css中合法的选择符，还要支持&lt;code&gt;p:first&lt;/code&gt;这类用于元素过滤，但在css中不合法的选择符。总之，jQuery的伪类和属性选择符功能很强大，但请慎重使用。&lt;/p&gt;
+
+&lt;h3&gt;3.缓存你操作的元素&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;parents&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;children&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;parents&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;.child&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//bad&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;缓存是指保存jQuery选择符的返回结果，方便之后再次调用。每一个&lt;code&gt;$('.whatever')&lt;/code&gt;都会重新从DOM中搜索并返回一个jQuery包装集（jQuery collection），因此要避免重复使用。&lt;/p&gt;
+
+&lt;p&gt;原生javascript中，建立局部变量来缓存数据或对象，有利于精简代码、优化性能。这里也是一样的道理。&lt;/p&gt;
+
+&lt;h3&gt;4.链式语法&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;.parents&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doSomethingElse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;jQuery中大部分方法都返回jQuery包装集并支持这种链式语法。javasript的性能优化要点之一是最小化语句数，因此链式语法不仅写起来更容易，运行起来也会更快。&lt;/p&gt;
+
+&lt;h3&gt;5.使用事件代理&lt;/h3&gt;
+
+&lt;p&gt;利用事件冒泡，指定一个位于dom较高层级的元素（比如&lt;code&gt;document&lt;/code&gt;）的事件处理程序，就可以管理某一类型的所有事件。减少了页面中添加的事件处理程序，自然可以提升整体性能。&lt;/p&gt;
+
+&lt;h3&gt;6.最小化现场更新&lt;/h3&gt;
+
+&lt;p&gt;如果你进行操作的DOM部分是已经显示的页面的一部分，那么你就是在进行一个&lt;em&gt;现场更新&lt;/em&gt;。现场更新需要浏览器重新计算尺寸，涉及到重绘（repaint）和回流（reflow），有较高的性能花费，因此应减少使用。&lt;/p&gt;
+
+&lt;p&gt;在新增内容时，建议先把要新增的代码段合并完全，最后再使用单个&lt;code&gt;append()&lt;/code&gt;方法添加到页面。而如果元素存在复杂的交互，比如反复地添加和移除，&lt;code&gt;detach()&lt;/code&gt;这个针对性的方法就是最佳的选择。&lt;/p&gt;
+
+&lt;h3&gt;7.不在不必要的时候使用jQuery方法&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;.nav_link&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;nav id: &amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//bad&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;jQuery方法不一定是最好的方法。这里使用&lt;code&gt;$(this).attr('id')&lt;/code&gt;获取当前事件元素的ID，为当前事件元素创建了jQuery包装集，然后调用&lt;code&gt;attr()&lt;/code&gt;属性获取方法。但这都是额外的性能花费。事实上，&lt;code&gt;this&lt;/code&gt;在事件函数内就表示当前事件元素，直接使用&lt;code&gt;this.id&lt;/code&gt;就可以获取元素ID，这种原生DOM属性的写法要更快。&lt;/p&gt;
+
+&lt;h3&gt;8.适当使用jQuery工具函数&lt;/h3&gt;
+
+&lt;p&gt;操作jQuery包装集的方法（也就是写在&lt;code&gt;$.fn&lt;/code&gt;中的方法），其中一部分也有作为jQuery工具函数（直接写在&lt;code&gt;$&lt;/code&gt;中的方法）的同类方法。由于jQuery工具函数在使用中不涉及创建jQuery包装集，因此，在部分情况下，可以通过换用jQuery工具函数提升性能。&lt;/p&gt;
+
+&lt;p&gt;比如，在DOM中存储数据，一般的做法是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#elem&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//common way&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;但改为下边的写法会快很多：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//significantly faster&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;需要的注意的是，虽然下面这种方法更快，但作为参数传入的元素不能用选择符，而要用元素本身。&lt;/p&gt;
+
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;我自己整理和写本文内容时，也感觉很有收获。jQuery是一个很强大的工具，但进一步说，也只提供了web开发的最基本的内容，更高级更复杂的内容，还需要自己不断学习和创作。在这个过程中，遵循最佳实践，养成良好的习惯，会有很大的益处，并逐渐做得更出色！&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>社会秩序与人类意志的选择—PSYCHO-PASS分析与感想</title>
