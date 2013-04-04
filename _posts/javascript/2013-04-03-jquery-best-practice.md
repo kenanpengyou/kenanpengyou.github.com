@@ -46,8 +46,8 @@ jQuery的选择符的运行速度是不同的，从最快到最慢依次是：
 ###3.缓存你操作的元素###
 
 {% highlight javascript %}
-var parents = $('parents');
-var children = $('parents').find('.child'); //bad
+var parents = $('.parents');
+var children = $('.parents').find('.child'); //bad
 {% endhighlight %}
 
 缓存是指保存jQuery选择符的返回结果，方便之后再次调用。每一个`$('.whatever')`都会重新从DOM中搜索并返回一个jQuery包装集（jQuery collection），因此要避免重复使用。
