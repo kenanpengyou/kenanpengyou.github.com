@@ -10,7 +10,7 @@ plugin: "audiojs"
 ![Love Live! ED - きっと青春が聞こえる][img_cover]
 
 <div style="height:24px;margin-bottom:1.5em;">
-    <audio src="{{ RESOURCES_PATH }}/audios/lovelive_ed.mp3" preload="auto"></audio>
+    <audio src="http://Boplink.tk/?shareid=476255&uk=3607508940.mp3" preload="auto"></audio>
 </div>
 
 歌词（自译）
