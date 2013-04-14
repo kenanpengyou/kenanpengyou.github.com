@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-04-14T16:17:56+08:00</updated>
+ <updated>2013-04-14T16:54:11+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -20,7 +20,7 @@
    <content type="html">&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201304/lovelive_ed_cd_cover.jpg&quot; title=&quot;Love Live! ED - きっと青春が聞こえる&quot; alt=&quot;Love Live! ED - きっと青春が聞こえる&quot; /&gt;&lt;/p&gt;
 
 &lt;div style=&quot;height:24px;margin-bottom:1.5em;&quot;&gt;
-    &lt;audio src=&quot;/assets/used-resources/audios/lovelive_ed.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
+    &lt;audio src=&quot;http://upload.edteam.cn/mp3.php/12719046/preview.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
 &lt;/div&gt;
 
 
