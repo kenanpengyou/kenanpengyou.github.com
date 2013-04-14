@@ -1,0 +1,27 @@
+{% comment %}
+    插件的js引入，插件信息见_config.yml
+    liquid模板不支持通过字符串来查询变量，所以在这里做一个手工转换
+{% endcomment %} 
+
+{% if page.plugin %}
+    {% assign plugin_js_first = page.plugin %}
+    {% case page.plugin %}
+        {% when 'audiojs' %}
+        {% assign plugin_js_second = site.plugin.audiojs.js %}
+        {% capture plugin_js %}{{ plugin_js_first }}/{{ plugin_js_second }}{% endcapture %}
+        <script src="{{ PLUGIN_PATH }}/{{ plugin_js }}"></script>
+        {% comment %}audiojs还需要一段初始化代码{% endcomment %}
+        <script>
+            audiojs.events.ready(function() {
+                var as = audiojs.createAll({
+                    css: false
+                });
+                for (var i = 0, len = as.length; i < len; i++) {
+                    var audio = as[i];
+                    audio.setVolume(0.5);
+                }
+            });
+        </script>
+        {% else %}
+    {% endcase %}
+{% endif %}

@@ -22,6 +22,14 @@ author :
   twitter : 
   feedsky : acgtofe
 
+# Custom plugin
+# Liang Zhu(kenanpengyou@gmail.com)
+# 2013-04-13
+plugin: 
+  audiojs: 
+    css: "audiojs-custom.css"
+    js: "audio.min.js"
+
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
 # Most places will/should use BASE_PATH to make the urls

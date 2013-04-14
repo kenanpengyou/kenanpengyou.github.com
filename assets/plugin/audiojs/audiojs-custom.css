@@ -1,0 +1,34 @@
+@charset "utf-8";
+/*
+* audiojs-custom.css
+* 自定义音频播放器的外观，使用的javascript库为audio.js
+* http://kolber.github.io/audiojs/
+* By Liang Zhu(kenanpengyou@yeah.net)
+* Date 2013-04-13
+*/
+.audiojs audio{position:absolute;left:-1px;} 
+.audiojs{width:320px;height:20px;background:#e13950;background:-webkit-linear-gradient(top,#ed465d,#ed465d);background:-moz-linear-gradient(top,#ed465d,#ed465d);background:-o-linear-gradient(top,#ed465d,#ed465d);background:linear-gradient(top,#ed465d,#ed465d);box-shadow:0 1px 2px rgba(0,0,0,.5);overflow:hidden;font-size:12px;font-family:"SimSun";} 
+.audiojs .play-pause{float:left;width:16px;height:16px;padding:2px 3px;overflow:hidden;} 
+.audiojs p{display:none;width:16px;height:16px;margin:0;background:url(player-graphics-custom.gif) no-repeat;cursor:pointer;} 
+.audiojs .play{display:block;} 
+.audiojs .scrubber{position:relative;float:left;width:200px;height:4px;margin:8px 3px;overflow:hidden;} 
+.audiojs .progress{position:absolute;width:0;height:4px;background:#fff;top:0;left:0;z-index:1;cursor:pointer;} 
+.audiojs .loaded{position:absolute;width:0;height:4px;background:#f98787;top:0;left:0;cursor:pointer;} 
+.audiojs .time{float:left;height:20px;padding:0 10px;color:#fff;line-height:20px;} 
+.audiojs .time em{padding-right:2px;font-style:normal;font-weight:normal;} 
+.audiojs .time strong{padding-left:2px;font-weight:normal;} 
+.audiojs .error-message{display:none;float:left;padding-left:3px;width:290px;height:20px;overflow:hidden;color:#fff;white-space:nowrap;text-overflow:ellipsis;line-height:20px;} 
+.audiojs .error-message a{border-bottom:1px solid #999;color:#eee;text-decoration:none;white-space:wrap;} 
+.audiojs .play{background-position:0 0;} 
+.audiojs .loading{background-position:0 -50px;} 
+.audiojs .error{background-position:0 -75px;} 
+.audiojs .pause{background-position:0 -25px;} 
+
+.playing .play, .playing .loading, .playing .error{display:none;}
+.playing .pause{display:block;}
+.loading .play, .loading .pause, .loading .error{display:none;}
+.loading .loading{display:block;}
+.error .time, .error .play, .error .pause, .error .scrubber, .error .loading{display:none;}
+.error .error{display:block;} 
+.error .error-message{display:block;}
+.error .play-pause p{cursor:auto;} 

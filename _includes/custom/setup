@@ -1,5 +1,5 @@
 {% comment %}
-  自定义Jekyll-Bootstrap的setup 
+  自定义Jekyll-Bootstrap的setup
 {% endcomment %}
 
 {% if site.safe and site.JB.BASE_PATH and site.JB.BASE_PATH != '' %}
@@ -12,6 +12,9 @@
 
 {% capture PURE_ASSET_PATH %}{{ BASE_PATH }}/assets{% endcapture %}
 {% capture POSTS_IMG_PATH %}{{ BASE_PATH }}/assets/used-images/posts{% endcapture %}
+{% capture PLUGIN_PATH %}{{ BASE_PATH }}/assets/plugin{% endcapture %}
+{% capture RESOURCES_PATH %}{{ BASE_PATH }}/assets/used-resources{% endcapture %}
+{% capture EXTRA_SCRIPTS_PATH %}{{ BASE_PATH }}/assets/js/extra{% endcapture %}
 
 {% if site.JB.ASSET_PATH %}
   {% assign ASSET_PATH = site.JB.ASSET_PATH %}

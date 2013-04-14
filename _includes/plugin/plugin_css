@@ -1,0 +1,15 @@
+{% comment %}
+    插件的css引入，插件信息见_config.yml
+    liquid模板不支持通过字符串来查询变量，所以在这里做一个手工转换
+{% endcomment %} 
+
+{% if page.plugin %}
+    {% assign plugin_css_first = page.plugin %}
+    {% case page.plugin %}
+        {% when 'audiojs' %}
+        {% assign plugin_css_second = site.plugin.audiojs.css %}
+        {% else %}
+    {% endcase %}
+    {% capture plugin_css %}{{ plugin_css_first }}/{{ plugin_css_second }}{% endcapture %}
+<link rel="stylesheet" href="{{ PLUGIN_PATH }}/{{ plugin_css }}">
+{% endif %}
