@@ -1,0 +1,10 @@
+{% comment %}
+    某一demo页面对应的css，只允许一个。
+    demo页面对应的css，应放在 /demo-pages/demos/{{ demo页面名字}}/内，即和demo页面的html同目录。
+    例：
+        demoCSS: "puzzle-style.css"
+{% endcomment %} 
+
+{% if page.demoCSS %}
+<link rel="stylesheet" href="{{ DEMO_PATH }}/{{ page.demoName }}/{{ page.demoCSS }}">
+{% endif %}

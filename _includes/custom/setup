@@ -14,7 +14,9 @@
 {% capture POSTS_IMG_PATH %}{{ BASE_PATH }}/assets/used-images/posts{% endcapture %}
 {% capture PLUGIN_PATH %}{{ BASE_PATH }}/assets/plugin{% endcapture %}
 {% capture RESOURCES_PATH %}{{ BASE_PATH }}/assets/used-resources{% endcapture %}
+{% capture EXTRA_CSS_PATH %}{{ BASE_PATH }}/assets/extra-css{% endcapture %}
 {% capture EXTRA_SCRIPTS_PATH %}{{ BASE_PATH }}/assets/js/extra{% endcapture %}
+{% capture DEMO_PATH %}{{ BASE_PATH }}/demo_pages/demos{% endcapture %}
 
 {% if site.JB.ASSET_PATH %}
   {% assign ASSET_PATH = site.JB.ASSET_PATH %}

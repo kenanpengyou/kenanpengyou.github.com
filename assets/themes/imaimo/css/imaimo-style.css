@@ -202,6 +202,18 @@ code{font-size:15px;}
 
 /*-------回到顶部按钮 end-------*/
 
+/*-------每一篇demo start-------*/
+
+.single_paper{min-height:500px;_height:500px;padding:40px 30px;background:#fff;}
+.single_paper_eave{background:#fff url(../images/paper_eave.png) center 0 repeat-x;}
+.single_demo_title{color:#99592b;font-size:21px;text-align:center;line-height: 1.6;}
+.single_demo_content{padding:20px 0;word-wrap:break-word;}
+.single_demo_content p{margin-bottom:1.5em;line-height:1.7;}
+.demo_comments{width:570px;padding:10px 0;background:url(../images/separate_line.png) center top no-repeat;}
+
+/*-------每一篇demo end-------*/
+
+
 /*-------其他分页的额外样式 start-------*/
 
 /*其他分页的标题*/
@@ -212,6 +224,14 @@ code{font-size:15px;}
 .contruction_note{height:100px;padding:80px 0 80px 0;}
 .note_img_container{float:left;width:80px;padding:0 30px 0 120px;}
 .note_text{padding-top:80px;overflow:hidden;}
+.demo_item{padding:20px 10px;background:url(../images/separate_line.png) center bottom no-repeat;overflow:hidden;zoom:1;}
+.demo_cover_container{float:left;width:192px;height:120px;margin-right:20px;padding:1px;border:1px solid #bbb;}
+.demo_cover{width:192px;height:120px;}
+.demo_content{overflow:hidden;}
+.demo_title{font-size:17px;line-height:1.4;}
+.demo_title_link:hover{color:#b97849;text-decoration:none;}
+.demo_intro{padding-top:15px;line-height:1.7;}
+.read_demo{padding-top:15px;}
 
 /*分类-categories*/
 .title_categories{background-position:0 -40px;}
@@ -231,7 +251,7 @@ code{font-size:15px;}
 .intro_text{padding:20px 0;line-height:1.7;}
 
 /*页面不存在-404*/
-.vein_paper{min-height:500px;_height:500px;padding:20px 30px;background:url(../images/silk_white_bg.gif) center center repeat;}
+.single_paper_vein{background:url(../images/silk_white_bg.gif) center center repeat;}
 .data_load_sign{width:105px;height:83px;background:url(../images/data_load.png) no-repeat;}
 .data_none_note{width:362px;margin:40px auto 0 auto;padding-top:253px;background:url(../images/404_note.png) center 0 no-repeat;}
 .none_note_handle{padding:50px 15px 0 0;text-align:right;}

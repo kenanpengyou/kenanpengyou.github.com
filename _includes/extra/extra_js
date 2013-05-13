@@ -1,0 +1,12 @@
+{% comment %}
+    任何页面，如果需要额外的js，在YAML中以extraJS的命名，赋值所需的js文件地址数组。
+    目前，所有的额外js文件，都应放在 /assets/js/extra/ 下。
+    例：
+        extraJS: ["mootools-core-1.4.5-full-compat-yc.js"]
+{% endcomment %} 
+
+{% if page.extraJS.size > 0 %}
+    {% for jsURL in page.extraJS %}
+<script src="{{ EXTRA_SCRIPTS_PATH }}/{{ jsURL }}"></script>
+    {% endfor %}    
+{% endif %}

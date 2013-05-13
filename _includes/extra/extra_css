@@ -1,0 +1,12 @@
+{% comment %}
+    任何页面，如果需要额外的css，在YAML中以extraCSS的命名，赋值所需的css文件地址数组。
+    目前，所有的额外css文件，都应放在 /assets/extra-css/ 下。
+    例：
+        extraCSS: ["2013-05-13-example-extra-style.css"]
+{% endcomment %} 
+
+{% if page.extraCSS.size > 0 %}
+    {% for cssURL in page.extraCSS %}
+<link rel="stylesheet" href="{{ EXTRA_CSS_PATH }}/{{ cssURL }}">
+    {% endfor %}    
+{% endif %}

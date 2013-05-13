@@ -24,7 +24,7 @@ css有一个核心特性，当多条样式规则中的同一个属性（比如`p
 
 图中由前端调试工具所显示的，被划掉的css样式，不会呈现在这里选中的网页元素上，因为它们被覆盖掉了。css优先级，就是指在这种情况下，得出“应该由哪一条样式规则的内容覆盖掉其他的”这个结论的过程中所遵循的原则。更一般的表述是，*优先级高的css样式，将覆盖优先级低的css样式，成为最终网页元素的实际样式*。
 
-注意，前端调试工具显示的，“被划掉”的css样式，并不是说一定是完全覆盖。css中的一些组合属性（比如`margin`，可以拆分为`margin-top`、`margin-right`、`margin-bottom`、`margin-left`），在这种样式覆盖中遵循的是局部覆盖的原则，即使在前端调试工具中它们看起来“整个都被划掉了”：
+注意，前端调试工具显示的，”被划掉“的css样式，并不是说一定是完全覆盖。css中的一些组合属性（比如`margin`，可以拆分为`margin-top`、`margin-right`、`margin-bottom`、`margin-left`），在这种样式覆盖中遵循的是局部覆盖的原则，即使在前端调试工具中它们看起来“整个都被划掉了”：
 
 ![组合属性覆盖][img_rollup_property_overwrite]
 
@@ -34,7 +34,7 @@ css优先级的影响因素要考虑三部分内容，*css选择符权重*、*!i
 
 ##属性继承##
 
-css中一部分属性是*可继承属性*，比如文本颜色`color`。讨论css优先级，首先应认清css中的属性继承所带来的影响。由于存在可继承属性，一个网页元素的样式来源可以分为两类：
+css中一部分属性是*可继承属性*，比如文本颜色`color`。css优先级的讨论，首先应认清css中的属性继承所带来的影响。由于存在可继承属性，一个网页元素的样式来源可以分为两类：
 
 * 由css选择符直接定义到元素*本身*的样式。
 * css选择符未作用到，但*继承*自父级元素的样式。
@@ -60,7 +60,7 @@ css中一部分属性是*可继承属性*，比如文本颜色`color`。讨论cs
 .note_text{color:darkorange;}
 {% endhighlight %}
 
-在所有浏览器中的效果都是：
+这个部分在所有浏览器中的效果都是：
 
 ![继承属性优先级原则无视选择符权重][img_inherit_regardless_of_selector_specificity]
 
@@ -91,12 +91,12 @@ css选择符权重是一个数字游戏，比的就是谁的计算值更大。*�
 
 战斗力的测量方法是统计选择符中的不同组成元素的个数，并以 (a,b,c,d) 这种形式来判断。其中，abcd分别代表了不同类别的选择符组成元素，且战斗力分别在不同的数量级，a最强，d最弱。从弱到强，这4个字母分别代表的类别是：
 
-* 元素选择符（Element），伪元素选择符（Pseudo element） d = 1 – (0,0,0,1)
+* 元素选择符（Element），伪元素选择符（Pseudo Element） d = 1 – (0,0,0,1)
 * 类选择符 （Class），伪类选择符（Pseudo class），属性选择符（Attribute） c = 1 – (0,0,1,0)
 * Id选择符 b = 1 – (0,1,0,0)
-* 内联样式（Inline style，也可以看做选择符的一种形式） a = 1 – (1,0,0,0)
+* 内联样式（Inline style） a = 1 – (1,0,0,0)
 
-这里的*伪元素*和*伪类*做一下补充说明。伪元素选择符，指的是样式作用到的元素不是html结构中的实际元素，即不是真正的dom元素。目前只有`:before`，`:after`，`:first-line`，`:first-letter`和`::selection`这5个伪元素选择符。伪类选择符，则是指除前边的这部分选择符之外，在css中加入冒号`:`的，用于实现动态效果与智能控制的选择符，比如`:hover`，`:nth-of-type(n)`。从css3开始，通过区别使用双冒号`::`来表示伪元素，单冒号`:`来表示伪类，但为了和以前的浏览器兼容，`:after`这种诞生于css2的伪元素选择符仍然允许使用单冒号的写法。
+这里的*伪元素*和*伪类*做一下补充说明。伪元素选择符，指的是样式作用到的元素不是html结构中的实际元素，即不是真正的dom元素。目前只有`:before`，`:after`，`:first-line`，`:first-letter`和`::selection`这5个伪元素选择符。伪类选择符，则是指除前边的这部分选择符之外，在css中加入冒号`:`的，用于实现动态效果与智能控制的选择符，比如`:hover`，`:nth-of-type(n)`。从css3开始，通过区别使用双冒号`::`来表示伪元素，单冒号`:`来表示伪类，但为了和以前的浏览器兼容，`:after`这种诞生于css2的伪类选择符仍然允许使用单冒号的写法。
 
 现在，可以找一些css选择符计算一下了：
 
@@ -110,7 +110,7 @@ css选择符权重是一个数字游戏，比的就是谁的计算值更大。*�
 
 ![Firefox浏览器源代码-StyleRule][img_firefox_css_selector_source]
 
-可以看出，class和id对应的十六进制数值之间隔了2位，所以，在Firefox中，要256（16²）个class才相当于1个id。在不同浏览器中，这种层级差距，可能有所不同。在写本文的时间点，Opera和Chrome中用256+的class也不能大于id的权重。不过，这些细节信息并不重要，你在实际使用中不可能用到这个数量的选择符。所以，应认为前面所述的权重计算方法是可靠的。
+可以看出，class和id对应的十六进制数值之间隔了2位，所以，在Firefox中，要256（16<sup>2</sup>）个class才相当于1个id。在不同浏览器中，这种层级差距，可能有所不同。在写本文的时间点，Opera和Chrome中用256+的class也不能大于id的权重。不过，这些细节信息并不重要，你在实际使用中不可能用到这个数量的选择符。所以，应认为前面所述的权重计算方法是可靠的。
 
 如果权重计算值相同，则进入后一个环节：样式定义顺序。
 
@@ -137,11 +137,9 @@ css优先级虽然是不简单的内容，但幸运的是，除IE6和IE7存在�
 
 ##结语##
 
-css优先级的概念在本文就介绍到此。本文所阐述的仍有不够全面的地方，如果你碰到一些新的问题，欢迎来这里讨论。在实际应用中，理解css优先级并不是让我们去这样分析每一条样式规则，而只是让我们有一个更清醒的意识，知道如何去布局和控制自己所写的css。所谓“知己知彼，百战不殆”，也是这样的道理。
+css优先级的概念在本文就介绍到此。本文所阐述的仍有不够全面的地方，如果你碰到一些新的问题，欢迎来这里讨论。在实际应用中，理解css优先级并不是让我们去这样分析每一条样式规则，而只是让我们有一个更清醒的状态，知道如何去布局和控制自己所写的css。所谓“知己知彼，百战不殆”，也是这样的道理。
 
-css全名是层叠样式表（Cascading Style Sheet），css优先级正是这种“层叠”中所遵循的原则，由此也可以看出css优先级的重要性。最后，以一个自制的图来结尾~ :)
-
-![卡片 - css specificity war][img_special_card_css_specificity_war]
+css全名是层叠样式表（Cascading Style Sheet），css优先级正是这种“层叠”中所遵循的原则，由此也可以看出css优先级的重要性。最后，以一个自制的图来结尾：
 
 [img_css_rule_explain]: {{POSTS_IMG_PATH}}/201304/css_rule_explain.png "样式规则"
 [img_undoing_style_example]: {{POSTS_IMG_PATH}}/201304/undoing_style_example.png "css样式覆盖示意"
@@ -153,7 +151,6 @@ css全名是层叠样式表（Cascading Style Sheet），css优先级正是这�
 [img_specificity_calculate_example]: {{POSTS_IMG_PATH}}/201304/specificity_calculate_example.png "css选择符权重计算举例"
 [img_firefox_css_selector_source]: {{POSTS_IMG_PATH}}/201304/firefox_css_selector_source.png "Firefox浏览器源代码-StyleRule"
 [img_position_of_css_important]: {{POSTS_IMG_PATH}}/201304/position_of_css_important.png "!important在优先级原则中的位置"
-[img_special_card_css_specificity_war]: {{POSTS_IMG_PATH}}/201304/special_card_css_specificity_war.jpg "卡片 - css specificity war"
 
 [Specificity Wars]: http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html "CSS: Specificity Wars"
 [Specificity Calculator]: http://specificity.keegan.st/ "Specificity Calculator"
