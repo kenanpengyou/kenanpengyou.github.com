@@ -107,7 +107,7 @@
             var fileURL = fileImage.value.toLowerCase();
             //获取文件拓展名
             formatSuffix = fileURL.substring(fileURL.lastIndexOf("."));
-            if (validImageSuffix.contains(formatSuffix)) {
+            if (formatSuffix&&validImageSuffix.contains(formatSuffix)) {
                 //如果是正确格式的图片文件
                 checkFlag = checkFlag && true;
             } else {
@@ -127,7 +127,14 @@
             imageCheck(puzzleImage);
             if (checkFlag) {
                 imageWidth = puzzleImage.width;
+                //由于图片尺寸不一定能被拼图尺寸整除，因此做边缘裁剪
+                while(imageWidth % puzzleConfig.sizeX != 0){
+                    imageWidth--;
+                }
                 imageHeight = puzzleImage.height;
+                while(imageHeight % puzzleConfig.sizeY != 0){
+                    imageHeight--;
+                }
                 imageURL= puzzleImage.src;
                 puzzleSetElem.empty();
                 var containerWidth = imageWidth+Constants.puzzleContainerExtra,
@@ -298,8 +305,8 @@
                         width: Math.ceil(puzzleItemWidth),
                         height: Math.ceil(puzzleItemHeight),
                         background: backgroundString,
-                        left: leftSet + "px",
-                        top: topSet + "px",
+                        left: leftSet,
+                        top: topSet,
                         zIndex: posIndex
                     });
 
