@@ -141,6 +141,8 @@ css优先级的概念在本文就介绍到此。本文所阐述的仍有不够�
 
 css全名是层叠样式表（Cascading Style Sheet），css优先级正是这种“层叠”中所遵循的原则，由此也可以看出css优先级的重要性。最后，以一个自制的图来结尾：
 
+![CSS Specificity War][img_special_card_css_specificity_war]
+
 [img_css_rule_explain]: {{POSTS_IMG_PATH}}/201304/css_rule_explain.png "样式规则"
 [img_undoing_style_example]: {{POSTS_IMG_PATH}}/201304/undoing_style_example.png "css样式覆盖示意"
 [img_rollup_property_overwrite]: {{POSTS_IMG_PATH}}/201304/rollup_property_overwrite.png "组合属性覆盖"
@@ -151,6 +153,7 @@ css全名是层叠样式表（Cascading Style Sheet），css优先级正是这�
 [img_specificity_calculate_example]: {{POSTS_IMG_PATH}}/201304/specificity_calculate_example.png "css选择符权重计算举例"
 [img_firefox_css_selector_source]: {{POSTS_IMG_PATH}}/201304/firefox_css_selector_source.png "Firefox浏览器源代码-StyleRule"
 [img_position_of_css_important]: {{POSTS_IMG_PATH}}/201304/position_of_css_important.png "!important在优先级原则中的位置"
+[img_special_card_css_specificity_war]: {{POSTS_IMG_PATH}}/201304/special_card_css_specificity_war.jpg "CSS Specificity War"
 
 [Specificity Wars]: http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html "CSS: Specificity Wars"
 [Specificity Calculator]: http://specificity.keegan.st/ "Specificity Calculator"
