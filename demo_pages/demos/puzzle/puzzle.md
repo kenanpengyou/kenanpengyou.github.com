@@ -36,6 +36,8 @@ demoJS: "puzzleGame.js"
 
 另外，由于上传图片的尺寸不一定能被拼图数目整除，所以图片可能会做一小部分边缘裁切。
 
+不支持File API的IE9及以下，对本地文件有保护机制，不允许获取本地文件的路径，因此在本线上页面不能生成拼图。
+
 [源代码][source view]
 
 使用的javascript库是[MooTools][]。

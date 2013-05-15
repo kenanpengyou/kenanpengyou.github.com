@@ -196,14 +196,9 @@
             };
             imageReader.onload = function(event) {
                 if (checkFlag) {
-                    if(Browser.ie){
-                        //IE10支持File API，但需要使用value作为图片的url
-                        puzzleImage.src =  fileImage.value;
-                    }else{
+                        //IE10也支持blob URL
                         var url=createObjectURL(fileImage.files[0]);
                         puzzleImage.src = url;
-                    }
-                    
                 }
             };
             fileImage.onchange = function() {
@@ -565,7 +560,7 @@
                         var lastRelatedItemIndex=relatedItem.posIndex;
                         puzzleItemMove(relatedItem,lastRelatedItemIndex);
                 }
-                //然后通过给targetIndexOld定义不合法的索引值0（合法索引值应从1开始，均为正整数），以处理移到拼图外的情况。
+                //还原targetIndexOld的值，以处理移到拼图外的情况。
                 targetIndexOld = selectedIndex;
             }
         }
