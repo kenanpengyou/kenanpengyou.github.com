@@ -21,7 +21,7 @@ navflag: home
                     {{ post.content | strip_html | newline_to_br | truncatewords: 6 }}
                 {% endif %}
             </div>
-            <div class="read_post"><a class="read_post_link" href="{{ BASE_PATH }}{{ post.url }}" title="">阅读全文 &raquo;</a>
+            <div class="read_post"><a class="read_post_link" href="{{ BASE_PATH }}{{ post.url }}" title="">阅读全文 &raquo;</a></div>
         </li>
         {% endfor %}
     </ul>
