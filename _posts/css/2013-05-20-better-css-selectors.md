@@ -70,29 +70,29 @@ css选择符将确定后面的属性定义要作用到哪些元素,因此存在�
 
 但是，链式选择符是过度定义（over qualified）的，不利于重用，也不利于性能优化。如:
 
-    a#author {}
+    a#author { }
 
 建议写为：
 
-    #author {}
+    #author { }
 
 这里的`a`是不必要的。一个ID只对应一个元素，没有必要再强调这个元素的标签是什么（同理，class也不必）。另外有：
 
-    .content span.arrow {}
+    .content span.arrow { }
 
 建议写为：
 
-    .content .arrow {}
+    .content .arrow { }
 
 这里的`span.arrow`中的`span`也是不必要的。一方面，这为浏览器在样式匹配时增加了一项额外工作：检查class名为`arrow`的元素的标签名是不是`span`，也因此降低了性能。另一方面，如果去掉了这个限定，`.arrow`的样式定义，就可以用在更多的元素上，也就有着更好的重用性。否则，就还得告诉别人，使用这个的时候只能用在`span`标签上，替换都不让的。
 
 同理，多个class的链式写法，如
 
-    .tips.succuss {}
+    .tips.succuss { }
 
 建议更改命名，写为：
 
-    .tips_succuss {}
+    .tips_succuss { }
 
 这样可以帮助浏览器减少额外的样式匹配工作。
 
