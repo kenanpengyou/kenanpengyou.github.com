@@ -10,6 +10,7 @@ http://acgtofe.com/sitemap.txt
 http://acgtofe.com/page2/index.html
 http://acgtofe.com/page2/index.html
 
+http://acgtofe.com/posts/2013/05/better-css-selectors
 http://acgtofe.com/posts/2013/04/css-specificity-explain-in-detail
 http://acgtofe.com/posts/2013/04/lovelive-ed
 http://acgtofe.com/posts/2013/04/jquery-best-practice
