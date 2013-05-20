@@ -104,7 +104,7 @@ css选择符将确定后面的属性定义要作用到哪些元素,因此存在�
 
 ##结语##
 
-关于高效的css选择符的指南，你还可以阅读google developer中的[Use efficient CSS selectors][]
+关于高效的css选择符的指南，你还可以阅读google developer中的[Use efficient CSS selectors][]。
 
 如今，现代浏览器在样式匹配上也逐渐有了更多的优化（参考[CSS Selector Performance has changed!][]），有些方面的内容我们已经不再需要再担心了。但是，这并不意味着不需要考虑写合理的css选择符了。css选择符性能优化是依然存在的事，你的选择符应该更好地体现你的意图，而不是随心所欲地使用。更重要的是，以这样一种稍细腻的，经过思考的想法来写css选择符，并不是一件困难的事。只要你想，形成这样的一种习惯，你就可以自然地在这方面做得更好，何乐而不为呢？
 
