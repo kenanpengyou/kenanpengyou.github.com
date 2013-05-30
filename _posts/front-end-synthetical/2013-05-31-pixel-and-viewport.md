@@ -108,7 +108,7 @@ css像素和设备像素之间是一种可变的转化关系。*在100%缩放比
 
 ###更改手机中的布局视口###
 
-*手机中的布局视口是可以更改的*。你一定在很多移动版网页中见到过下边这个`<meta>`标签元素。
+手机中的布局视口是可以更改的。你一定在很多移动版网页中见到过下边这个`<meta>`标签元素。
 
 {% highlight html %}
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -148,4 +148,4 @@ css中的`@media`媒体查询可以根据尺寸信息分别定义不同的css。
 
 [A tale of two viewports]: http://www.quirksmode.org/mobile/viewports.html "A tale of two viewports"
 [The Lengths of CSS]: http://css-tricks.com/the-lengths-of-css/ "The Lengths of CSS"
-[关于viewport tag的文章]: https://developer.mozilla.org/en/mobile/viewport_meta_tag "Using the viewport meta tag to control layout on mobile browsers"
+[关于viewport meta tag的文章]: https://developer.mozilla.org/en/mobile/viewport_meta_tag "Using the viewport meta tag to control layout on mobile browsers"

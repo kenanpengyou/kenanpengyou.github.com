@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-05-30T17:39:29+08:00</updated>
+ <updated>2013-05-30T20:57:31+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -123,7 +123,7 @@
 
 &lt;h3&gt;更改手机中的布局视口&lt;/h3&gt;
 
-&lt;p&gt;&lt;em&gt;手机中的布局视口是可以更改的&lt;/em&gt;。你一定在很多移动版网页中见到过下边这个&lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt;标签元素。&lt;/p&gt;
+&lt;p&gt;手机中的布局视口是可以更改的。你一定在很多移动版网页中见到过下边这个&lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt;标签元素。&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -131,7 +131,7 @@
 
 &lt;p&gt;这是最早由Safari引入，但如今已普遍被各类手机浏览器认可了的一项设置。这其中有一句&lt;code&gt;width=device-width&lt;/code&gt;，它的意思是，把手机浏览器的布局视口的宽度，更改为当前设备的宽度。你还可以使用&lt;code&gt;width=500&lt;/code&gt;这样的具体数值（也是css像素值）。总的来说，使用这个&lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt;标签元素，就可以告诉手机浏览器当前页面应该使用的布局视口的尺寸。&lt;/p&gt;
 
-&lt;p&gt;关于这个viewport meta tag的更多信息，你可以阅读Mozilla开发团队写过的[关于viewport meta tag的文章][]。&lt;/p&gt;
+&lt;p&gt;关于这个viewport meta tag的更多信息，你可以阅读Mozilla开发团队写过的&lt;a href=&quot;https://developer.mozilla.org/en/mobile/viewport_meta_tag&quot; title=&quot;Using the viewport meta tag to control layout on mobile browsers&quot;&gt;关于viewport meta tag的文章&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h2&gt;与媒体查询的关系&lt;/h2&gt;
 
