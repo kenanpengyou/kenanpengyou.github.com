@@ -9,7 +9,7 @@ plugin: "audiojs"
 
 ![Love Live! ED - きっと青春が聞こえる][img_cover]
 
-<div style="height:24px;margin-bottom:1.5em;">
+<div class="post_display" style="height:24px;">
     <audio src="http://Boplink.tk/?shareid=476255&uk=3607508940.mp3" preload="auto"></audio>
 </div>
 

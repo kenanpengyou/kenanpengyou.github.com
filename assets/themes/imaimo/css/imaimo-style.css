@@ -160,6 +160,9 @@ code{font-size:15px;}
 .post_content li{list-style-image:url(../images/list_cube.gif);list-style-type:none;padding:5px 0;}
 .post_content pre{margin-bottom:1.5em;padding:10px;background:#333;box-shadow:inset 0 1px 10px rgba(0,0,0,.2);overflow:auto;color:#fff;white-space:pre;word-wrap:normal;zoom:1;}
 
+/*文章内用于添加其他内容*/
+.post_content .post_display{margin-bottom:1.5em;}
+
 /*-------每一篇文章 end-------*/
 
 /*-------侧边栏 start-------*/

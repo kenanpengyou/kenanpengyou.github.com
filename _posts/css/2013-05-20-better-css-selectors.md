@@ -50,7 +50,7 @@ css选择符将确定后面的属性定义要作用到哪些元素,因此存在�
 
 ###缩短选择符序列###
 
-继承写法是css中很常用的写法。继承写法的初衷是，如果有两个元素，都是同样的标签或有相同的class命名，加入父元素的选择符组成选择符序列，就可以避免在不需要的时候两个元素的样式互相影响。比如`.confirm_layer .submit_btn`就是指，class名为`submit_btn`，且有一个class名为`confirm_layer`的父元素的元素，才应用样式。
+继承写法（准确地说，这里指css关系选择符中的包含选择符）是css中很常用的写法。继承写法的初衷是，如果有两个元素，都是同样的标签或有相同的class命名，加入父元素的选择符组成选择符序列，就可以避免在不需要的时候两个元素的样式互相影响。比如`.confirm_layer .submit_btn`就是指，class名为`submit_btn`，且有一个class名为`confirm_layer`的父元素的元素，才应用样式。
 
 但是，避免元素样式相互影响，并不代表可以随意地使用继承选择符。前面提到，浏览器会从右向左读取整个选择符序列，直到读取完毕并匹配完成，或者因不匹配而取消。因此，*短的选择符序列更有利于浏览器更快地完成匹配过程*。相对的，冗长的选择符序列则认为是低效的，比如：
 
@@ -84,7 +84,7 @@ css选择符将确定后面的属性定义要作用到哪些元素,因此存在�
 
     .content .arrow{}
 
-这里的`span.arrow`中的`span`也是不必要的。一方面，这为浏览器在样式匹配时增加了一项额外工作：检查class名为`arrow`的元素的标签名是不是`span`，也因此降低了性能。另一方面，如果去掉了这个限定，`.arrow`的样式定义，就可以用在更多的元素上，也就有着更好的重用性。否则，就还得告诉别人，使用这个的时候只能用在`span`标签上，替换都不让的。
+这里的`span.arrow`中的`span`也是不必要的。一方面，这为浏览器在样式匹配时增加了一项额外工作：检查class名为`arrow`的元素的标签名是不是`span`，也因此降低了性能。另一方面，如果去掉了这个限定，`.arrow`的样式定义，就可以用在更多的元素上，也就有着更好的重用性。否则，就还得告诉别人，使用这个的时候只能用在`span`标签上。
 
 同理，多个class的链式写法，如
 
@@ -113,5 +113,5 @@ css选择符将确定后面的属性定义要作用到哪些元素,因此存在�
 [css优先级详细解析]: http://acgtofe.com/posts/2013/04/css-specificity-explain-in-detail/ "css优先级详细解析"
 [Writing Efficient CSS for use in the Mozilla UI]: http://www.mozilla.org/xpfe/goodcss.html "Writing Efficient CSS"
 [Stack Overflow上的相关讨论]: http://stackoverflow.com/questions/5797014/why-do-browsers-match-css-selectors-from-right-to-left "Why do browsers match CSS selectors from right to left?"
-[Use efficient CSS selectors]: https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors "UseEfficientCSSSelectors"
+[Use efficient CSS selectors]: https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors "Use efficient CSS selectors"
 [CSS Selector Performance has changed!]: http://calendar.perfplanet.com/2011/css-selector-performance-has-changed-for-the-better/ "CSS Selector Performance has changed! (For the better)"
