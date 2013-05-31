@@ -120,7 +120,7 @@ css像素和设备像素之间是一种可变的转化关系。*在100%缩放比
 
 ##与媒体查询的关系##
 
-css中的`@media`媒体查询可以根据尺寸信息分别定义不同的css。其中，可用的值有2个，`width/height`和`device-width/device-height`。这两种尺寸信息有什么区别呢？
+css中的`@media`媒体查询可以根据尺寸信息分别定义不同的css。其中，可用的值有2种，`width/height`和`device-width/device-height`。这两种尺寸信息有什么区别呢？
 
 *   `width/height`使用的是视口的尺寸值，如果是手机，则是布局视口的尺寸值。
 *   `device-width/device-height`使用的是设备屏幕的尺寸值。
