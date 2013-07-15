@@ -10,7 +10,7 @@ plugin: "audiojs"
 阅读本文时推荐搭配下面的音乐(・ω・)。（Original Soundtrack 零の軌跡）
 
 <div class="post_display" style="height:24px;">
-    <audio src="http://Boplink.tk/?shareid=657964533&uk=4230941808.mp3" preload="auto" loop></audio>
+    <audio src="http://f.izt8.com/4230941808/1373851596.mp3" preload="auto" loop></audio>
 </div>
 
 我是在等到碧之轨迹也出了PC中文版之后，把两作连在一起玩完的。这样无间断地把两作一同讲述的这个连续的，很有一定长度的完整的故事读完，感觉非常棒。
