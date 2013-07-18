@@ -10,6 +10,7 @@ http://acgtofe.com/sitemap.txt
 http://acgtofe.com/page2/index.html
 http://acgtofe.com/page2/index.html
 
+http://acgtofe.com/posts/2013/07/javascript-for-beginners
 http://acgtofe.com/posts/2013/06/ed-zero-and-ed-ao
 http://acgtofe.com/posts/2013/05/pixel-and-viewport
 http://acgtofe.com/posts/2013/05/better-css-selectors

@@ -4,13 +4,285 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-06-13T21:11:20+08:00</updated>
+ <updated>2013-07-18T12:32:33+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>写给初学者的javascript知识</title>
+   <link href="http://acgtofe.com/posts/2013/07/javascript-for-beginners"/>
+   <updated>2013-07-17T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2013/07/javascript-for-beginners</id>
+   <content type="html">&lt;p&gt;最初学习javascript时，我还没有想到它是一门包含丰富内容的独立程序设计语言。和过去可以找到的很多javascript教程中描述的一样，我对它的看法就是它对应于web网页的行为层，用于实现在网页中的各种交互效果。这的确是对javascript的正确描述，在如今看来也是。&lt;/p&gt;
+
+&lt;p&gt;只是，这样的认识容易产生对javascript的低估。web领域的发展是迅速的，javascript也一样。javascript最初只是被设计为用来实现表单验证的客户端语言，现在你却可以看到有许多杰出的开发者使用它做出了非常出色的应用，而且已不再限于浏览器客户端的范围。这些都展现了javascript的巨大威力。因此，要以新的观念来看待javascript。&lt;/p&gt;
+
+&lt;p&gt;javascript所包含的知识和内容是非常多的，即使只介绍基础部分，也远非一篇文章的篇幅可以做到的。因此，本文会较多地从轮廓的角度来描述知识点，但也会针对一部分内容做细节说明，希望对准备学习，或正在学习javascript的你有所帮助。&lt;/p&gt;
+
+&lt;h2&gt;javascript是什么&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;javascript是一门程序设计语言&lt;/em&gt;。此外，在很多的地方，你都可以看到有描述称javascript是&lt;em&gt;灵活的&lt;/em&gt;（&lt;em&gt;flexible&lt;/em&gt;），这种灵活体现在javascript的语法和结构上（后文会有说明）。还有一个有趣的点是你可以看到javascript包含了java一词，但事实是它们之间几乎没有什么关系。&lt;/p&gt;
+
+&lt;h2&gt;javascript可以做什么&lt;/h2&gt;
+
+&lt;p&gt;在过去，javascript被认定为是一种由浏览器解释运行的客户端语言，因此存在一些固有限制，如javascript不能写服务器机器上的文件，某一网页中的javascript不能从来自另一个服务器的已经打开的网页中读取信息（很显然，这是为了用户安全）。如今，浏览器已经不是解释运行javascript的唯一环境，而且新的浏览器也在保证用户安全的基础上，考虑允许javascript实现更多的功能。在现在的web网页开发中，javascript可以实现的，可以说几乎包含了你可以想到的任何事情。&lt;/p&gt;
+
+&lt;p&gt;javascript作为一门独立的程序设计语言，也已被应用到了更多领域。&lt;a href=&quot;http://commonjs.org/&quot; title=&quot;CommonJS&quot;&gt;CommonJS&lt;/a&gt;是一个项目团队，致力于为javascript创建可用于更广泛的应用程序编程的环境（提供运行环境和API），并制定规范。其宗旨是javascript: not just for browsers any more!。其目标是使javascript也可以像其他程序设计语言一样实现服务器端操作，命令行，文件读取等功能。比较有名的&lt;a href=&quot;http://www.nodejs.org/&quot; title=&quot;Node.js&quot;&gt;Node.js&lt;/a&gt;，可以看做是CommonJS的其中一部分的实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201307/CommonJS_Logo.png&quot; title=&quot;CommonJS&quot; alt=&quot;CommonJS&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;如何使用javascript&lt;/h2&gt;
+
+&lt;p&gt;在web网页开发中，javascript的引入是使用&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;标签，如果是在html中直接写，则是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;The quick brown fox jumps over the lazy dog.&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;更常用的方式是写在单独的.js文件中（实际上，拓展名也不是必须的），然后通过&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;标签引用：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;example.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面两段代码中，&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;的&lt;code&gt;type&lt;/code&gt;属性不是必须的。出于性能优化的考虑，&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;最好放在页面代码最下部，也即&lt;code&gt;&amp;lt;/body&amp;gt;&lt;/code&gt;标签之前。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;是把代码加载和执行合并在一起的，每一段&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;都会在加载完成后立即执行（严格的说，是在不写&lt;code&gt;async&lt;/code&gt;和&lt;code&gt;defer&lt;/code&gt;属性的情况下）。&lt;/p&gt;
+
+&lt;h2&gt;javascript中可以介绍的语法&lt;/h2&gt;
+
+&lt;h3&gt;区分大小写&lt;/h3&gt;
+
+&lt;p&gt;比如&lt;code&gt;yuki&lt;/code&gt;和&lt;code&gt;Yuki&lt;/code&gt;是两个不同的变量。&lt;/p&gt;
+
+&lt;h3&gt;松散类型的变量&lt;/h3&gt;
+
+&lt;p&gt;变量的声明是javascript代码中最常见的，使用关键字&lt;code&gt;var&lt;/code&gt;。javascript尤其特别的是，它的变量是&lt;em&gt;松散类型&lt;/em&gt;的。也就是说，任一声明的变量都可以存储任何类型的数据。这也一定程度上体现了javascript的高自由度。&lt;/p&gt;
+
+&lt;p&gt;变量声明中，不使用&lt;code&gt;var&lt;/code&gt;也是有效的，但这样会一般造成定义额外的全局变量。根据javascript的最佳实践，全局变量应该尽量避免，因此在变量声明中一定要使用&lt;code&gt;var&lt;/code&gt;关键字。&lt;/p&gt;
+
+&lt;p&gt;javascript中一共有5种简单数据类型（也称为&lt;em&gt;基本数据类型&lt;/em&gt;），和1种复杂数据类型（也称为&lt;em&gt;引用数据类型&lt;/em&gt;），如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;typeA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Undefined类型 这里写成 var typeA; 也是一样的&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Null类型 空&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeC&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Boolean类型 逻辑值&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;twitter&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//String类型 字符串&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Number类型 数字&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;typeF&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Object类型 对象&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;elem1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;elem2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Array类型 数组&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2013&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Date类型 日期&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^\stext\s$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//RegExp类型 正则表达式&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;typeJ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Function类型 函数&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;像这样在变量初始化的时候通过初始值说明变量的数据类型，是一个好的实践。变量在未做初始化时，默认值为&lt;code&gt;undefined&lt;/code&gt;（未定义）。上面这段代码中，空行之上的正好对应5种基本数据类型，之下的都属于引用数据类型。你可能会惊奇下面看起来应该是多种类型，但事实上，它们虽然有不同，但都属于引用数据类型，即Object。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.crockford.com/&quot; title=&quot;Douglas Crockford&quot;&gt;Douglas Crockford&lt;/a&gt;在&lt;a href=&quot;http://javascript.crockford.com/private.html&quot; title=&quot;Private Members in JavaScript&quot;&gt;Private Members in JavaScript&lt;/a&gt;一文中提到：&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;JavaScript is fundamentally about objects. Arrays are objects. Functions are objects. Objects are objects.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;意思是说，javascript是以Object为基础的语言，除基本数据类型外，其他所有的引用数据类型，本质上都是Object。&lt;/p&gt;
+
+&lt;p&gt;函数是特殊的Object，通过关键字&lt;code&gt;function&lt;/code&gt;声明。它比Object多的一个功能是可以存储任意数量的语句，并且可以通过在函数名后加&lt;code&gt;()&lt;/code&gt;的形式调用，从而执行自身所存储的语句（而且可以传递任意数量的参数）。&lt;/p&gt;
+
+&lt;h3&gt;理解Object&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Object是一组数据和功能的集合&lt;/em&gt;。一个简单的Object的示例：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//和 new Object() 相同&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;yuki&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//属性&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//方法&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Hello! My name is &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;myObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;yuki&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;Hello! My name is yuki&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里&lt;code&gt;name&lt;/code&gt;是&lt;code&gt;myObject&lt;/code&gt;的一个属性，而&lt;code&gt;sayHello&lt;/code&gt;是它的一个方法。可以看到，访问属性，或者调用方法，都是通过点语法&lt;code&gt;.&lt;/code&gt;来实现的。这种使用方法你一定非常熟悉，jQuery就是全局创建了一个名为&lt;code&gt;jQuery&lt;/code&gt;（如果不冲突，还有别名&lt;code&gt;$&lt;/code&gt;）的Object，然后把所有的方法都定义在了这个Object中。&lt;/p&gt;
+
+&lt;h3&gt;对象字面量&lt;/h3&gt;
+
+&lt;p&gt;Object的定义还有一种方式，称为对象字面量表示法，它是定义Object的一种简写形式。比如前面的&lt;code&gt;myObject&lt;/code&gt;，用对象字面量表示法来写的话，是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;yuki&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Hello! My name is &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;可以看出，这种写法是，从花括号&lt;code&gt;{&lt;/code&gt;开始，到花括号&lt;code&gt;}&lt;/code&gt;结束，通过 属性名：属性值 的形式，依次定义不同的属性。不同的属性之间以逗号&lt;code&gt;,&lt;/code&gt;分隔，但最后一个属性定义后面没有逗号。&lt;/p&gt;
+
+&lt;p&gt;对象字面量被极多地运用于各类javascript库中，因为这种语法要求的代码量少，而且有封装数据的感觉，更受开发人员青睐。&lt;/p&gt;
+
+&lt;p&gt;数据交换格式JSON（JavaScript Object Notation）的写法和对面字面量非常近似。比如下面这段JSON数据：（自动化工具&lt;a href=&quot;http://gruntjs.com/&quot; title=&quot;Grunt&quot;&gt;Grunt&lt;/a&gt;用到的&lt;code&gt;package.json&lt;/code&gt;配置文件）&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Test App&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;version&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;1.0.0&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;devDependencies&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;quot;grunt&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;~0.4.1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;quot;grunt-contrib-concat&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;~0.1.1&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;和对象字面量相比，JSON对象还是有一些不同。JSON中没有声明变量，同时因为不是javascript语句，末尾没有分号。而且，JSON中，只能使用双引号（javascript中，字符串用单引号和双引号都是可行的），而且属性名也必须有双引号。&lt;/p&gt;
+
+&lt;p&gt;虽然具有相同的语法形式，但JSON并不从属于javascript。关于JSON的更多信息，你可以阅读官方的&lt;a href=&quot;http://www.json.org/json-zh.html&quot; title=&quot;JSON&quot;&gt;JSON介绍&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2&gt;如何写javascript来实现功能&lt;/h2&gt;
+
+&lt;p&gt;在学习javascript中，我们更关注的是如何实现一些想要的功能。一般来说，需要实现的功能都是&lt;em&gt;事件驱动&lt;/em&gt;（&lt;em&gt;Event Driven&lt;/em&gt;）的。在初期，这种功能实现会有一个常用的流程写法。jQuery设计的语法非常贴合这个流程。请看下面这个示例：&lt;/p&gt;
+
+&lt;div class=&quot;post_display&quot; style=&quot;width:30px;height:30px;padding:5px;border:1px solid #aaa&quot;&gt;
+    &lt;div id=&quot;box&quot; style=&quot;width:30px;height:30px;background:#a1e466;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;框中的填充矩形会在点击后消失。对应的使用jQuery的javascript代码是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;#box&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;click&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;可以看出，实现一个事件驱动的功能分为三部分，如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201307/elementary_procedure_of_event_driven.png&quot; title=&quot;事件驱动的功能的初级实现流程&quot; alt=&quot;事件驱动的功能的初级实现流程&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;参照这样的逻辑，按照顺序写代码就可以实现初级的事件驱动。如果前面的功能使用原生javascript来实现，则是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//获取元素&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;box&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//为元素添加事件处理&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//事件处理内容：该元素不再显示， display = &amp;quot;none&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;你可能会觉得原生javascript也并没有多复杂。这是因为这个示例的功能非常简单，而且没有触及存在浏览器兼容性差异的部分。jQuery提供的是简化的、方便的高层次接口，而为了做到这一点，jQuery实际在我们视线之外的区域做了很多复杂的工作，帮助处理原生javascript的浏览器兼容和功能不足等问题。因此，使用jQuery这类javascript库可以让我们的精力更好地集中在程序实现逻辑上。&lt;/p&gt;
+
+&lt;h2&gt;完整的javascript实现的其他组成部分&lt;/h2&gt;
+
+&lt;p&gt;前面所提到语法和实现属于javascript核心（称为ECMAScript，是一种语言标准）。除此以外，完整的javascript还包括另外两部分：&lt;em&gt;浏览器对象模型&lt;/em&gt;（&lt;em&gt;BOM&lt;/em&gt;）和&lt;em&gt;文档对象模型&lt;/em&gt;（&lt;em&gt;DOM&lt;/em&gt;）。&lt;/p&gt;
+
+&lt;h3&gt;BOM&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;BOM&lt;/em&gt;（&lt;em&gt;Browser Object Model&lt;/em&gt;）提供了很多Object对象，用于访问浏览器的功能。其中核心对象是&lt;code&gt;window&lt;/code&gt;，javascript中的一些全局方法，如&lt;code&gt;setTimeout()&lt;/code&gt;、&lt;code&gt;alert()&lt;/code&gt;等，都是定义在&lt;code&gt;window&lt;/code&gt;对象上。&lt;/p&gt;
+
+&lt;p&gt;比如下面一个使用BOM的示例：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://acgtofe.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其功能是1s后跳转到其他网页。&lt;/p&gt;
+
+&lt;h3&gt;DOM&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;DOM&lt;/em&gt;（&lt;em&gt;Document Object Model&lt;/em&gt;）已是W3C的一个推荐标准，为基本的文档结构和查询提供的接口，它本质上是独立于javascript的，不过，在javascript中可以而且经常需要使用它。&lt;/p&gt;
+
+&lt;p&gt;DOM很容易理解，它描述的就是任何HTML或XML文档中的由各个节点构成的树形结构。比如下面这段HTML：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrapper&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;h3&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Sample Title&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;content&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Introduction.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;对应的树形结构是：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201307/dom_tree.png&quot; title=&quot;javascript错误信息&quot; alt=&quot;dom树形结构&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;javascript调试&lt;/h2&gt;
+
+&lt;p&gt;javascript调试最常用的是全局方法&lt;code&gt;console.log()&lt;/code&gt;，可以用它输出想要跟踪查看的变量，或者单纯地输出一些字符串说明调试语句所在的代码段有没有被执行到。&lt;/p&gt;
+
+&lt;p&gt;浏览器的开发者工具，在控制台中可以查看到当前页面的输出信息（通过&lt;code&gt;console.log()&lt;/code&gt;），以及javascript错误。错误信息还会说明错误位置（文件名，行，列），错误类别，错误说明。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201307/javascript_debug_in_firebug.png&quot; title=&quot;javascript错误信息&quot; alt=&quot;javascript错误信息&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Ajax&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Ajax&lt;/em&gt;（&lt;em&gt;Asynchronous JavaScript and XML&lt;/em&gt;）可以说是真正让javascript流行起来的原因。Ajax的技术核心是XMLHttpRequest对象，它使得javascript可以在任何时候和服务器进行通讯而不必刷新整个页面。&lt;/p&gt;
+
+&lt;p&gt;比如服务器端的一个&lt;code&gt;test.php&lt;/code&gt;文件内容如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;php&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Here is the server.&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;实现Ajax的javascript代码（原生javascript需要较为繁琐的代码，因此这里使用了javascript库Mootools）：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myRequest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.php&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;onSuccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;responseText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;elem&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;responseText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myRequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这段代码所要做的是，获取&lt;code&gt;test.php&lt;/code&gt;返回的文本信息，然后把它写入到一个id是&lt;code&gt;elem&lt;/code&gt;的元素内。这个实例的效果是：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201307/ajax_result.png&quot; title=&quot;Ajax实例效果&quot; alt=&quot;Ajax实例效果&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个简单的Ajax实例是为了说明，Ajax虽然概念看上去比较复杂，但理解起来是不难的。&lt;/p&gt;
+
+&lt;h2&gt;进阶的javascript&lt;/h2&gt;
+
+&lt;p&gt;要成为更专业的前端开发者，则需要对javascript有更深刻的认识和理解。javascript虽然能实现各种各样的功能，但只是初级的写法是难以应付更为复杂庞大的web应用的。很多直接按过程编写下来的代码（一般也称为硬编码 hard coded），会因为对情况的限定和依赖较强（高耦合），无法被复用。所以，在javascript的进阶学习阶段，需要考虑的就是编写可维护的javascript。看一下这段代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SuperType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SubType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;SuperType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;SubType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SuperType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//使用时&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SubType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;AIR&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这段代码表述的是javascript的面向对象的程序设计（即非过程）中的组合继承。与它有关的概念对于javascript的初学者来说很有一定难度，但它们对于javascript模块化和独立复用有很大的帮助。如果你开始理解并使用它们，你会感受到javascript语言本身的独特魅力。前面说过javascript比较自由，而越是自由的程序设计语言，越能够体现程序编写者的出色的代码设计构思。&lt;/p&gt;
+
+&lt;p&gt;对javascript有一定的功能实现的经验后，就应该学习&lt;em&gt;javascript设计模式&lt;/em&gt;。设计模式是针对程序设计语言中的各类问题的解决方案，可以帮助你了解专业的javascript代码是如何规划和设计的。如果你希望读懂jQuery这类javascript库的源码，就一定要懂得设计模式。&lt;/p&gt;
+
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;看到这里，你可能会觉得这篇文章好像什么也没说。事实上，我在整理这些信息的时候，就确切的感到，javascript的知识真的是很多的，本文只是在尝试以一个全局的视野来描述这门程序设计语言。我也是javascript的学习者之一，所以这些也是我目前对javascript的理解。&lt;/p&gt;
+
+&lt;p&gt;以后关于javascript的一些有趣的细节，我会再做详细的探讨。（目前肯定是还有很多待学习的点的... ￣▽￣ ）&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>琪娅和她的伙伴们 - 谈零之轨迹和碧之轨迹</title>
@@ -20,7 +292,7 @@
    <content type="html">&lt;p&gt;阅读本文时推荐搭配下面的音乐(・ω・)。（Original Soundtrack 零の軌跡）&lt;/p&gt;
 
 &lt;div class=&quot;post_display&quot; style=&quot;height:24px;&quot;&gt;
-    &lt;audio src=&quot;http://Boplink.tk/?shareid=657964533&amp;uk=4230941808.mp3&quot; preload=&quot;auto&quot; loop&gt;&lt;/audio&gt;
+    &lt;audio src=&quot;http://f.izt8.com/4230941808/1373851596.mp3&quot; preload=&quot;auto&quot; loop&gt;&lt;/audio&gt;
 &lt;/div&gt;
 
 
@@ -46,7 +318,7 @@
 
 &lt;p&gt;相比空之轨迹具有幻想色彩的故事，零碧的故事要“现实”许多，包含了政治斗争、黑社会等因素。而身为警察的罗伊德一行人在应对支援请求（果然还是要做和游击士一样的事啊！）的同时，还会对信息和情况做很多推理，并让玩家来做选择。虽然做侦探的感觉很不错，但RPG的收集要素可是会告诉你，选项选错可是会掉DP的！想要达成一些成就的话，还是求助攻略吧...&lt;/p&gt;
 
-&lt;p&gt;琪雅的确是零碧的核心（零表示作为零之至宝的琪雅，碧表示琪雅的印象色），但在事件发展进程上，真正推动故事进展的，我觉得还是在于克洛斯贝尔自治州这个特定的环境。这种处于两大国之间的困境，每一个热爱着克洛斯贝尔的人都会想着要如何解救克洛斯贝尔，并把克洛斯贝尔变得更好。我们所能看到的，就是零碧所讲述的罗伊德一行人为此所做的努力。而与此同时，罗伊德一行人也经历了与琪雅相遇、成为琪雅的监护人、保护并最终救回琪雅的过程。即使最后还因此陷入了克洛斯贝尔独立战争，但对罗伊德一行人来说，让琪雅像一个普通女孩和同伴们一起，才是正确的做法。本来世上就没有令所有人满意的选项，我们只能由自己来决定未来。&lt;/p&gt;
+&lt;p&gt;琪雅的确是零碧的核心（零表示作为零之至宝的琪雅，碧表示琪雅的印象色），但在事件发展进程上，真正推动故事进展的，我觉得还是在于克洛斯贝尔自治州这个特定的环境。这种处于两大国之间的困境，每一个热爱着克洛斯贝尔的人都会想着要如何解救克洛斯贝尔，并把克洛斯贝尔变得更好。我们所能看到的，就是零碧所讲述的罗伊德一行人为此所做的努力。而与此同时，罗伊德一行人也经历了与琪雅相遇、成为琪雅的监护人、保护并最终救回琪雅的过程。即使最后还因此陷入了克洛斯贝尔独立战争，但对罗伊德一行人来说，让琪雅像一个普通女孩和同伴们一起，才是正确的做法。本来世上就没有令所有人满意的选项，我们应做的是由自己来决定未来。&lt;/p&gt;
 
 &lt;h2&gt;形形色色的人物&lt;/h2&gt;
 
@@ -56,7 +328,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201306/lloyd_impression.jpg&quot; title=&quot;零碧中最受玩家喜欢的台词-出自罗伊德&quot; alt=&quot;零碧中最受玩家喜欢的台词-出自罗伊德&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;艾莉是市长的女儿，身为大小姐却给人平易近人的亲切感。艾莉相比罗伊德在很多方面都要懂得更多，因此也常常斜眼看着罗伊德吐槽他（比如没节操什么的= =）。有些地方也多亏艾莉的帮助，才成功见到一些较有权势的人，渐渐化解挡在面前的壁垒（官二代在是必须的！）。艾莉人很善良，但会在一些细微的点上腹黑一下，众所周知的艾莉的“微笑”审讯，绝对立竿见影。&lt;/p&gt;
+&lt;p&gt;艾莉是市长的孙女，身为大小姐却给人平易近人的亲切感。艾莉相比罗伊德在很多方面都要懂得更多，因此也常常斜眼看着罗伊德吐槽他（比如没节操什么的= =）。有些地方也多亏艾莉的帮助，才成功见到一些较有权势的人，渐渐化解挡在面前的壁垒（官二代在是必须的！）。艾莉人很善良，但会在一些细微的点上腹黑一下，众所周知的艾莉的“微笑”审讯，绝对立竿见影。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201306/elie_impression.jpg&quot; title=&quot;艾莉的“微笑”&quot; alt=&quot;艾莉的“微笑”&quot; /&gt;&lt;/p&gt;
 
@@ -540,7 +812,7 @@
    <content type="html">&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201304/lovelive_ed_cd_cover.jpg&quot; title=&quot;Love Live! ED - きっと青春が聞こえる&quot; alt=&quot;Love Live! ED - きっと青春が聞こえる&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;post_display&quot; style=&quot;height:24px;&quot;&gt;
-    &lt;audio src=&quot;http://Boplink.tk/?shareid=476255&amp;uk=3607508940.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
+    &lt;audio src=&quot;http://f.izt8.com/4230941808/1373851589.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
 &lt;/div&gt;
 
 
