@@ -4,7 +4,7 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-07-18T12:32:33+08:00</updated>
+ <updated>2013-08-12T21:40:24+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>写给初学者的javascript知识</title>
    <link href="http://acgtofe.com/posts/2013/07/javascript-for-beginners"/>
-   <updated>2013-07-17T00:00:00+08:00</updated>
+   <updated>2013-07-18T00:00:00+08:00</updated>
    <id>http://acgtofe.com/posts/2013/07/javascript-for-beginners</id>
    <content type="html">&lt;p&gt;最初学习javascript时，我还没有想到它是一门包含丰富内容的独立程序设计语言。和过去可以找到的很多javascript教程中描述的一样，我对它的看法就是它对应于web网页的行为层，用于实现在网页中的各种交互效果。这的确是对javascript的正确描述，在如今看来也是。&lt;/p&gt;
 
