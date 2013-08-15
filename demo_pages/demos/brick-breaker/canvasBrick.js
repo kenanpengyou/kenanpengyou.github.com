@@ -621,7 +621,7 @@
                     doc.addEventListener("keyup", keyUpHandler);
                 },
                 off: function() {
-                    spacePermit = false;
+                    releasePermit = false;
                 }
             };
         })();
