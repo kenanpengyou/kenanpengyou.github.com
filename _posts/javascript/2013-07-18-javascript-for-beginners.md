@@ -137,7 +137,7 @@ var myObject = {
 
 在学习javascript中，我们更关注的是如何实现一些想要的功能。一般来说，需要实现的功能都是*事件驱动*（*Event Driven*）的。在初期，这种功能实现会有一个常用的流程写法。jQuery设计的语法非常贴合这个流程。请看下面这个示例：
 
-<div class="post_display" style="width:30px;height:30px;padding:5px;border:1px solid #aaa">
+<div class="post_display" style="width:30px;height:30px;padding:5px;border:1px solid #aaa;">
     <div id="box" style="width:30px;height:30px;background:#a1e466;"></div>
 </div>
 

@@ -3,11 +3,11 @@
 * syntax.css
 * For Pygments
 * By Liang Zhu(kenanpengyou@yeah.net)
-* Date 2013-02-25
+* Date 2013-08-28
 */
 .highlight .hll { background-color: #49483e }
 .highlight .c { color: #75715e } /* Comment */
-.highlight .err { color: #960050; background-color: #1e0010 } /* Error */
+/*.highlight .err { color: #960050; background-color: #1e0010 } *//* Error *//*That's not needed.*/
 .highlight .k { color: #66d9ef } /* Keyword */
 .highlight .l { color: #ae81ff } /* Literal */
 .highlight .n { color: #f8f8f2 } /* Name */
