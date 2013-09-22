@@ -1,0 +1,64 @@
+@charset "utf-8";
+/*
+* css-3d-transform.css
+* 不只是平面：css三维变换的应用-css
+* By Liang Zhu(kenanpengyou@yeah.net)
+* Date 2013-09-22
+*/
+
+.transform_3d_demo {
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 80px;
+}
+.container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    -webkit-perspective: 300px;
+    perspective: 300px;
+}
+.object_3d {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform: translateZ(-40px) rotateX(0deg);
+    -webkit-transition: -webkit-transform .5s ease-out;
+    transform-style: preserve-3d;
+    transform: translateZ(-40px) rotateX(0deg);
+    transition: transform .5s ease-out;
+}
+.object_3d .surface {
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    border: 2px solid #e43a2e;
+    background: #ff6b38;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.surface_front {
+    -webkit-transform: rotateX(0deg) translateZ(40px);
+    transform: rotateX(0deg) translateZ(40px);
+}
+.surface_up {
+    -webkit-transform: rotateX(90deg) translateZ(40px);
+    transform: rotateX(90deg) translateZ(40px);
+}
+.object_3d:hover {
+    -webkit-transform: translateZ(-40px) rotateX(-90deg);
+    transform: translateZ(-40px) rotateX(-90deg);
+}
+
+.badge_container{position:relative;width:150px;height:165px;-webkit-perspective:300px;perspective:300px;}
+.angel_beats_badge{position:absolute;width:100%;height:100%;-webkit-animation:sss 4s linear 0s infinite both;animation:sss 4s linear 0s infinite both;}
+@-webkit-keyframes sss{
+    0%{-webkit-transform:rotateY(0);}
+    100%{-webkit-transform:rotateY(360deg);}
+}
+@keyframes sss{
+    0%{transform:rotateY(0);}
+    100%{transform:rotateY(360deg);}
+}

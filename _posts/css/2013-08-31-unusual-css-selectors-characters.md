@@ -27,7 +27,7 @@ extraCSS: ["posts/201308/unusual-css-selectors-characters.css"]
 
 > In CSS, identifiers (including element names, classes, and IDs in selectors) can contain only the characters `[a-zA-Z0-9]` and ISO 10646 characters U+00A0 and higher, plus the hyphen (`-`) and the underscore (`_`); they cannot start with a digit, two hyphens, or a hyphen followed by a digit. Identifiers can also contain escaped characters and any ISO 10646 character as a numeric code.
 
-意思是说，css中允许使用的命名字符，包括大小写英文字母、数字、连字符`-`、下划线`-`及其他ISO 10646字符集（等同于Unicode）中的字符。同时，起始字符部分不能是数字，或连续2个`-`，或1个`-`后接1个数字。此外，允许使用转义字符和任意ISO 10646字符的数字代码。
+意思是说，css中允许使用的命名字符，包括大小写英文字母、数字、连字符`-`、下划线`_`及其他ISO 10646字符集（等同于Unicode）中的字符。同时，起始字符部分不能是数字，或连续2个`-`，或1个`-`后接1个数字。此外，允许使用转义字符和任意ISO 10646字符的数字代码。
 
 经过测试，IE6对起始字符是下划线`_`和单个连字符`-`的情况，也会认定样式规则无效。
 
