@@ -13,6 +13,7 @@ http://acgtofe.com/page3/index.html
 http://acgtofe.com/page2/index.html
 http://acgtofe.com/page3/index.html
 
+http://acgtofe.com/posts/2013/10/ed-sen
 http://acgtofe.com/posts/2013/09/css-3d-transform
 http://acgtofe.com/posts/2013/08/unusual-css-selectors-characters
 http://acgtofe.com/posts/2013/08/canvas-animation
