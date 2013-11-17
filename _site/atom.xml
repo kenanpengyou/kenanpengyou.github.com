@@ -4,13 +4,190 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2013-10-16T16:31:27+08:00</updated>
+ <updated>2013-11-17T21:48:31+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>从jQuery分析隐藏元素的尺寸获取方法</title>
+   <link href="http://acgtofe.com/posts/2013/11/getting-the-dimension-of-a-hidden-element"/>
+   <updated>2013-11-17T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2013/11/getting-the-dimension-of-a-hidden-element</id>
+   <content type="html">&lt;h2&gt;元素显示动画的疑点&lt;/h2&gt;
+
+&lt;p&gt;曾经想要做这样的一个效果：鼠标点击某一处后，另一处的原本为隐藏（即&lt;code&gt;display&lt;/code&gt;为&lt;code&gt;none&lt;/code&gt;）的元素，以一个平滑的动画效果，从高度0开始，渐渐完整显示出来。就像下边这样：&lt;/p&gt;
+
+&lt;div class=&quot;post_display&quot; style=&quot;height:70px;&quot;&gt;
+    &lt;div id=&quot;demo-hidden&quot; style=&quot;display:none;background:#&quot;&gt;这是原本隐藏着的文字！((っ･ω･)っ&lt;/div&gt;
+    &lt;div style=&quot;padding-top:10px;&quot;&gt;&lt;a id=&quot;demo-show-link&quot; href=&quot;javascript:;&quot; title=&quot;&quot; style=&quot;display:inline-block;padding:4px 10px;background:#34495e;color:#fff;&quot;&gt;点击我&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;但是，参照一般的动画API（自己写的，或使用现有的javascript库的）的用法，会觉得一定要指定对应的属性值。比如MooTools的动画API的语法是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myElement.tween(property, startValue[, endValue]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中&lt;code&gt;startValue&lt;/code&gt;和&lt;code&gt;endValue&lt;/code&gt;代表的分别是属性在动画执行前后的值，也就是初始值和结束值。其中结束值对于一个动画来说是必须的（在上面的API中，如果不指定endValue，startValue会被作为endValue使用）。现在，重新考虑一下刚才说的隐藏的元素，既然要为这个元素添加一个高度渐显动画，似乎这个元素在正常显示状态时的高度就是必须知道的了。有了这个数值，就可以调用动画API为其添加显示动画了。&lt;/p&gt;
+
+&lt;p&gt;好了，需要知道高度，那获取即可。最为常用的元素尺寸获取相关的属性是&lt;code&gt;offsetWidth&lt;/code&gt;和&lt;code&gt;offsetHeight&lt;/code&gt;，但是，你也许知道，&lt;em&gt;在&lt;code&gt;display&lt;/code&gt;设置为&lt;code&gt;none&lt;/code&gt;的情况下，获取元素尺寸值得到的会是0&lt;/em&gt;。所以，必须寻求对应的解决方法。&lt;/p&gt;
+
+&lt;h2&gt;有些相关的jQuery的.show()方法&lt;/h2&gt;
+
+&lt;p&gt;我在考虑这个解决方法的时候，回想起了jQuery中的&lt;code&gt;.show()&lt;/code&gt;方法。这个方法的功能就是让隐藏的元素显示出来，但有趣的是，这个方法可以接受参数，比如指定&lt;code&gt;.show(500)&lt;/code&gt;，元素会以一个500ms的动画完成显示过程，这期间，宽度、高度、透明度等属性都是平滑过渡的，这不就非常类似我想要做的效果么？&lt;/p&gt;
+
+&lt;p&gt;jQuery既然做到了，那么jQuery里的具体实现方法将会是一个非常有用的参考。&lt;/p&gt;
+
+&lt;h2&gt;源码分析&lt;/h2&gt;
+
+&lt;p&gt;首先，直观一点地想，jQuery的&lt;code&gt;.show()&lt;/code&gt;方法，在给定时间参数后，可以推断是调用了jQuery的动画API，也就是&lt;code&gt;.animate()&lt;/code&gt;来完成动画的。在写本文的时间点，jQuery的最新版是jQuery-1.10.2，以它的源码为基础，可以简单分析一下。&lt;/p&gt;
+
+&lt;p&gt;首先是源头：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;toggle&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;show&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;hide&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cssFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;speed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;easing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;speed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;speed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;boolean&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;cssFn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arguments&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;animate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;genFx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;speed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;easing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;从这里可以看到，和推断相同，&lt;code&gt;.show()&lt;/code&gt;方法对第一个参数&lt;code&gt;speed&lt;/code&gt;做了判断，当&lt;code&gt;speed&lt;/code&gt;不为空，且不为逻辑值时，执行&lt;code&gt;.animate()&lt;/code&gt;方法。传给&lt;code&gt;.animate()&lt;/code&gt;方法的第一个参数是通过函数&lt;code&gt;genFx()&lt;/code&gt;得到的，这个函数在源码中可以找到定义，如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Generate parameters to create a standard animation&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;genFx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;includeWidth&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;which&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;attrs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// if we include width, step value is 1 to do all cssExpand values,&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// if we don&amp;#39;t include width, step value is 2 to skip over Left and Right&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;includeWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;includeWidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;includeWidth&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;which&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cssExpand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;margin&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;which&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;padding&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;which&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;includeWidth&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;opacity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个&lt;code&gt;genFx()&lt;/code&gt;如其中的注释所说，用于生成标准动画参数。我做了测试，在调用&lt;code&gt;.show(500)&lt;/code&gt;方法后，这个函数返回的结果值是：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201311/result_of_genFx.png&quot; title=&quot;genFx()的返回值&quot; alt=&quot;genFx()的返回值&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可见，实质上，确实是调用了jQuery的&lt;code&gt;.animate()&lt;/code&gt;方法来实现了动画效果。...等下，数值竟然可以是&quot;show&quot;这种不着边际的值？我果断重新查看了jQuery的文档，原来在jQuery的&lt;code&gt;.animate()&lt;/code&gt;方法中，确实可以指定这样的值，而且，如名字所示，&quot;show&quot;用作动画参数属性值时，就代表元素在正常显示时候的对应数值。&lt;/p&gt;
+
+&lt;p&gt;看来，获取隐藏元素的尺寸的方法，似乎隐藏在&lt;code&gt;.animate()&lt;/code&gt;的方法定义中。然后，我经过反复调试和分析这部分代码，得到了jQuery对于隐藏元素的动画的做法：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;当元素是隐藏状态，且有任意动画终点属性值为&quot;show&quot;时，先调用元素无参数的&lt;code&gt;.show()&lt;/code&gt;方法，让元素不再隐藏。&lt;/li&gt;
+&lt;li&gt;获取此时处于正常显示状态的相关属性值，并将这些属性值作为动画的终点属性值。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;也就是说，其实jQuery对隐藏元素做动画，且动画最终会让元素显示出来时，jQuery的做法就是在一开始就让元素不再隐藏，然后立即进行动画。由于不再隐藏的元素是可以获取宽高的，而且动画是随后立即进行的，所以仍然看到的是一个平滑的显示动画效果。&lt;/p&gt;
+
+&lt;h2&gt;历史上的问题&lt;/h2&gt;
+
+&lt;p&gt;等下！到这里，还是没有解决最初的问题吧？对的，其实在很早的时候，就有人问到过&lt;a href=&quot;http://stackoverflow.com/questions/1472303/jquery-get-width-of-element-when-not-visible-display-none&quot; title=&quot;jQuery - Get Width of Element when Not Visible (Display: None) - Stack Overflow&quot;&gt;使用jQuery获取隐藏元素的尺寸的问题&lt;/a&gt;，提问题的这个人使用了当时的jQuery的&lt;code&gt;.width()&lt;/code&gt;方法，发现无法获取隐藏元素的宽度。下面的最佳答案的回复者Tim Banks给了一个类似hack的处理方法，漂亮地解决了这个问题。Tim Banks后来还专门为此写了一篇博文（&lt;a href=&quot;http://www.foliotek.com/devblog/getting-the-width-of-a-hidden-element-with-jquery-using-width/&quot; title=&quot;Getting the width of a hidden element with jQuery using width()&quot;&gt;详情&lt;/a&gt;）。有趣的是，jQuery从1.4.4版本开始，支持了对隐藏元素的尺寸获取，而且使用的正是这位Tim Banks的方法。&lt;/p&gt;
+
+&lt;p&gt;如果你现在试一试新版jQuery的&lt;code&gt;.width()&lt;/code&gt;和&lt;code&gt;.height()&lt;/code&gt;，你会发现即使是隐藏的元素，它也会给你返回正确的数值。所以，最初的问题的真正的解决方法，应该在jQuery的这部分的代码中。&lt;/p&gt;
+
+&lt;h2&gt;明确的解决方案&lt;/h2&gt;
+
+&lt;p&gt;jQuery中宽高的获取也通过一个定义在jQuery上的对象&lt;code&gt;cssHooks&lt;/code&gt;处理，其中对于宽高的处理代码如下（为方便阅读，删去了&lt;code&gt;set&lt;/code&gt;部分）：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;height&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;width&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cssHooks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;computed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;extra&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;computed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// certain elements can have dimension info if we invisibly show them&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// however, it must have a current display style that would benefit from this&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rdisplayswap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;css&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;display&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;
+                    &lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cssShow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getWidthOrHeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;extra&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;nx&quot;&gt;getWidthOrHeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;extra&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里最关键的一点是，判断如果元素是隐藏的，则调用&lt;code&gt;jQuery.swap()&lt;/code&gt;，这个函数的作用是，临时为元素替换一些css属性，然后执行一个指定的函数，最后还原元素的css属性。其中参数&lt;code&gt;cssShow&lt;/code&gt;对应了用于获取宽高所临时设置的属性，它的值是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cssShow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;absolute&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;visibility&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;hidden&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;block&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这即是Tim Banks最初给出的处理方法。所以，获取隐藏元素的宽高的可行的做法是：&lt;em&gt;临时为元素设置特定的显示样式，然后读取元素的尺寸信息，最后再还原元素的样式&lt;/em&gt;。&lt;/p&gt;
+
+&lt;h2&gt;补充信息&lt;/h2&gt;
+
+&lt;p&gt;MooTools一般所用的尺寸获取方法是&lt;code&gt;myElement.getSize();&lt;/code&gt;，这个方法是不能获取隐藏元素的尺寸的。但是，MooTools在它的扩展包（mootools-more）内提供了一个&lt;code&gt;element.measure(fn);&lt;/code&gt;，这个方法可以获取隐藏元素的尺寸。它是怎么做的呢，源码的一部分如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getParent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;toMeasure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;toMeasure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;expose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getParent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;restore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;expose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;restore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;toMeasure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;restore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;restore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;expose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;display&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cssText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setStyles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;block&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;absolute&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;visibility&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hidden&amp;#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cssText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;before&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;简单来说，&lt;code&gt;.meature()&lt;/code&gt;方法调用了另一个&lt;code&gt;.expose()&lt;/code&gt;方法，稍微看一下&lt;code&gt;.expose()&lt;/code&gt;的定义就可以知道，也是使用了相同的临时样式设置，在读取尺寸信息后还原的做法。&lt;/p&gt;
+
+&lt;p&gt;MooTools的动画虽然不支持&quot;show&quot;作为属性值，但它支持一个特别的&quot;100%&quot;，正如这个数字所表示的那样，它也能满足你“动画执行到元素常规的样子”的要求。&lt;/p&gt;
+
+&lt;p&gt;啊？说了这么多，原来只是因为作者你不知道它支持这个值...&lt;/p&gt;
+
+&lt;p&gt;嗯...这就是过程啊...&lt;/p&gt;
+
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;获取&lt;code&gt;display&lt;/code&gt;为&lt;code&gt;none&lt;/code&gt;的元素的尺寸，确实只是一个挺小的问题。不过，它却能在各大javascript库中有所体现。对源码做一些学习，也算是方便自己以后需要独自处理的时候能多些经验。&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>省时省心的自动化工具 - Grunt使用介绍</title>
@@ -547,23 +724,6 @@
 &lt;p&gt;三维变换的确是新的提供给我们前端开发用的很酷的东西。不过，不推荐使用css的三维变换来制作完全的3D网页。css是被定义用来为网页添加样式的，而不是用来生成虚拟空间的。因此，适当地在网页中的一部分地方，考虑应用三维变换即可，这说不定会让你的网站看起来非常棒。&lt;/p&gt;
 
 &lt;p&gt;不只是平面的网页，是不是很值得做一些尝试呢？&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>css的三维变换</title>
-   <link href="http://acgtofe.com/posts/2013/09/transform-3d"/>
-   <updated>2013-09-19T00:00:00+08:00</updated>
-   <id>http://acgtofe.com/posts/2013/09/transform-3d</id>
-   <content type="html">&lt;h2&gt;原来命名可以这样的&lt;/h2&gt;
-
-&lt;p&gt;变换的元素不会对周围元素的渲染产生影响，&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201308/unusual_css_selectors_of_one_site.png&quot; title=&quot;不常见的css选择符&quot; alt=&quot;不常见的css选择符&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;结语&lt;/h2&gt;
-
-&lt;p&gt;实际地了解css语法对于命名标识符的规定后才知道，命名时原来还有如此多的空间可以发挥。一起试试更多的有趣的选择符吧！&lt;/p&gt;
 </content>
  </entry>
  
