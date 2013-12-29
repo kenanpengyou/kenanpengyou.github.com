@@ -1,0 +1,18 @@
+@charset "utf-8";
+/*
+* how-do-tables-calculate-their-layout.css
+* 以实测结果推断表格的布局计算原理-css
+* By Liang Zhu(kenanpengyou@yeah.net)
+* Date 2013-12-29
+*/
+
+.exhibit_table{border-collapse:collapse;border-spacing:0;width:500px;text-align:left;}
+.exhibit_table th,
+.exhibit_table td{padding:5px 10px;border:1px solid #ccc;font-size:12px;}
+.exhibit_table th{background:#34495e;color:#fff;}
+.exhibit_table td{color:#333;}
+
+.exhibit_table_with_no_padding th,
+.exhibit_table_with_no_padding td{padding:0;}
+
+.exhibit_table_fixed{table-layout:fixed;}
