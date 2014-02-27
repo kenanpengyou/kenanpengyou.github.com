@@ -119,7 +119,7 @@ GPU整合到最后的结果是一个完整的图片，即你看到的网页。�
 
 前一段时间在写网页动画效果时，注意到了Chrome中独特的元素外观变化，觉得很意外。在搜集资料寻求解答的过程中，我找到了[Accidental layer creation][]这篇简短而精致的文章。本文大概就是在结合了Webkit硬件加速知识点后，对它的一点扩展。
 
-是不是很庆幸能解决这令人不快的文字问题？（笑）
+是不是应该庆祝一下能解决这令人不快的文字问题？（笑）
 
 [img_show_layers_in_webkit_dev_tools]: {{POSTS_IMG_PATH}}/201402/show_layers_in_webkit_dev_tools.png "查看复合层"
 
