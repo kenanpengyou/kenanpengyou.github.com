@@ -35,8 +35,7 @@ YUI().use("node", function(Y) {
             indexTotal,
             options,
             selectedOption,
-            selectedText,
-            selectedValue;
+            selectedText;
 
         function createReplace() {
             var layerInnerHTML = "",
@@ -51,6 +50,7 @@ YUI().use("node", function(Y) {
 
                 // 最终的适当宽度
                 replaceProperWidth = 0,
+                layerProperWidth = 0,
                 body = Y.one("body"),
                 i = 0,
                 len = indexTotal,
@@ -73,6 +73,10 @@ YUI().use("node", function(Y) {
             }
 
             selectReplaceNode.setStyle("width", replaceProperWidth);
+            layerProperWidth = selectReplaceNode.get("clientWidth");
+
+            // 替换元素的高度，帮助浮层定位到正确的位置
+            replaceHeight = selectReplaceNode.get("offsetHeight");
 
             // 有tabindex的元素才可以接受键盘事件
             selectReplaceNode.setAttribute("tabindex", 0);
@@ -83,9 +87,6 @@ YUI().use("node", function(Y) {
             if (Constants.IS_HIDE_ORIGIN) {
                 selectNode.setStyle("display", "none");
             }
-
-            // 替换元素的高度，帮助浮层定位到正确的位置
-            replaceHeight = selectReplaceNode.get("offsetHeight");
 
             // 创建浮层DOM
             layerInnerHTML = layerInnerHTML + '<ul class="' + listClass + '">';
@@ -108,7 +109,7 @@ YUI().use("node", function(Y) {
             layerNode.setStyle("display", "none").appendTo(body);
 
             // 浮层的宽度应和替换元素一致
-            layerNode.setStyle("width", selectReplaceNode.get("clientWidth"));
+            layerNode.setStyle("width", layerProperWidth);
 
             // 保存浮层所有li元素
             layerItemNodes = layerNode.all("." + itemClass);
@@ -244,7 +245,6 @@ YUI().use("node", function(Y) {
             indexTotal = options.length;
             selectedOption = options[selectedIndex];
             selectedText = selectedOption.text;
-            selectedValue = selectedOption.value;
         }
 
         function init() {
