@@ -11,10 +11,8 @@ http://acgtofe.com/sitemap.txt
 http://acgtofe.com/page2/index.html
 http://acgtofe.com/page3/index.html
 http://acgtofe.com/page4/index.html
-http://acgtofe.com/page2/index.html
-http://acgtofe.com/page3/index.html
-http://acgtofe.com/page4/index.html
 
+http://acgtofe.com/posts/2014/03/custom-select
 http://acgtofe.com/posts/2014/02/text-appearance-changes-with-webkit-hardware-compositing-mode-on
 http://acgtofe.com/posts/2014/01/non-non-biyori
 http://acgtofe.com/posts/2013/12/how-do-tables-calculate-their-layout

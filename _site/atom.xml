@@ -4,13 +4,246 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2014-02-27T17:35:50+08:00</updated>
+ <updated>2014-03-19T17:17:26+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>创建自定义外观的表单select</title>
+   <link href="http://acgtofe.com/posts/2014/03/custom-select"/>
+   <updated>2014-03-19T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2014/03/custom-select</id>
+   <content type="html">&lt;p&gt;网页表单中的&lt;code&gt;&amp;lt;select&amp;gt;&lt;/code&gt;，在不同浏览器中的默认外观是不同的，比如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201403/default_select_appearance.png&quot; title=&quot;表单select默认外观&quot; alt=&quot;表单select默认外观&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;除了边框，宽高等差异外，表示下拉的小箭头也是各不相同。不过，整体上说，差异并不是特别大，所以，很多时候直接使用这种原生select就足够了。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ued.ctrip.com/blog/?p=3229&quot; title=&quot;select的最佳预设（reset）&quot;&gt;携程UED上的一篇文章&lt;/a&gt;探讨过设置css使select在不同浏览器中的外观更倾向于一致的做法（注意，这已经是2年前的文章了，所以里面的信息会有偏差）。但显然，要实现更一致、美观的表单，我们应该做的就是&lt;em&gt;自定义&lt;/em&gt;。&lt;/p&gt;
+
+&lt;h2&gt;准备工作&lt;/h2&gt;
+
+&lt;p&gt;select可以看做两部分组成的。这样，首先我们就是设计一下这两部分的外观：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201403/custom_select_design.png&quot; title=&quot;自定义外观设计&quot; alt=&quot;自定义外观设计&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这两部分会是这样的html代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;-2014年4月番-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;javascript:;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;-2014年4月番-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;javascript:;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;艾斯卡与罗吉的工作室&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;javascript:;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Love Live! 第2期&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;javascript:;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;漫画家与助手们&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后，为它们添加class，定义好样式，准备工作就结束了。接下来是实现交互功能。&lt;/p&gt;
+
+&lt;h2&gt;添加功能&lt;/h2&gt;
+
+&lt;p&gt;本文使用了javascript库—YUI。它的参考资料并不多，建议直接查看&lt;a href=&quot;http://yuilibrary.com/yui/docs/&quot; title=&quot;YUI Documentation&quot;&gt;官方文档&lt;/a&gt;。此外，还有一个非常推荐的参考站点&lt;a href=&quot;http://www.jsrosettastone.com/&quot; title=&quot;jQuery - YUI 3 Rosetta Stone&quot;&gt;jQuery - YUI 3 Rosetta Stone&lt;/a&gt;，它通过对比形式列出了某一功能如何分别用YUI和jQuery实现。&lt;/p&gt;
+
+&lt;p&gt;我的自定义select的功能实现的思路是这样的：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;html代码本身仍然是原生的select。&lt;/li&gt;
+&lt;li&gt;javascript找到这些select，然后为每一个select，都创建一份自定义元素，内容和原select相同。&lt;/li&gt;
+&lt;li&gt;将自定义元素摆放到select原本所在的位置，并隐藏掉原来的select。&lt;/li&gt;
+&lt;li&gt;修改自定义元素的选择项，将对应地改变原本的select的选择项。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;这个过程中，把select自定义想成了更像是附加功能的形式。表单提交只会提交原生select的信息，而如果禁用javascript，则原生select正常使用。&lt;/p&gt;
+
+&lt;p&gt;整个代码结构是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;YUI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;node&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;customSelect.one&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;customSelect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;one&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 常量&amp;amp;参数&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Constants&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 变量&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectReplaceNode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;replaceHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;layerNode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;layerItemNodes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;timeFlag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+            &lt;span class=&quot;c1&quot;&gt;// 浮层显示状态标识&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;isLayerShowed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+            &lt;span class=&quot;c1&quot;&gt;// 取原生DOM对象（而不是YUI的Node外观对象），更方便读取select信息&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;selectDOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;selectedIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;indexTotal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;selectedOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;selectedText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 一系列函数声明&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;// 初始化代码&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;整个功能只需要用到YUI的node模块。这个结构是我编写各类功能一般遵循的格式，这样确定之后，剩余的所有代码都是一系列函数声明。显然，变量和常量也不是一开始就能定下来，而是随着编写过程，根据需要随时添加或删减，它们都可以被这一系列定义的函数访问到。&lt;/p&gt;
+
+&lt;h3&gt;初始化&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;init()&lt;/code&gt;初始化函数是所有代码执行的入口，定义如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;selectNode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;assignData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 变量赋值&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;createReplace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// 创建自定义元素&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;bindEvents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 事件绑定&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里只是判断如果元素存在，则依次执行一系列操作。&lt;/p&gt;
+
+&lt;h3&gt;获取select信息&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;assignData()&lt;/code&gt;的代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;assignData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectDOM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getDOMNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectedIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectDOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectDOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;indexTotal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectedOption&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectedText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectedOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这部分是因为要生成一个内容相同的自定义元素，需要先读取并保存原select的信息。&lt;/p&gt;
+
+&lt;h3&gt;创建替换元素&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;createReplace()&lt;/code&gt;即创建替换元素的部分。它的代码较多，在此不直接贴出来。你可以打开前端开发工具来查看本页中的代码，也可以到&lt;a href=&quot;http://runjs.cn/code/4pqwwqqm&quot; title=&quot;自定义外观select-RunJS&quot;&gt;runJS上的完整源码&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;对这一部分的一些说明：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;html生成使用字符串连接（更好的做法是模板引擎，但也相对更复杂）。&lt;/li&gt;
+&lt;li&gt;替换元素需要设置适当宽度，所以要遍历选择项确定最大的宽度。&lt;/li&gt;
+&lt;li&gt;替换元素设置&lt;code&gt;tabindex&lt;/code&gt;是为了处理键盘上下和回车的控制。&lt;/li&gt;
+&lt;li&gt;下拉浮层的每一项代表的索引值是用html5自定义属性来标记的。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;这里还用到一个特殊的样式类名&lt;code&gt;Constants.HIDDEN_CLASS&lt;/code&gt;，即&lt;code&gt;remote_invisible&lt;/code&gt;，它的定义是：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.remote_invisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;9999em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;可见是一个隐藏用的样式。&lt;/p&gt;
+
+&lt;h3&gt;事件及事件处理&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;bindEvents()&lt;/code&gt;将绑定各类事件。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bindEvents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectReplaceNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mouseover&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;replaceMouseoverHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectReplaceNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mouseout&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;replaceMouseoutHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;selectReplaceNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;keydown&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;layerKeydownHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;layerNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mouseover&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;layerMouseoverHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;layerNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mouseout&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;layerMouseoutHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;layerNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;delegate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;click&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;layerLinkClickHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;.&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Constants&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;LINK_CLASS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不同于原生select是点击出下拉的情况，我的设计是鼠标移入到替换元素时，即显示下拉浮层。所以，这里绑定的事件种类就是上面这样的。&lt;/p&gt;
+
+&lt;p&gt;剩下的部分是事件处理函数及它们引用的应用逻辑函数。同样，它们的代码也请见&lt;a href=&quot;http://runjs.cn/code/4pqwwqqm&quot; title=&quot;自定义外观select-RunJS&quot;&gt;runJS上的完整源码&lt;/a&gt;。这部分有几点需要说明的是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;下拉浮层的关闭不是瞬间的，而是留有一个定时的余量。这可以很好地应对鼠标指针从替换元素移到下拉浮层的过渡（而不是突然关闭）。&lt;/li&gt;
+&lt;li&gt;为了使键盘事件有效，需要在合理的时候调用元素的&lt;code&gt;focus()&lt;/code&gt;方法，获得焦点。&lt;/li&gt;
+&lt;li&gt;键盘事件取消默认行为是要阻止上下方向键对垂直滚动条的操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;到此，&lt;code&gt;Y.customSelect.one&lt;/code&gt;中保存的方法就实现了自定义外观select。不过，它只能一次处理单个表单select。为了让使用更方便，再增加一点东西。&lt;/p&gt;
+
+&lt;h3&gt;多元素处理&lt;/h3&gt;
+
+&lt;p&gt;新增一个&lt;code&gt;Y.customSelect.all&lt;/code&gt;，它接收多个元素，然后一一对它们调用之前的方法。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;customSelect.all&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;customSelect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;selectNodes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectNodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;selectNodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;customSelect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样，只需要在页面用简单一句&lt;code&gt;Y.customSelect.all(&quot;select&quot;);&lt;/code&gt;，就可以对页面上存在的所有表单select，全部替换为自定义的版本。&lt;/p&gt;
+
+&lt;h2&gt;实际效果&lt;/h2&gt;
+
+&lt;p&gt;实际效果如下：&lt;/p&gt;
+
+&lt;div class=&quot;post_display&quot;&gt;
+    &lt;select name=&quot;anime&quot; class=&quot;m_select&quot; style=&quot;margin-left:10px;&quot;&gt;
+        &lt;option&gt;-2014年4月番-&lt;/option&gt;
+        &lt;option&gt;艾斯卡与罗吉的工作室&lt;/option&gt;
+        &lt;option&gt;Love Live! 第2期&lt;/option&gt;
+        &lt;option&gt;漫画家与助手们&lt;/option&gt;
+        &lt;option&gt;请问您今天要来点兔子吗&lt;/option&gt;
+        &lt;option&gt;漆黑的子弹&lt;/option&gt;
+        &lt;option&gt;魔法高校的劣等生&lt;/option&gt;
+        &lt;option&gt;萨达四大阿斗&lt;/option&gt;
+        &lt;option&gt;网球优等生&lt;/option&gt;
+        &lt;option&gt;我们大家的河合庄&lt;/option&gt;
+        &lt;option&gt;一周的朋友&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;为了方便看到关联性，这里没有隐藏原来的select。实际使用时应该隐藏它们。&lt;/p&gt;
+
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;表单自定义总的来说还是一件费心思的事，需要不少的代码。不过，我从中也感受到，一个可拆卸的功能是很有用的。实现任何功能，在思路上很值得多琢磨一番。&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;本文写到中途时发现代码太多简直不适合现在的节奏&lt;/del&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>处理Webkit硬件加速引发的文字外观变化</title>
@@ -72,14 +305,14 @@
 &lt;li&gt;层包含使用加速视频解码的&lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt;元素&lt;/li&gt;
 &lt;li&gt;层包含有加速2D上下文或3D（WebGL）上下文的&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;元素&lt;/li&gt;
 &lt;li&gt;层包含混合插件，如Flash或Silverlight&lt;/li&gt;
-&lt;li&gt;层应用了关于opacity或transform的CSS动画&lt;/li&gt;
+&lt;li&gt;层应用了关于&lt;code&gt;opacity&lt;/code&gt;或&lt;code&gt;transform&lt;/code&gt;的CSS动画&lt;/li&gt;
 &lt;li&gt;层应用了加速CSS filters&lt;/li&gt;
-&lt;li&gt;层有一个是复合层的子元素，而且层包含需要存在于复合层的内容，比如裁剪和反射（clip or reflection，这条我也暂时不理解）&lt;/li&gt;
+&lt;li&gt;层有一个是复合层的子元素，而且层包含需要存在于复合层的内容，比如裁剪和反射（clip or reflection，这条我也理解不能...）&lt;/li&gt;
 &lt;li&gt;层有一个兄弟元素（sibling）是复合层，且兄弟元素的z-index较小（换句话说，这个层在一个复合层的上方）&lt;/li&gt;
 &lt;/ul&gt;
 
 
-&lt;p&gt;现在，再分析一下前面的小球和文字。小球的动画使用了transform的translate，因此小球的层会有自己的backing surface（第5条）。文字和小球是兄弟元素，且文字在上，所以文字的层也需要有自己的backing surface（最后1条）。&lt;/p&gt;
+&lt;p&gt;现在，再分析一下前面的小球和文字。小球的动画使用了&lt;code&gt;transform&lt;/code&gt;的&lt;code&gt;translate&lt;/code&gt;，因此小球的层会有自己的backing surface（第5条）。文字和小球是兄弟元素，且文字在上，所以文字的层也需要有自己的backing surface（最后1条）。&lt;/p&gt;
 
 &lt;p&gt;拥有自己的backing surface意味着会被单独作为一个纹理绘制，文字在这种时候，其外观就会发生变化。&lt;/p&gt;
 
@@ -138,7 +371,7 @@
 
 &lt;p&gt;前一段时间在写网页动画效果时，注意到了Chrome中独特的元素外观变化，觉得很意外。在搜集资料寻求解答的过程中，我找到了&lt;a href=&quot;http://jsbin.com/efirip/5/quiet&quot; title=&quot;Accidental layer creation&quot;&gt;Accidental layer creation&lt;/a&gt;这篇简短而精致的文章。本文大概就是在结合了Webkit硬件加速知识点后，对它的一点扩展。&lt;/p&gt;
 
-&lt;p&gt;是不是很庆幸能解决这令人不快的文字问题？（笑）&lt;/p&gt;
+&lt;p&gt;是不是应该庆祝一下能解决这令人不快的文字问题？（笑）&lt;/p&gt;
 </content>
  </entry>
  
@@ -1833,7 +2066,7 @@
    <content type="html">&lt;p&gt;阅读本文时推荐搭配下面的音乐(・ω・)。（Original Soundtrack 零の軌跡）&lt;/p&gt;
 
 &lt;div class=&quot;post_display&quot; style=&quot;height:24px;&quot;&gt;
-    &lt;audio src=&quot;http://f.izt8.com/4230941808/1373851596.mp3&quot; preload=&quot;auto&quot; loop&gt;&lt;/audio&gt;
+    &lt;audio src=&quot;http://acgtofe.qiniudn.com/%E9%9B%B6%E3%81%AE%E8%BB%8C%E8%B7%A1.mp3&quot; preload=&quot;auto&quot; loop&gt;&lt;/audio&gt;
 &lt;/div&gt;
 
 
@@ -2353,7 +2586,7 @@
    <content type="html">&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201304/lovelive_ed_cd_cover.jpg&quot; title=&quot;Love Live! ED - きっと青春が聞こえる&quot; alt=&quot;Love Live! ED - きっと青春が聞こえる&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;post_display&quot; style=&quot;height:24px;&quot;&gt;
-    &lt;audio src=&quot;http://f.izt8.com/4230941808/1373851589.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
+    &lt;audio src=&quot;http://acgtofe.qiniudn.com/lovelive_ed.mp3&quot; preload=&quot;auto&quot;&gt;&lt;/audio&gt;
 &lt;/div&gt;
 
 

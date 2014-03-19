@@ -3,10 +3,17 @@
     额外js文件，一般放在 /assets/js/extra/ 下，如果是posts中使用的，放在/assets/js/extra/posts/下。
     例：
         extraJS: ["mootools-core-1.4.5-full-compat-yc.js"]
+    如果js文件是绝对地址，包含http://，也是可以正常使用的
+    例：
+        extraJS: ["http://yui.yahooapis.com/3.15.0/build/yui/yui-min.js"]
 {% endcomment %} 
 
 {% if page.extraJS.size > 0 %}
     {% for jsURL in page.extraJS %}
+        {% if jsURL contains 'http://' %}
+<script src="{{ jsURL }}"></script>
+        {% else %}
 <script src="{{ EXTRA_SCRIPTS_PATH }}/{{ jsURL }}"></script>
+        {% endif %}
     {% endfor %}
 {% endif %}

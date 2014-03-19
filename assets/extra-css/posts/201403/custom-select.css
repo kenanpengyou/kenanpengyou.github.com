@@ -1,0 +1,19 @@
+@charset "utf-8";
+/*
+* custom-select.css
+* 表单元素
+* By Liang Zhu(kenanpengyou@yeah.net)
+* Date 2014-03-18
+*/
+
+.m_select{padding:6px 3px;vertical-align:middle;}
+
+.remote_invisible{position:absolute;left:-9999em;}
+
+/*与主要表单元素m_select对应的，为实现各个浏览器外观统一，为js处理预留的替换元素*/
+.m_select_replace_self{display:inline-block;height:28px;padding:0 21px 0 10px;border:1px solid #ccc;background:url(images/mark_form.png) right -25px no-repeat;_background:url(images/mark_form_ie6.png);color:#333;font-size:14px;vertical-align:middle;line-height:28px;outline:none;cursor:default;}
+/*与此替换元素搭配的浮层，共同构成自定义的<select>*/
+.m_select_replace_layer{position:absolute;max-height:300px;border:1px solid #ccc;background:#fff;overflow-x:hidden;overflow-y:auto;z-index:300;}
+.m_select_replace_layer .option_link{display:block;height:24px;padding:0 10px;color:#333;font-size:14px;line-height:24px;cursor:default;}
+.m_select_replace_layer .option_link:hover{text-decoration:none;}
+.m_select_replace_layer .selected .option_link{background:#eee;text-decoration:none;}
