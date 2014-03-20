@@ -2,8 +2,7 @@
 
 YUI().use("node", function(Y) {
 
-    Y.namespace("customSelect.one");
-    Y.namespace("customSelect.all");
+    Y.namespace("customSelect");
 
     Y.customSelect.one = function(selectNode) {
         var Constants = {

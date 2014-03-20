@@ -57,7 +57,7 @@ select可以看做两部分组成的。这样，首先我们就是设计一下�
 {% highlight javascript %}
 YUI().use("node", function(Y) {
 
-    Y.namespace("customSelect.one");
+    Y.namespace("customSelect");
 
     Y.customSelect.one = function(selectNode) {
 
@@ -183,8 +183,6 @@ function bindEvents() {
 新增一个`Y.customSelect.all`，它接收多个元素，然后一一对它们调用之前的方法。
 
 {% highlight javascript %}
-Y.namespace("customSelect.all");
-
 Y.customSelect.all = function(selectNodes) {
     if (Y.Lang.isString(selectNodes)) {
         selectNodes = Y.all(selectNodes);
