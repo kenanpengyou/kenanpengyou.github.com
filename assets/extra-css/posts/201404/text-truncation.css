@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* text-truncation.css */
+
+.character_width_test{padding:0 10px;border:1px dashed #cc7878;line-height:2;}
+.character_width_test span{display:inline-block;width:60px;}
+.character_width_test em{color:#bb4848;}

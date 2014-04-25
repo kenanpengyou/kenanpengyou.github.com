@@ -13,7 +13,7 @@ paginate: 5
 title : "acgtofe - 动漫与前端技术的综合博客"
 tagline: "acgtofe - 动漫与前端技术的综合博客"
 keywords: ["动漫", "web前端", "html/css", "javascript"]
-title_suffix: " - acgtofe - 动漫与前端技术的综合博客"
+title_suffix: " - acgtofe"
 author :
   name : Liang Zhu
   email : kenanpengyou@gmail.com
