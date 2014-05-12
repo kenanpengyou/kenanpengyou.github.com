@@ -270,7 +270,7 @@ html,body{height:100%;}
 .footer_placeholder{height:120px;}
 
 /*页脚自身*/
-.site_footer{height:120px;background:#8c6f5b;}
+.site_footer{min-width:960px;height:120px;background:#8c6f5b;}
 .site_footer,
 .site_footer a{color:#fff;}
 .site_footer .footer_wrapper{width:960px;margin:0 auto;}
