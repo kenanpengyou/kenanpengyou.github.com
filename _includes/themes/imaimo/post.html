@@ -36,13 +36,13 @@
 <div class="sidebar">
   <div class="sidebar_unit">
       <div class="unit_container">
-          <div class="aside_title title_introduction">简介</div>
+          <div class="aside_title"><i class="icon_sprite icon_home"></i><em>简介</em><span>Introduction</span></div>
             <p class="intro_note">ACGTOFE是包含动漫，游戏，前端开发相关信息与资源的个人博客。<br/><br/>ACG即动漫和游戏（Anime, Comic, Game），FE是Front-End，前端开发，to是平假名“と”的罗马拼音，意为“和”，也是英文And的意思。<br/><br/>如果你喜欢本博客，请推荐给好友！</p>
         </div>
     </div>
     <div class="sidebar_unit">
       <div class="unit_container">
-          <div class="aside_title title_categories">文章分类</div>
+          <div class="aside_title"><i class="icon_sprite icon_categories"></i><em>文章分类</em><span>Categories</span></div>
             <ul class="category_list clearfix">
                 {% for category in site.categories  %}
                 <li class="category_item"><a class="category_link" href="{{ BASE_PATH }}{{ site.JB.categories_path }}#{{ category | first }}-ref" title="">{{ category | first }}</a><span class="post_count">({{ category | last | size }})</span></li>
@@ -52,7 +52,7 @@
     </div>
     <div class="sidebar_unit sidebar_unit_last">
       <div class="unit_container">
-            <div class="aside_title title_information">信息</div>
+            <div class="aside_title"><i class="icon_sprite icon_information"></i><em>信息</em><span>Information</span></div>
             <div class="info_note">
                 <p class="info_note_line">作者所用头像：</p>
                 <div class="avatar_container">

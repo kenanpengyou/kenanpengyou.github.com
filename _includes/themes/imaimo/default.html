@@ -37,9 +37,7 @@
 </head>
 <body>
 <div class="img_prefetch">
-    <img src="{{ ASSET_PATH }}/images/total_bg.jpg" alt="" />
     <img src="{{ ASSET_PATH }}/images/notebook.png" alt="" />
-    <img src="{{ ASSET_PATH }}/images/special_titles.png" alt="" />
 </div>
 
 <div class="total_container">
@@ -55,7 +53,7 @@
                     <li class="nav_item{% if page.navflag == 'about' %} nav_current{% endif %}"><a class="nav_link" href="{{ BASE_PATH }}/about.html" title="About">About<cite class="nav_line"></cite></a></li>    
                 </ul>
             </nav>
-            <div class="site_top_img"><img class="top_img" src="{{ ASSET_PATH }}/images/transparent.gif" style="background-image: url({{ PURE_ASSET_PATH }}/used-images/wallpaper_top/wallpaper_top_scrawl.jpg)" alt="" /></div>
+            <div class="site_top_img"><img class="top_img" src="{{ PURE_ASSET_PATH }}/used-images/wallpaper_top/wallpaper_top_scrawl.jpg" alt="" /></div>
         </header>
         <div class="content clearfix">
             {{ content }}

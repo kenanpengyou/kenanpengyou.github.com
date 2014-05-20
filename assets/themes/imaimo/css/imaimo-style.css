@@ -55,21 +55,45 @@ code{font-size:15px;}
 
 /*-------全站基础样式 end-------*/
 
-/*-------图标拼图 start-------*/
+/*-------图片引用设置 start-------*/
 
+/*一般*/
 .icon_sprite{background:url(../images/icons_sprite.png) no-repeat;}
+.acgtofe_logo{background:url(../images/acgtofe_logo.png) no-repeat;}
+.main{background:#fff url(../images/paper_clip.png) left bottom no-repeat;}
+.ribbon_brown{background:url(../images/vein_tag.png) no-repeat;}
+.flip_prev_btn,
+.flip_next_btn{background:url(../images/page_flip.png) no-repeat;}
+.post_nav_link{background:url(../images/post_ui_items.png) no-repeat;}
+.return_top_link{background:url(../images/return_top.png) no-repeat;}
+.demo_cover_container{width:192px;height:120px;}
+.demo_cover{width:192px;height:120px;}
 
-/*-------图标拼图 end-------*/
+/* HD */
+@media
+(-webkit-min-device-pixel-ratio: 1.5), 
+(min-resolution: 144dpi){ 
+    .icon_sprite{background:url(../images/icons_sprite_hd.png) no-repeat;background-size:75px 75px;}
+    .site_header .acgtofe_logo{background:url(../images/acgtofe_logo_hd.png) no-repeat;background-size:215px 35px;}
+    .main{background:#fff url(../images/paper_clip_hd.png) left bottom no-repeat;background-size:78px 51px;}
+    .ribbon_brown{background:url(../images/vein_tag_hd.png) no-repeat;background-size:174px 84px;}
+    .flip_prev_btn,
+    .flip_next_btn{background:url(../images/page_flip_hd.png) no-repeat;background-size:60px 60px;}
+    .post_nav_link{background:url(../images/post_ui_items_hd.png) no-repeat;background-size:20px 40px;}
+    .return_top_link{background:url(../images/return_top_hd.png) no-repeat;background-size:50px 40px;}
+    .demo_cover_container{width:96px;height:60px;}
+    .demo_cover{width:96px;height:60px;}
+}
+
+/*-------图片引用设置 end-------*/
 
 /*-------页面顶部 start-------*/
 
 .site_header{padding-top:20px;}
-
-/*logo*/
-.site_header .acgtofe_logo{background:url(../images/acgtofe_logo.png) no-repeat;}
+.site_header .acgtofe_logo{width:215px;height:35px;}
 
 /*导航*/
-.site_header .nav_list{float:left;text-align:center;}
+.site_header .nav_list{text-align:center;}
 .site_header .nav_link{display:inline-block;position:relative;height:36px;padding:0 10px;color:#84572f;font-family:Verdana;line-height:36px;}
 .site_header .nav_link:hover{text-decoration:none; center bottom no-repeat;}
 .site_header .nav_line{position:absolute;width:100%;height:2px;background:url(../images/nav_titles_dash_line.png) no-repeat;-webkit-transition:opacity .3s linear;transition:opacity .3s linear;left:0px;top:34px;opacity:0;filter:alpha(opacity=0);}
@@ -82,22 +106,23 @@ code{font-size:15px;}
 
 /*顶部图*/
 .site_header .site_top_img{clear:both;padding-top:10px;}
-.site_header .top_img{width:100%;height:180px;background-repeat:no-repeat;background-position:center 0;}
+.site_header .top_img{max-width:100%;}
 
 /*-------页面顶部 end-------*/
 
 /*-------主内容 start-------*/
 
 /*装饰的缎带和曲别针*/
-.main{position:relative;background:#fff url(../images/paper_clip.png) left bottom no-repeat;}
-.main .ribbon_brown{position:absolute;width:147px;height:84px;background:url(../images/vein_tag.png) no-repeat;top:-20px;right:-10px;}
+.main{position:relative;}
+.main .ribbon_brown{position:absolute;width:145px;height:84px;background-position:-15px 0;top:-20px;right:-10px;}
 
 /*内容基础*/
 .h1_hidden{position:absolute;left:-9999em;}
 
 /*首页文章列表*/
 .posts .post_item{padding:30px 0;background:url(../images/separate_line.png) center bottom no-repeat;zoom:1;}
-.posts .post_title{padding-left:30px;background:url(../images/post_title_prefix.png) no-repeat;font-size:17px;line-height:1.8;}
+.posts .icon_post_prefix{display:inline-block;width:22px;height:22px;margin-right:6px;background-position:0 0;vertical-align:text-bottom;}
+.posts .post_title{font-size:17px;line-height:1.8;}
 .posts .post_title_link:hover{color:#b97849;text-decoration:none;}
 .posts .post_info{padding:10px 0 10px 30px;color:#666;font-size:12px;}
 .posts .post_preview{padding-top:10px;line-height:1.7;}
@@ -106,7 +131,7 @@ code{font-size:15px;}
 /*翻页*/
 .page_flip{padding:20px 30% 0 30%;text-align:center;line-height:30px;}
 .page_flip .flip_prev_btn,
-.page_flip .flip_next_btn{width:30px;height:30px;background:url(../images/page_flip.png) no-repeat;}
+.page_flip .flip_next_btn{width:30px;height:30px;}
 .page_flip .flip_prev_btn{float:left;background-position:0 0;}
 .page_flip .flip_prev_btn:hover{background-position:0 -30px;}
 .page_flip .flip_next_btn{float:right;background-position:-30px 0;}
@@ -132,7 +157,7 @@ code{font-size:15px;}
 
 /*下一篇和上一篇*/
 .post_nav{height:20px;padding:30px 0 15px 0;background:url(../images/separate_line.png) center bottom no-repeat;font-size:12px;line-height:18px;}
-.post_nav .post_nav_link{background:url(../images/post_ui_items.png) no-repeat;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.post_nav .post_nav_link{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .post_nav .post_next_link{float:right;padding-right:20px;background-position:right -20px;}
 .post_nav .post_prev_link{float:left;padding-left:20px;background-position:left 0;}
 
@@ -164,7 +189,13 @@ code{font-size:15px;}
 
 /*基本*/
 .sidebar .sidebar_unit{background:#fff url(../images/silk_white_bg.gif) center 0 repeat;}
-.sidebar .aside_title{height:30px;margin-bottom:10px;background:url(../images/aside_titles.png) no-repeat;text-indent:-999em;}
+.sidebar .aside_title{height:30px;margin-bottom:10px;}
+.sidebar .aside_title em{margin-right:10px;color:#333;font-size:18px;font-family:"Microsoft Yahei";}
+.sidebar .aside_title span{color:#666;font-size:12px;font-family:"calibriregular";}
+.sidebar .aside_title .icon_sprite{display:inline-block;width:22px;height:22px;margin-right:10px;vertical-align:top;}
+.sidebar .icon_home{background-position:0 -25px;}
+.sidebar .icon_categories{background-position:-25px -25px;}
+.sidebar .icon_information{background-position:-50px -25px;}
 
 /*简介*/
 .sidebar .title_introduction{background-position:0 0;}
@@ -184,7 +215,7 @@ code{font-size:15px;}
 .sidebar .weibo_link,
 .sidebar .friend_site_link{color:#333;}
 .sidebar .RSS_link{display:inline-block;margin-left:5px;vertical-align:middle;}
-.sidebar .icon_RSS{display:inline-block;width:18px;height:18px;background-position:-25px 0;cursor:pointer;}
+.sidebar .icon_RSS{display:inline-block;width:18px;height:18px;background-position:0 -50px;cursor:pointer;}
 
 /*-------侧边栏 end-------*/
 
@@ -192,7 +223,7 @@ code{font-size:15px;}
 /*-------回到顶部按钮 start-------*/
 
 .return_top_tab{display:none;}
-.return_top_tab .return_top_link{display:block;width:47px;height:18px;background:url(../images/return_top.png) 0 0 no-repeat;}
+.return_top_tab .return_top_link{display:block;width:47px;height:18px;}
 .return_top_tab .return_top_link:hover{background-position:0 -20px;}
 
 /*-------回到顶部按钮 end-------*/
@@ -221,7 +252,6 @@ code{font-size:15px;}
 .note_img_container{float:left;width:80px;padding:0 30px 0 120px;}
 .note_text{padding-top:80px;overflow:hidden;}
 .demo_item{padding:20px 10px;background:url(../images/separate_line.png) center bottom no-repeat;overflow:hidden;zoom:1;}
-.demo_cover{width:192px;height:120px;}
 .demo_title{font-size:17px;line-height:1.4;}
 .demo_title_link:hover{color:#b97849;text-decoration:none;}
 .demo_intro{padding-top:15px;line-height:1.7;}
@@ -270,10 +300,10 @@ html,body{height:100%;}
 /*-------页脚 end--------*/
 
 /*@media-1-1 分界点480*/
-@media screen and (max-width:480px){
+@media (max-width:480px){
     
     /*demo pages*/
-    .demo_cover_container{width:192px;height:120px;margin-bottom:15px;padding:1px;border:1px solid #bbb;}
+    .demo_cover_container{margin-bottom:15px;padding:1px;border:1px solid #bbb;}
     .read_demo{display:none;}
 
     /*首页文章列表*/
@@ -282,13 +312,14 @@ html,body{height:100%;}
     /*category*/
     .post_date_in_category{display:none;}
     .post_link_in_category{display:inline-block;max-width:100%;}
+
 }
 
 /*@media-1-2 分界点480*/
-@media screen and (min-width:481px){
+@media (min-width:481px){
     
     /*demo pages*/
-    .demo_cover_container{float:left;width:192px;height:120px;margin-right:20px;padding:1px;border:1px solid #bbb;}
+    .demo_cover_container{float:left;margin-right:20px;padding:1px;border:1px solid #bbb;}
     .demo_content{overflow:hidden;}
 
     /*category*/
@@ -298,21 +329,12 @@ html,body{height:100%;}
 }
 
 /*@media-2-1 分界点870, 两栏结构极限*/
-@media screen and (max-width:870px){
+@media (max-width:870px){
 
     /*结构*/
     .wrapper{max-width:670px;}
     .main{margin-bottom:30px;}
     .main_inner{padding:10px 20px 60px 20px;}
-
-    /*logo*/
-    .site_header .site_logo{float:left;}
-    .site_header .acgtofe_logo{width:215px;height:35px;background:url(../images/acgtofe_logo.png) no-repeat;}
-
-    /*导航*/
-    .site_header .site_nav{float:right;}
-    .site_header .nav_item{float:left;width:120px;}
-    .site_header .nav_link{font-size:14px;}
     
     /*文章链接*/
     .post_nav .post_nav_link{max-width:100px;}
@@ -328,22 +350,13 @@ html,body{height:100%;}
 }
 
 /*@media-2-2 分界点870 两栏结构极限*/
-@media screen and (min-width:871px){
+@media (min-width:871px){
 
     /*结构*/
     .wrapper{max-width:960px;}
     .main{float:left;width:70%;min-height:600px;}
     .sidebar{float:right;width:25%;}
     .main_inner{padding:10px 40px 80px 40px;}
-
-    /*logo*/
-    .site_header .site_logo{float:left;padding-left:10px;}
-    .site_header .acgtofe_logo{width:215px;height:35px;background:url(../images/acgtofe_logo.png) no-repeat;}
-
-    /*导航*/
-    .site_header .site_nav{float:right;}
-    .site_header .nav_item{float:left;width:160px;}
-    .site_header .nav_link{font-size:18px;}
 
     /*文章链接*/
     .post_nav .post_nav_link{max-width:180px;}
@@ -359,12 +372,40 @@ html,body{height:100%;}
     .site_footer .footer_wrapper{max-width:960px;}
 }
 
-/* HD */
-@media screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (   min--moz-device-pixel-ratio: 2),
-    only screen and (     -o-min-device-pixel-ratio: 2/1),
-    only screen and (        min-device-pixel-ratio: 2),
-    only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) {
-        
-    }
+/*@media-3-1 导航部分的三段分界 640px*/
+@media (max-width:640px){
+    /*logo*/
+    .site_header .site_logo{}
+
+    /*导航*/
+    .site_header .site_nav{}
+    .site_header .nav_list:after{display:table;clear:both;content:" ";}
+    .site_header .nav_item{float:left;padding-left:20px;}
+    .site_header .nav_item:first-child{padding-left:0;}
+    .site_header .nav_link{font-size:16px;}
+
+    /*回到顶部 低于一定宽度条件下，不再需要*/
+    .return_top_tab{display:none !important;}
+}
+
+@media (min-width:640px) and (max-width:871px){
+    /*logo*/
+    .site_header .site_logo{float:left;padding-left:10px;}
+
+    /*导航*/
+    .site_header .site_nav{float:right;}
+    .site_header .nav_list{float:left;}
+    .site_header .nav_item{float:left;width:125px;}
+    .site_header .nav_link{font-size:16px;}
+}
+
+@media (min-width:871px){
+    /*logo*/
+    .site_header .site_logo{float:left;padding-left:10px;}
+
+    /*导航*/
+    .site_header .site_nav{float:right;}
+    .site_header .nav_list{float:left;}
+    .site_header .nav_item{float:left;width:160px;}
+    .site_header .nav_link{font-size:18px;}
+}
