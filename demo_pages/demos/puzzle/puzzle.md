@@ -11,7 +11,7 @@ demoJS: "puzzleGame.js"
 ---
 {% include JB/setup %}
 
-<div class="puzzle_game">
+<div class="puzzle_game demo_heroine">
     <div id="puzzleSet" class="game_core">
         <div class="config">
             <div class="size_set_area">
@@ -31,6 +31,7 @@ demoJS: "puzzleGame.js"
         <p class="step_count_note">step count : <em id="stepCount" class="step_count">0</em></p>
     </div>
 </div>
+<div class="demo_heroine_note">请在宽度大于930px的情况下查看</div>
 
 设置好拼图的尺寸，也就是每行与每列的拼图个数，然后点击“选择图片”按钮，从自己的电脑中选择一张图片。然后，就会得到一个顺序被打乱的拼图。拖动拼图块并交换它们的位置，直到恢复原本的样子。
 

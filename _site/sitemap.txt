@@ -6,6 +6,7 @@ http://acgtofe.com/categories.html
 http://acgtofe.com/demo_pages/demos/brick-breaker/brick.html
 http://acgtofe.com/demo_pages/demos/puzzle/puzzle.html
 http://acgtofe.com/demo_pages/index.html
+http://acgtofe.com/ie6.html
 http://acgtofe.com/index.html
 http://acgtofe.com/sitemap.txt
 http://acgtofe.com/page2/index.html

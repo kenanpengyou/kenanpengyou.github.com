@@ -10,12 +10,13 @@ demoJS: "canvasBrick.js"
 ---
 {% include JB/setup %}
 
-<div class="canvas_brick">
+<div class="canvas_brick demo_heroine">
     <div class="canvas_container">
         <canvas id="brickCanvas" width="640" height="500"></canvas>
         <p id="supportNote">抱歉，你所使用的浏览器不支持canvas</p>
     </div>
 </div>
+<div class="demo_heroine_note">请在宽度大于740px的情况下查看</div>
 
 经典游戏打砖块（Brick Breaker）。
 

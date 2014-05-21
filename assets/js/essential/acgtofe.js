@@ -34,9 +34,19 @@ Modernizr.addTest('positionfixed', function() {
     return ret;
 });
 
-! function($) {
+(function($) {
 
     window.acgtofe = {};
+
+    acgtofe.util = {};
+
+    acgtofe.util.throttle = function(fn, context, time) {
+        var limitTime = time?time: 100;
+        clearTimeout(fn.timeId);
+        fn.timeId = setTimeout(function() {
+            fn.call(context);
+        }, limitTime);
+    };
 
     // return to top
     acgtofe.returnToTop = function() {
@@ -92,8 +102,10 @@ Modernizr.addTest('positionfixed', function() {
         }
 
         function resizeHandler(event) {
-            windowResize = true;
-            controlHandleNode();
+            acgtofe.util.throttle(function(){
+                windowResize = true;
+                controlHandleNode();
+            }, null, 100);
         }
 
         function bindEvents() {
@@ -120,16 +132,51 @@ Modernizr.addTest('positionfixed', function() {
         }
 
         init();
-    }
+    };
+
+    // about notebook background
+    acgtofe.guaranteeNotebook = function(){
+        var Constants = {
+            NODE_CLASS: "notebook_inner",
+            REFER_HEIGHT: 42
+        };
+
+        var bgNode = $("." + Constants.NODE_CLASS),
+        win = $(window);
+
+        function reviseHeight(){
+            var height = bgNode.height(),
+            ProperNumber = Math.ceil(height / Constants.REFER_HEIGHT);
+            bgNode.css("min-height", ProperNumber * Constants.REFER_HEIGHT);
+        }
+
+        function handleWinResize(){
+            acgtofe.util.throttle(reviseHeight, null, 100);
+        }
+
+        function bindEvents(){
+            win.on("resize", handleWinResize);
+        }
+
+        function init(){
+            if(bgNode.length){
+                reviseHeight();
+                bindEvents();
+            }
+        }
+
+        init();
+    };
 
     acgtofe.setup = function() {
         var object = this;
         object.returnToTop();
-    }
+        object.guaranteeNotebook();
+    };
 
     //functions which run after page ready
     $(function() {
         acgtofe.setup();
     });
 
-}(jQuery);
+}(jQuery));

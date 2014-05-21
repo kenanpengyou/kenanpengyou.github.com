@@ -3,11 +3,21 @@
 * brick_style.css
 * 打砖块
 * by liangzhu(kenanpengyou@yeah.net)
-* date 2013-08-03
+* date 2014-05-21
 */
 
-.canvas_brick{width:640px;margin:0 auto;padding-bottom:20px;color:#333;}
+
+.canvas_brick{max-width:640px;margin:0 auto;padding-bottom:20px;color:#333;}
+#brickCanvas{width:640px;height:500px;background:#333 url(brickBackground.png) no-repeat;}
 .brick_title{padding:10px 0;text-align:center;}
 .canvas_container{position:relative;min-height:300px;}
 #supportNote{display:none;position:absolute;width:260px;height:20px;margin:-10px 0 0 -130px;color:#333;font-size:14px;text-align:center;left:50%;top:50%;}
-#brickCanvas{background:#333 url(brickBackground.png) no-repeat;}
+
+@media (max-width:740px){
+    .demo_heroine{display:none;}
+    .demo_heroine_note{display:block;}
+}
+@media (min-width:741px){
+    .demo_heroine{display:block;}
+    .demo_heroine_note{display:none;}
+}

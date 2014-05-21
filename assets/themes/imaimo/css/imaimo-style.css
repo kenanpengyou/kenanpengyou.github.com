@@ -16,6 +16,8 @@ body,dl,dd,ul,ol,h1,h2,h3,h4,h5,h6,form,p{margin:0;}
 body{font:12px/1.125 Arial,Verdana,sans-serif;}
 th,td,h1,h2,h3,h4,h5,h6{font-size:14px;}
 input,textarea,a,button{outline:none;}
+table{border-collapse:collapse;border-spacing:0;}
+th,td{padding:0;}
 input::-moz-focus-inner{border:0;}
 a:hover{text-decoration:underline;}
 .clearfix:after{display:table;clear:both;content:"";}
@@ -68,6 +70,7 @@ code{font-size:15px;}
 .return_top_link{background:url(../images/return_top.png) no-repeat;}
 .demo_cover_container{width:192px;height:120px;}
 .demo_cover{width:192px;height:120px;}
+.author_photo{width:153px;height:153px;}
 
 /* HD */
 @media
@@ -83,6 +86,7 @@ code{font-size:15px;}
     .return_top_link{background:url(../images/return_top_hd.png) no-repeat;background-size:50px 40px;}
     .demo_cover_container{width:96px;height:60px;}
     .demo_cover{width:96px;height:60px;}
+    .author_photo{width:76px;height:76px;}
 }
 
 /*-------图片引用设置 end-------*/
@@ -124,7 +128,7 @@ code{font-size:15px;}
 .posts .icon_post_prefix{display:inline-block;width:22px;height:22px;margin-right:6px;background-position:0 0;vertical-align:text-bottom;}
 .posts .post_title{font-size:17px;line-height:1.8;}
 .posts .post_title_link:hover{color:#b97849;text-decoration:none;}
-.posts .post_info{padding:10px 0 10px 30px;color:#666;font-size:12px;}
+.posts .post_info{color:#666;font-size:12px;}
 .posts .post_preview{padding-top:10px;line-height:1.7;}
 .posts .read_post{padding-top:15px;}
 
@@ -235,7 +239,7 @@ code{font-size:15px;}
 .single_demo_title{color:#99592b;font-size:21px;text-align:center;line-height: 1.6;}
 .single_demo_content{padding:20px 0;word-wrap:break-word;}
 .single_demo_content p{margin-bottom:1.5em;line-height:1.7;}
-.demo_comments{width:570px;padding:10px 0;background:url(../images/separate_line.png) center top no-repeat;}
+.demo_comments{max-width:570px;padding:10px 0;background:url(../images/separate_line.png) center top no-repeat;}
 
 /*-------每一篇demo end-------*/
 
@@ -255,6 +259,7 @@ code{font-size:15px;}
 .demo_title{font-size:17px;line-height:1.4;}
 .demo_title_link:hover{color:#b97849;text-decoration:none;}
 .demo_intro{padding-top:15px;line-height:1.7;}
+.demo_heroine_note{margin-bottom:1.5em;padding:50px 0;border:1px dashed #ef8484;color:#666;text-align:center;}
 .read_demo{padding-top:15px;}
 
 /*分类-categories*/
@@ -267,17 +272,29 @@ code{font-size:15px;}
 .post_link_in_category{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 
 /*关于-about*/
-.notebook_with_about{width:960px;height:620px;background:url(../images/notebook.png) center center no-repeat;}
-.author_intro{float:right;width:340px;padding:86px 82px 0 0;}
-.author_photo_container{text-align:center;}
+.notebook_table{width:100%;table-layout:fixed;}
+.notebook_edge{width:20px;background:#fff url(../images/log_notebook_bottom.png) right bottom no-repeat;}
+.notebook_paper{padding-bottom:47px;background:url(../images/log_notebook_bottom.png) left bottom no-repeat;}
+.notebook{padding-top:10px;background:url(../images/log_notebook_top.png) left top no-repeat;}
+.notebook_inner{padding:0 10px 0 66px;background:url(../images/log_notebook_main.png) left top repeat-y;}
+.intro_content{min-height:449px;padding-top:15px;}
+.site_intro_img{max-width:100%;}
 .author_photo{border:1px solid #bbb;}
-.intro_text{padding:20px 0;line-height:1.7;}
+.intro_text{line-height:1.7;}
 
 /*页面不存在-404*/
 .single_paper_vein{background:url(../images/silk_white_bg.gif) center center repeat;}
 .data_load_sign{width:105px;height:83px;background:url(../images/data_load.png) no-repeat;}
-.data_none_note{width:362px;margin:40px auto 0 auto;padding-top:253px;background:url(../images/404_note.png) center 0 no-repeat;}
-.none_note_handle{padding:50px 15px 0 0;text-align:right;}
+.data_none_note{max-width:362px;margin:40px auto 0 auto;}
+.none_img{max-width:100%;}
+.none_note_handle{padding:30px 15px 0 0;text-align:right;}
+
+/*IE6不再支持*/
+.tips_img_container{padding-top:30px;}
+.browser_tips_container{padding-top:50px;}
+.browser_tips{background:#fff;padding:30px;}
+.tips_article{padding-top:30px;font-size:14px;line-height:1.7;}
+.tips_article p{margin-bottom:1.5em;}
 
 /*-------其他分页的额外样式 end-------*/
 
@@ -308,6 +325,7 @@ html,body{height:100%;}
 
     /*首页文章列表*/
     .posts .read_post{display:none;}
+    .posts .post_info{padding:10px 0 10px 0;}
 
     /*category*/
     .post_date_in_category{display:none;}
@@ -322,9 +340,11 @@ html,body{height:100%;}
     .demo_cover_container{float:left;margin-right:20px;padding:1px;border:1px solid #bbb;}
     .demo_content{overflow:hidden;}
 
+    .posts .post_info{padding:10px 0 10px 30px;}
+
     /*category*/
     .post_date_in_category{float:right;color:#666;}
-    .post_link_in_category{float:left;max-width:400px;}
+    .post_link_in_category{float:left;max-width:300px;}
 
 }
 
@@ -332,7 +352,7 @@ html,body{height:100%;}
 @media (max-width:870px){
 
     /*结构*/
-    .wrapper{max-width:670px;}
+    .wrapper{max-width:700px;}
     .main{margin-bottom:30px;}
     .main_inner{padding:10px 20px 60px 20px;}
     
@@ -345,8 +365,12 @@ html,body{height:100%;}
     .sidebar .sidebar_unit_last{margin-bottom:0;}
     .sidebar .category_item{float:left;width:50%;padding-bottom:10px;}
 
+    /*about*/
+    .site_intro{margin-bottom:40px;}
+    .intro_text{padding:15px 0;}
+
     /*页脚*/
-    .site_footer .footer_wrapper{max-width:670px;}
+    .site_footer .footer_wrapper{max-width:700px;}
 }
 
 /*@media-2-2 分界点870 两栏结构极限*/
@@ -368,12 +392,21 @@ html,body{height:100%;}
     .sidebar .category_item{float:left;width:50%;padding-bottom:10px;}
     .sidebar .avatar_container{text-align:center;}
 
+    /*about*/
+    .site_intro{float:left;width:370px;padding:0 15px;}
+    .author_intro{overflow:hidden;}
+    .author_photo_container{text-align:center;}
+    .intro_text{padding:15px 30px;}
+
+    /*category*/
+    .post_link_in_category{max-width:400px;}
+
     /*页脚*/
     .site_footer .footer_wrapper{max-width:960px;}
 }
 
-/*@media-3-1 导航部分的三段分界 640px*/
-@media (max-width:640px){
+/*@media-3-1 导航部分的三段分界 670px*/
+@media (max-width:670px){
     /*logo*/
     .site_header .site_logo{}
 
@@ -388,7 +421,7 @@ html,body{height:100%;}
     .return_top_tab{display:none !important;}
 }
 
-@media (min-width:640px) and (max-width:871px){
+@media (min-width:670px) and (max-width:871px){
     /*logo*/
     .site_header .site_logo{float:left;padding-left:10px;}
 

@@ -3,11 +3,11 @@
 * puzzle-style.css
 * 拼图游戏的样式
 * by liangzhu(kenanpengyou@yeah.net)
-* date 2013-05-08
+* date 2014-05-21
 */
 
 /*初始宽度*/
-.puzzle_game{width:600px;margin:0 auto;}
+.puzzle_game{max-width:600px;margin:0 auto;}
 
 /*拼图设置*/
 .puzzle_game .config{padding:20px 0;color:#333;font-size:12px;text-align:center;}
@@ -30,3 +30,12 @@
 .puzzle_game .game_info{padding:20px 10px;font-size:14px;text-align:right;}
 .puzzle_game .step_count_note{color:#333;}
 .puzzle_game .step_count{color:#eb5757;}
+
+@media (max-width:930px){
+    .demo_heroine{display:none;}
+    .demo_heroine_note{display:block;}
+}
+@media (min-width:931px){
+    .demo_heroine{display:block;}
+    .demo_heroine_note{display:none;}
+}

@@ -732,7 +732,7 @@
                 gameLevel.create(1);
                 blockAndBall.init();
             }
-        }
+        };
     })(brickModel);
 
     //Controller
@@ -773,7 +773,7 @@
                         y: brickElem.y,
                         width: brickElem.width,
                         height: brickElem.height,
-                        scoreValue: 100,
+                        scoreValue: 100
                     };
                 view.brickCollision(brickName, brickVanishSet);
                 model.setScore(model.getScore() + 100);

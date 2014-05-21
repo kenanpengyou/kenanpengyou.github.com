@@ -3,12 +3,11 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-   <!--[if lte IE 6]><meta http-equiv="refresh" content="0; url=/ie6.html"><![endif]-->
    <link rel="dns-prefetch" href="//fonts.googleapis.com">
    <link rel="dns-prefetch" href="//code.jquery.com">
    <link rel="dns-prefetch" href="//www.google-analytics.com">
    <link rel="dns-prefetch" href="//v1.uyan.cc">
-  
+
    <title>{{ page.title }}{% if page.navflag != 'home' %}{{ site.title_suffix }}{% endif %}</title>
 
    {% if page.description %}
@@ -26,35 +25,16 @@
    <link rel="stylesheet" href="{{ ASSET_PATH }}/css/syntax.css">
    <link rel="stylesheet" href="{{ ASSET_PATH }}/css/imaimo-style.css">
    <link rel="stylesheet" href="{{ ASSET_PATH }}/css/uyan-custom.css">
-   {% include plugin/plugin_css %}
-   {% include extra/extra_css %}
-   {% include demo/demo_css %}
    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Inconsolata">
    <script src="{{ PURE_ASSET_PATH }}/js/essential/respond.min.js"></script>
    <script src="{{ PURE_ASSET_PATH }}/js/essential/modernizr-2.7.1-custom.min.js"></script>
    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
    <script src="{{ PURE_ASSET_PATH }}/js/essential/acgtofe.js"></script>
-   
 </head>
 <body>
 <div class="total_container">
   <div class="wrapper">
-        <header class="site_header">
-            <div class="site_logo">
-                <a class="logo_link" href="{{ HOME_PATH }}" title=""><img class="acgtofe_logo" src="{{ ASSET_PATH }}/images/transparent.gif" alt="{{ site.title }}" /></a>
-            </div>
-            <nav class="site_nav">
-                <ul class="nav_list">
-                    <li class="nav_item{% if page.navflag == 'home' %} nav_current{% endif %}"><a class="nav_link" href="{{ HOME_PATH }}" title="Home">Home<cite class="nav_line"></cite></a></li>
-                    <li class="nav_item{% if page.navflag == 'demo pages' %} nav_current{% endif %}"><a class="nav_link" href="{{ BASE_PATH }}/demo_pages/" title="Demo pages">Demo pages<cite class="nav_line"></cite></a></li>
-                    <li class="nav_item{% if page.navflag == 'about' %} nav_current{% endif %}"><a class="nav_link" href="{{ BASE_PATH }}/about.html" title="About">About<cite class="nav_line"></cite></a></li>    
-                </ul>
-            </nav>
-            <div class="site_top_img"><img class="top_img" src="{{ PURE_ASSET_PATH }}/used-images/wallpaper_top/wallpaper_top_scrawl.jpg" alt="" /></div>
-        </header>
-        <div class="content clearfix">
-            {{ content }}
-        </div>
+        {{ content }}
     </div>
     <div class="footer_placeholder"></div>
 </div>
@@ -67,9 +47,6 @@
     </div>
 </footer>
 <div id="returnTop" class="return_top_tab"><a class="return_top_link" href="javascript:;" title=""></a></div>
-{% include plugin/plugin_js %}
-{% include extra/extra_js %}
-{% include demo/demo_js %}
 {% include JB/analytics %}
 </body>
 </html>
