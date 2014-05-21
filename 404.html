@@ -1,12 +1,14 @@
 ---
-layout: default
+layout: pure
 title: 页面不存在
 ---
-{% include custom/setup %}
-<div class="single_paper single_paper_vein">
-    <div class="data_load_sign"></div>
-    <div class="data_none_note">
-    	<div class="none_img_container"><img class="none_img" src="{{ BASE_PATH }}/assets/themes/imaimo/images/404_note.png" alt=""></div>
-    	<p class="none_note_handle"><a class="none_note_link" href="{{ site.production_url }}" title="">返回首页 &raquo;</a></p>
+{% include JB/setup %}
+<div class="pure_content_container">
+    <div class="single_paper single_paper_vein">
+        <div class="data_load_sign"></div>
+        <div class="data_none_note">
+        	<div class="none_img_container"><img class="none_img" src="{{ PURE_ASSET_PATH }}/themes/imaimo/images/404_note.png" alt="404 Error"></div>
+        	<p class="none_note_handle"><a class="none_note_link" href="{{ site.production_url }}" title="">返回首页 &raquo;</a></p>
+        </div>
     </div>
 </div>

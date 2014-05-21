@@ -283,6 +283,7 @@ code{font-size:15px;}
 .intro_text{line-height:1.7;}
 
 /*页面不存在-404*/
+.pure_content_container{padding-top:50px;}
 .single_paper_vein{background:url(../images/silk_white_bg.gif) center center repeat;}
 .data_load_sign{width:105px;height:83px;background:url(../images/data_load.png) no-repeat;}
 .data_none_note{max-width:362px;margin:40px auto 0 auto;}
@@ -291,7 +292,6 @@ code{font-size:15px;}
 
 /*IE6不再支持*/
 .tips_img_container{padding-top:30px;}
-.browser_tips_container{padding-top:50px;}
 .browser_tips{background:#fff;padding:30px;}
 .tips_article{padding-top:30px;font-size:14px;line-height:1.7;}
 .tips_article p{margin-bottom:1.5em;}
