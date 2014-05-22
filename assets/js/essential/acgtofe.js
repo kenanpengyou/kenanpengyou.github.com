@@ -145,9 +145,13 @@ Modernizr.addTest('positionfixed', function() {
         win = $(window);
 
         function reviseHeight(){
-            var height = bgNode.height(),
-            ProperNumber = Math.ceil(height / Constants.REFER_HEIGHT);
-            bgNode.css("min-height", ProperNumber * Constants.REFER_HEIGHT);
+            var height = 0,
+            properNumber = 0;
+
+            bgNode.css("min-height", "none");
+            height = bgNode.height();
+            properNumber = Math.ceil(height / Constants.REFER_HEIGHT);
+            bgNode.css("min-height", properNumber * Constants.REFER_HEIGHT);
         }
 
         function handleWinResize(){
