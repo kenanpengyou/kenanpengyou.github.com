@@ -4,13 +4,139 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/atom.xml" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2014-05-24T16:35:16+08:00</updated>
+ <updated>2014-06-28T23:29:55+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>详述css中的百分比值</title>
+   <link href="http://acgtofe.com/posts/2014/06/percentage-in-css"/>
+   <updated>2014-06-28T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2014/06/percentage-in-css</id>
+   <content type="html">&lt;p&gt;很多css属性的取值都可以是百分比值。虽然形式上来说，百分比值都是数字后跟&lt;code&gt;%&lt;/code&gt;的形式（注意数字和&lt;code&gt;%&lt;/code&gt;之间不可以有空格），但在不同的使用场合下，其意义会有很多不同。因此，百分比值可以说包含了相当丰富的内容。&lt;/p&gt;
+
+&lt;h2&gt;百分比值是相对值&lt;/h2&gt;
+
+&lt;p&gt;要理解诸如&lt;code&gt;100%&lt;/code&gt;这样的百分比值，其关键点是要明白，百分比是一定有其对应的参照值的。也就是说，&lt;em&gt;百分比值是一种相对值，任何时候要分析它的效果，都需要正确找到它的参照&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;一个css属性值从定义到最终实际使用，是存在一个过程的。这其中涉及到Specified Values（指定值）、Computed Values（计算值）、 Used Values（使用值）、Actual Values（实际值）等概念，可以想见到，百分比值实际会在这个过程中，根据它的参照计算转化为一个绝对值（比如&lt;code&gt;100px&lt;/code&gt;），然后再被应用。这就是百分比值的意义。&lt;/p&gt;
+
+&lt;p&gt;更多关于css属性值的处理过程的信息，可以查看&lt;a href=&quot;http://dev.w3.org/csswg/css-cascade/#value-stages&quot; title=&quot;CSS Cascading and Inheritance Level 3 - Value Processing&quot;&gt;Value Processing&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2&gt;百分比值的作用？&lt;/h2&gt;
+
+&lt;p&gt;简单地说，就是可变性。这可以衍生出自适应、响应式等看起来很有用的东西。&lt;/p&gt;
+
+&lt;p&gt;比如说，一个固定宽高的盒子，然后希望盒子内有一个绝对定位的，宽高和盒子一样的盖板（就这样称呼吧...），下面这样的写法会很合适：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.box_cover&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里使用百分比值的好处的是，如果需要修改盒子的尺寸，只需要修改盒子的宽高，而盖板会自动保持和盒子的尺寸一致。&lt;/p&gt;
+
+&lt;p&gt;再一个例子是&lt;a href=&quot;http://getbootstrap.com/&quot; title=&quot;Bootstrap&quot;&gt;Bootstrap&lt;/a&gt;的栅格系统：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201406/bootstrap_grid.png&quot; title=&quot;Bootstrap的栅格系统&quot; alt=&quot;Bootstrap的栅格系统&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到，栅格系统里会用到百分比值来实现确切的对空间的划分。百分比值是相对的，自适应的，因此栅格系统可以很好地用于响应式设计。&lt;/p&gt;
+
+&lt;h2&gt;可用百分比值的常见css属性&lt;/h2&gt;
+
+&lt;h3&gt;width &amp;amp; height&lt;/h3&gt;
+
+&lt;p&gt;宽和高在使用百分比值时，其参照都是元素的包含块（Containing Block，&lt;a href=&quot;http://www.w3help.org/zh-cn/kb/008/&quot; title=&quot;KB008: 包含块( Containing block )  - W3Help&quot;&gt;详情&lt;/a&gt;）。&lt;code&gt;width&lt;/code&gt;参照包含块的宽度，&lt;code&gt;height&lt;/code&gt;参照包含块的高度。在大部分情况下，包含块就是父元素的内容区（盒模型里的content）。&lt;/p&gt;
+
+&lt;p&gt;我以前写过&lt;code&gt;width:100%; height:100%;&lt;/code&gt;这样的代码来实现尺寸和父元素一致。但我发现有时候宽度是符合意思（100%）的，但高度却没有效果。请看下面这个示例：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201406/height_percentage_issue.png&quot; title=&quot;height的百分比值测试&quot; alt=&quot;height的百分比值测试&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到，直接父元素（包含块）是否有明确的高度定义，会影响&lt;code&gt;height&lt;/code&gt;为百分比值时的结果。&lt;/p&gt;
+
+&lt;p&gt;关于这一点的详细解释是，&lt;em&gt;当一个元素的高度使用百分比值，如果其包含块没有明确的高度定义（也就是说，取决于内容高度），且这个元素不是绝对定位，则该百分比值等同于&lt;code&gt;auto&lt;/code&gt;&lt;/em&gt;。&lt;code&gt;auto&lt;/code&gt;是初始默认值，所以看起来就像是“失效”了。&lt;/p&gt;
+
+&lt;p&gt;如果元素是根元素（&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;），它的包含块是视口（viewport）提供的初始包含块（initial containing block），初始包含块任何时候都被认为是有高度定义的，且等于视口高度。所以，&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;标签的高度定义百分比总是有效的，而如果你希望在&lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt;里也用高度百分比，就一定要先为&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;定义明确的高度。这就是为什么在之前的&lt;a href=&quot;http://acgtofe.com/posts/2013/03/sticky-footer/&quot; title=&quot;简单实现固定在页面底部的页脚 - acgtofe&quot;&gt;固定页脚&lt;/a&gt;一文中，有&lt;code&gt;html, body{height:100%;}&lt;/code&gt;这样的写法。&lt;/p&gt;
+
+&lt;h3&gt;margin &amp;amp; padding&lt;/h3&gt;
+
+&lt;p&gt;这2个属性属于混合属性，也通过一个例子说明：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201406/margin_padding_percentage.png&quot; title=&quot;margin和padding的百分比值测试&quot; alt=&quot;margin和padding的百分比值测试&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以分析得到，&lt;em&gt;对于&lt;code&gt;margin&lt;/code&gt;和&lt;code&gt;padding&lt;/code&gt;，其任意方向的百分比值，参照都是包含块的宽度&lt;/em&gt;。&lt;/p&gt;
+
+&lt;p&gt;为什么会多个方向都取包含块的宽度作为参照呢？在我看来，包含块的宽度在块布局的排版中是最有用的（想象一下word里输入文字，到宽度边缘后换行的场景），对应的，水平方向的内外边距一定要参照包含块的宽度。再考虑垂直方向的内外边距，它们如果不和水平方向取相同的参照物，就会因为不一致而很难使用。所以，总体来说，统一以包含块的宽度作为参考，会具有相对最好的可用性。&lt;/p&gt;
+
+&lt;p&gt;严格地说，参照是包含块的宽度，是在样式属性&lt;code&gt;writing-mode&lt;/code&gt;为默认值时的情况。不过这个属性极少被用到，所以在此不做考虑。&lt;/p&gt;
+
+&lt;h3&gt;border-radius&lt;/h3&gt;
+
+&lt;p&gt;你也许见过有人用下面的代码来让一个矩形变成刚好的圆形（请体会这个“刚好”）：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;radius&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;对此的解释是，&lt;em&gt;为一个元素的&lt;code&gt;border-radius&lt;/code&gt;定义的百分比值，参照物是这个元素自身的尺寸&lt;/em&gt;。也就是说，假如这个元素宽是60px，高是50px（border-box的尺寸），那么&lt;code&gt;border-radius:50%&lt;/code&gt;的结果等同于&lt;code&gt;border-radius:30px/20px;&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;如果你还疑惑这里带&lt;code&gt;/&lt;/code&gt;的圆角写法，请查看&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius&quot; title=&quot;border-radius - CSS | MDN&quot;&gt;MDN对border-radius的说明&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h3&gt;background-position&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;background-position&lt;/code&gt;的初始值就是百分比值&lt;code&gt;0% 0%&lt;/code&gt;。下面是一个使用示例：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201406/background_position_percentage.png&quot; title=&quot;background-position百分比值示例&quot; alt=&quot;background-position百分比值示例&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;code&gt;background-position&lt;/code&gt;的百分比值，取的参照是一个减法计算值，由放置背景图的区域尺寸，减去背景图的尺寸得到，可以为负值&lt;/em&gt;。对照上面的示例，思考一下，应该可以感受到，以这个减法计算值为参照的话，正好可以符合我们感官上对背景图位置的理解。&lt;/p&gt;
+
+&lt;p&gt;这个属性包括水平位置和垂直位置，它们分别参照的是宽度减法计算值和高度减法计算值。&lt;/p&gt;
+
+&lt;p&gt;你可能注意到了上面示例的最后一个竟然写了4个值（一般都只用2个值）。关于它的意义，请查看&lt;a href=&quot;http://www.w3.org/TR/css3-background/#background-position&quot; title=&quot;CSS Backgrounds and Borders Module Level 3 - background-position&quot;&gt;W3C的background-position&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h3&gt;font-size&lt;/h3&gt;
+
+&lt;p&gt;参照是直接父元素的&lt;code&gt;font-size&lt;/code&gt;。例如，一个元素的直接父元素的&lt;code&gt;font-size&lt;/code&gt;是&lt;code&gt;14px&lt;/code&gt;，无论这个是直接定义的，还是继承得到的，当该元素定义&lt;code&gt;font-size:100%;&lt;/code&gt;，获得的效果就是&lt;code&gt;font-size:14px;&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3&gt;line-height&lt;/h3&gt;
+
+&lt;p&gt;参照是元素自身的&lt;code&gt;font-size&lt;/code&gt;。例如，一个元素的&lt;code&gt;font-size&lt;/code&gt;是&lt;code&gt;12px&lt;/code&gt;，那么&lt;code&gt;line-height:150%;&lt;/code&gt;的效果是&lt;code&gt;line-height:18px;&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3&gt;vertical-align&lt;/h3&gt;
+
+&lt;p&gt;参照是元素自身的&lt;code&gt;line-height&lt;/code&gt;（和前面很有关联吧，所以我排在了这里）。例如，一个元素的&lt;code&gt;line-height&lt;/code&gt;是&lt;code&gt;30px&lt;/code&gt;，则&lt;code&gt;vertical-align:10%;&lt;/code&gt;的效果是&lt;code&gt;vertical-align:3px;&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;对这个属性我还想说，尽管&lt;code&gt;vertical-align&lt;/code&gt;可以使用数字，百分比值，但浏览器兼容性差异较大，在跨浏览器实现时可能需要较多hack。因此，我个人倾向于使用&lt;code&gt;middle&lt;/code&gt;等相对来说兼容性差异较小的关键字类型的值。&lt;/p&gt;
+
+&lt;h3&gt;定位用的bottom、left、right、top&lt;/h3&gt;
+
+&lt;p&gt;参照是元素的包含块。&lt;code&gt;left&lt;/code&gt;和&lt;code&gt;right&lt;/code&gt;是参照包含块的宽度，&lt;code&gt;bottom&lt;/code&gt;和&lt;code&gt;top&lt;/code&gt;是参照包含块的高度。&lt;/p&gt;
+
+&lt;h3&gt;transform: translate&lt;/h3&gt;
+
+&lt;p&gt;平移变换，在水平方向和垂直方向上也可以使用百分比，其参照是变换的边界框的尺寸（等于这个元素自己的border-box尺寸）。例如，一个宽度为&lt;code&gt;150px&lt;/code&gt;，高度为&lt;code&gt;100px&lt;/code&gt;的元素，定义&lt;code&gt;transform:translate(50%, 50%)&lt;/code&gt;的效果是&lt;code&gt;transform:translate(75px, 50px);&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;还可以补充一点，&lt;code&gt;translate3d&lt;/code&gt;对应是还有第三个维度的，但是，经过测试，最后的第3个值不可以使用百分比（否则样式定义无效）。至于为什么不可以参照呢，大概是因为那是神秘的第三维度吧...&lt;/p&gt;
+
+&lt;h3&gt;其他&lt;/h3&gt;
+
+&lt;p&gt;如果你想要知道更多的百分比值在css属性中的可用情况及参照值，请参考&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_percentage_values&quot; title=&quot;CSS percentage values - CSS | MDN&quot;&gt;MDN的CSS percentage values&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2&gt;百分比值的继承&lt;/h2&gt;
+
+&lt;p&gt;请注意，&lt;em&gt;当百分比值用于可继承属性时，只有结合参照值计算后的绝对值会被继承，而不是百分比值本身&lt;/em&gt;。例如，一个元素的&lt;code&gt;font-size&lt;/code&gt;是&lt;code&gt;14px&lt;/code&gt;，并定义了&lt;code&gt;line-height:150%;&lt;/code&gt;，那么该元素的下一级子元素继承到的&lt;code&gt;line-height&lt;/code&gt;就是&lt;code&gt;21px&lt;/code&gt;，而不会再和子元素自己的&lt;code&gt;font-size&lt;/code&gt;有关。&lt;/p&gt;
+
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;好不容易终于看完了这么多百分比值的用法，有兴趣要使用一些吗？(・-・*)&lt;/p&gt;
+
+&lt;p&gt;我自己的看法是，&lt;em&gt;百分比值是css所提供的一种建立元素与元素之间，或者元素的不同属性之间的关联性的有效方法&lt;/em&gt;。只要是想建立一种关联性，都可以适当考虑使用百分比值。而且，不需自己做任何动态的事件处理和更新，任何时候，你都可以信赖这个百分比。&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>新的acgtofe：手机和平板也可以！</title>
@@ -663,8 +789,9 @@
 
 &lt;p&gt;宫内莲华在主角4人中年龄最小，只是一名小学一年级生。也许是年龄的缘故，莲华和大家的感性认知有很大不同。同时，也和这个年龄阶段的小孩一样，莲华对许多事物都充满好奇，无论什么都想试试。莲华有和大家不同频道的想象力，一直很电波地用“喵~帕斯”（にゃんぱすー，大致读作nyan~pass）问好。说话有时候给人一种很经过思考的感觉，但实际上含义很单纯，充满童真的乐趣。&lt;/p&gt;
 
-&lt;p&gt;初中一年级的越谷夏海给人一种非常活泼的感觉，常常是各种话题的发起者，很喜欢恶作剧，尤其是自己的姐姐小鞠。不太热心学习，很贪玩，算是让母亲最无可奈何的一个。虽然对某些方面有着意外丰富的知识，但往往对自己的能力过于自信，以至于发生自己计划之外的事（请叫做 zuo si ）。
-&lt;img src=&quot;/assets/used-images/posts/201401/nyanpass_bg_4.jpg&quot; title=&quot;风景-冬&quot; alt=&quot;风景-冬&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;初中一年级的越谷夏海给人一种非常活泼的感觉，常常是各种话题的发起者，很喜欢恶作剧，尤其是自己的姐姐小鞠。不太热心学习，很贪玩，算是让母亲最无可奈何的一个。虽然对某些方面有着意外丰富的知识，但往往对自己的能力过于自信，以至于发生自己计划之外的事（请叫做 zuo si ）。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201401/nyanpass_bg_4.jpg&quot; title=&quot;风景-冬&quot; alt=&quot;风景-冬&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;越谷小鞠是夏海的姐姐，相对说来要乖巧很多。很特别的一点是，明明已经初中二年级，身为全校学生中的“学姐”，却从体型到性格都非常地像小孩。同时，小鞠憧憬成熟女性的魅力，因此常常会刻意地装作一个可靠的大人（这里就交给姐姐我吧！），但实际上修为严重不足，因此不管怎么看...都显得非常可爱！&lt;/p&gt;
 
