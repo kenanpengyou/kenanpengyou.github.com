@@ -14,6 +14,7 @@ http://acgtofe.com/page3/index.html
 http://acgtofe.com/page4/index.html
 http://acgtofe.com/page5/index.html
 
+http://acgtofe.com/posts/2014/07/toolkit-in-yui
 http://acgtofe.com/posts/2014/06/percentage-in-css
 http://acgtofe.com/posts/2014/05/new-acgtofe-with-responsive-design
 http://acgtofe.com/posts/2014/04/text-truncation
