@@ -2,19 +2,20 @@
 http://acgtofe.com/404.html
 http://acgtofe.com/about.html
 http://acgtofe.com/atom.xml
-http://acgtofe.com/categories.html
 http://acgtofe.com/demo_pages/demos/brick-breaker/brick.html
-http://acgtofe.com/demo_pages/demos/puzzle/puzzle.html
-http://acgtofe.com/demo_pages/index.html
+http://acgtofe.com/categories.html
 http://acgtofe.com/ie6.html
 http://acgtofe.com/index.html
+http://acgtofe.com/demo_pages/index.html
+http://acgtofe.com/demo_pages/demos/puzzle/puzzle.html
 http://acgtofe.com/sitemap.txt
 http://acgtofe.com/page2/index.html
 http://acgtofe.com/page3/index.html
 http://acgtofe.com/page4/index.html
 http://acgtofe.com/page5/index.html
 
-http://acgtofe.com/posts/2014/07/toolkit-in-yui
+http://acgtofe.com/posts/2014/08/a-tale-of-date
+http://acgtofe.com/posts/2014/07/object-toolkit-in-yui
 http://acgtofe.com/posts/2014/06/percentage-in-css
 http://acgtofe.com/posts/2014/05/new-acgtofe-with-responsive-design
 http://acgtofe.com/posts/2014/04/text-truncation
