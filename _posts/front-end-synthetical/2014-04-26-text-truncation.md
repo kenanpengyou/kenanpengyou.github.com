@@ -2,7 +2,6 @@
 layout: post
 title: "前端也要做文字截断！"
 category: "前端综合"
-published: true
 description: "一切都是排版美观的需要。只要是为了出色的排版，文字截断也是可以的！"
 extraCSS: ["posts/201404/text-truncation.css"]
 extraJS: ["posts/201404/text-truncation.js"]
