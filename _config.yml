@@ -3,7 +3,6 @@
 permalink: /posts/:year/:month/:title
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-# pygments: true
 highlighter: pygments
 markdown: rdiscount
 paginate: 5
@@ -85,6 +84,7 @@ JB :
   archive_path: /index.html
   categories_path : /categories.html
   tags_path : /tags.html
+  atom_path : /atom.xml
 
   # Setting for custom method In Jekyll-Bootstrap
   # Liang Zhu(kenanpengyou@gmail.com)
