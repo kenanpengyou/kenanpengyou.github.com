@@ -283,7 +283,7 @@ code{font-size:15px;}
 .intro_text{line-height:1.7;}
 
 /*页面不存在-404*/
-.pure_content_container{padding-top:50px;}
+.pure_content_container{padding:50px 0 40px 0;}
 .single_paper_vein{background:url(../images/silk_white_bg.gif) center center repeat;}
 .data_load_sign{width:105px;height:83px;background:url(../images/data_load.png) no-repeat;}
 .data_none_note{max-width:362px;margin:40px auto 0 auto;}
