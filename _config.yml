@@ -4,6 +4,7 @@ permalink: /posts/:year/:month/:title
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 highlighter: pygments
+# highlighter: false
 markdown: rdiscount
 paginate: 5
 

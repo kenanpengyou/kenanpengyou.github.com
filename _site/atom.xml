@@ -4,13 +4,210 @@
  <title>acgtofe - 动漫与前端技术的综合博客</title>
  <link href="http://acgtofe.com/" rel="self"/>
  <link href="http://acgtofe.com"/>
- <updated>2014-08-25T20:58:22+08:00</updated>
+ <updated>2014-09-29T18:12:27+08:00</updated>
  <id>http://acgtofe.com</id>
  <author>
    <name>Liang Zhu</name>
    <email>kenanpengyou@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>值得参考的css理论：OOCSS、SMACSS与BEM</title>
+   <link href="http://acgtofe.com/posts/2014/09/valuable-theories-of-css"/>
+   <updated>2014-09-30T00:00:00+08:00</updated>
+   <id>http://acgtofe.com/posts/2014/09/valuable-theories-of-css</id>
+   <content type="html">&lt;p&gt;最近在&lt;a href=&quot;http://thesassway.com/&quot; title=&quot;The Sass Way&quot;&gt;The Sass Way&lt;/a&gt;里看到了&lt;a href=&quot;http://thesassway.com/advanced/modular-css-typography&quot; title=&quot;Modular CSS typography&quot;&gt;Modular CSS typography&lt;/a&gt;一文，发现文章在开头部分就提到了&lt;strong&gt;OOCSS&lt;/strong&gt;、&lt;strong&gt;SMACSS&lt;/strong&gt;、&lt;strong&gt;BEM&lt;/strong&gt;、这3个词。“如果还不知道这些是什么，请先不要继续看下去”，联想到作者这样友好（gāo lěng）的提醒，作为围观群众，自然要有所回应。所以，本文在这里分别介绍它们。&lt;/p&gt;
+
+&lt;p&gt;OOCSS、SMACSS及BEM都是有关css的方法论（准确地说，其中BEM应该是一个完整的前端开发理论，不仅限于css），可作为实现优秀css架构（css architecture）的指南。&lt;/p&gt;
+
+&lt;p&gt;css易于理解，但应用和维护不简单。在各种开发情景下，css都可能成为一个问题点。因此，我们编写和组织css应认真、用心，也即优秀css架构的要求。&lt;/p&gt;
+
+&lt;h2&gt;OOCSS&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/stubbornella/oocss/wiki&quot; title=&quot;Home · stubbornella/oocss Wiki&quot;&gt;OOCSS&lt;/a&gt;&lt;/strong&gt;（&lt;strong&gt;Object Oriented CSS&lt;/strong&gt;），字面意思是&lt;strong&gt;面向对象的CSS&lt;/strong&gt;，是由Nicole Sullivan提出的css理论，其主要的两个原则是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Separate structure and skin（分离结构和主题）&lt;/li&gt;
+&lt;li&gt;Separate container and content（分离容器和内容）&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;用一个例子来说明。请看下面这样的图文排列：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/used-images/posts/201409/oocss_media.png&quot; title=&quot;oocss示例&quot; alt=&quot;oocss示例&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;media media-shadow&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;media-image-container&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;media-image&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;rean.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;media-body&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;media-text&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;本作的主角，帝国北部地方贵族施瓦泽男爵的养子，也是托尔兹士官学校特科班“Ⅶ组”的成员。&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.media&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;both&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.media-image-container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;margin-right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.media-image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.media-body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.media-shadow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shadow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3px&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面这段代码用&lt;code&gt;media&lt;/code&gt;表示了这种图文排列的页面元素。如果把构成它的html、css及javascript（如果有）看做一个整体，那就相当于这是一个元件，或者说对象（object）。它可以在站点的任何地方被重用。&lt;/p&gt;
+
+&lt;p&gt;这样是如何体现OOCSS的两个原则的呢？&lt;/p&gt;
+
+&lt;h3&gt;Separate structure and skin&lt;/h3&gt;
+
+&lt;p&gt;分离结构和主题是在于将一些视觉样式效果（例如&lt;code&gt;background&lt;/code&gt;、&lt;code&gt;color&lt;/code&gt;）作为单独的“主题”来应用。在上面的例子中的阴影效果，没有被直接写在&lt;code&gt;media&lt;/code&gt;的样式规则内，而是被单独写在了一个名为&lt;code&gt;media-shadow&lt;/code&gt;的class中。因此，它成为了可选择、可拆分的主题。如果不需要对应主题，什么也不要加，如果需要，加上对应的class，就是这样的思路。&lt;/p&gt;
+
+&lt;h3&gt;Separate container and content&lt;/h3&gt;
+
+&lt;p&gt;分离容器和内容要求使页面元素不依赖于其所处位置。在上面的例子中，css的选择符都很短，无继承选择符（例如&lt;code&gt;.header .media&lt;/code&gt;），所以，这个图文排列的元件，可以在任何地方使用，且会有一致的外观。&lt;/p&gt;
+
+&lt;p&gt;如果需要在特定的地方让这个元件看起来不一样一些，继续为这个元件增加class，将“不一样的部分”作为可配置的选项。元件的外观仍不依赖其所处位置。&lt;/p&gt;
+
+&lt;h3&gt;操作指南&lt;/h3&gt;
+
+&lt;p&gt;可以看出，OOCSS风格的css可以描述为两点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;增加class&lt;/li&gt;
+&lt;li&gt;不使用继承选择符&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体内容。&lt;/p&gt;
+
+&lt;h2&gt;SMACSS&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://smacss.com/&quot; title=&quot;Home - Scalable and Modular Architecture for CSS&quot;&gt;SMACSS&lt;/a&gt;&lt;/strong&gt;（&lt;strong&gt;Scalable &amp;amp; Modular Architecture for CSS&lt;/strong&gt;），是由&lt;a href=&quot;http://snook.ca/&quot; title=&quot;snook.ca&quot;&gt;Jonathan Snook&lt;/a&gt;提出的css理论。其主要原则有3条：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Categorizing CSS Rules（为css分类）&lt;/li&gt;
+&lt;li&gt;Naming Rules（命名规则）&lt;/li&gt;
+&lt;li&gt;Minimizing the Depth of Applicability（）&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;这些原则分别是什么意思呢？&lt;/p&gt;
+
+&lt;h3&gt;Categorizing CSS Rules&lt;/h3&gt;
+
+&lt;p&gt;这一点是SMACSS的核心。SMACSS认为css有5个类别，分别是：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Base&lt;/li&gt;
+&lt;li&gt;Layout（Major Components）&lt;/li&gt;
+&lt;li&gt;Module（Minor Components）&lt;/li&gt;
+&lt;li&gt;State&lt;/li&gt;
+&lt;li&gt;Theme&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Base Rules&lt;/strong&gt;，&lt;strong&gt;基础样式&lt;/strong&gt;，描述的是任何场合下，页面元素的默认外观。它的定义不会用到class和ID。css reset也属于此类。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Layout Rules&lt;/strong&gt;，&lt;strong&gt;布局样式&lt;/strong&gt;。它和后面的Module Rules一同，描述的是页面中的各类具体元素。元素是有层次级别之分的，Layout Rules属于较高的一层，它可以作为层级较低的Module Rules元素的容器。左右分栏、栅格系统等都属于布局样式。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Module Rules&lt;/strong&gt;，&lt;strong&gt;模块样式&lt;/strong&gt;。它可以是一个产品列表，一个导航条。一般来说，Module Rules定义的元素放置于前面说的Layout Rules元素之内。模块是独立的，可以在各种场合重用。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;State Rules&lt;/strong&gt;，&lt;strong&gt;状态样式&lt;/strong&gt;，描述的是任一元素在特定状态下的外观。例如，一个消息框可能有&lt;code&gt;success&lt;/code&gt;和&lt;code&gt;error&lt;/code&gt;两种状态，导航条中的任一项都可能有&lt;code&gt;current&lt;/code&gt;状态。&lt;/p&gt;
+
+&lt;p&gt;继续OOCSS中的例子，下面新增的让元素不显示的&lt;code&gt;is-hidden&lt;/code&gt;就属于State Rules：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;media media-shadow is-hidden&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    ...
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.is-hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Theme Rules&lt;/strong&gt;，&lt;strong&gt;主题样式&lt;/strong&gt;，描述了页面主题外观，一般是指颜色、背景图。Theme Rules可以修改前面4个类别的样式，且应和前面4个类别分离开来（便于切换，也就是“换肤”）。SMACSS的Theme Rules不要求使用单独的class命名，也就是说，你可以在Module Rules中定义&lt;code&gt;.mod { }&lt;/code&gt;然后在Theme Rules中也用&lt;code&gt;.mod { }&lt;/code&gt;来定义需要修改的部分。&lt;/p&gt;
+
+&lt;h2&gt;Naming Rules&lt;/h2&gt;
+
+&lt;p&gt;Naming Rules是说在想class等的命名时，考虑用命名体现样式对应的类别。&lt;/p&gt;
+
+&lt;p&gt;按照前面5种的划分，Layout Rules用&lt;code&gt;l-&lt;/code&gt;或&lt;code&gt;layout-&lt;/code&gt;这样的前缀，例如：&lt;code&gt;.l-header&lt;/code&gt;、&#39;.l-sidebar&#39;。&lt;/p&gt;
+
+&lt;p&gt;Module Rules用模块本身的命名，例如图文排列的&lt;code&gt;.media&lt;/code&gt;、&lt;code&gt;.media-image&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;State Rules用&lt;code&gt;is-&lt;/code&gt;前缀，例如：&lt;code&gt;.is-active&lt;/code&gt;、&lt;code&gt;.is-hidden&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;Theme Rules如果作为单独class，用&lt;code&gt;theme-&lt;/code&gt;前缀，例如&lt;code&gt;.theme-a-background&lt;/code&gt;、&lt;code&gt;.theme-a-shadow&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;Base Rules不会用到class和ID，是以标签选择符为主的样式，例如&lt;code&gt;p&lt;/code&gt;、&lt;code&gt;a&lt;/code&gt;，无需命名。&lt;/p&gt;
+
+&lt;p&gt;命名规则不需要严格遵守，可以根据实际情况和自身喜好做其他的约定。记录自己的约定（写文档），然后遵守，就是可行的。&lt;/p&gt;
+
+&lt;h3&gt;Minimizing the Depth of Applicability&lt;/h3&gt;
+
+&lt;p&gt;字面翻译是最小化适配深度。通过一个简单的描述来说明：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;c&quot;&gt;/* depth 1 */&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.sidebar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;ul&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;h3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;/* depth 2 */&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.sub-title&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上下两端css的区别在于html和css的&lt;strong&gt;耦合度&lt;/strong&gt;。可以想到，由于上面的样式规则使用了继承选择符，因此对于html的结构实际是有一定依赖的。如果把&lt;code&gt;h3&lt;/code&gt;元素搬到另一个位置，就有可能不再具有这些样式。对应的，下面的样式规则只有一个选择符，因此不依赖于特定html结构，只要为元素添加class，就可以获得对应样式。&lt;/p&gt;
+
+&lt;p&gt;当然，继承选择符是有用的，它可以减少因相同命名引发的样式冲突（常发生于多人协作开发）。但是，我们不应过度使用，在不造成样式冲突的允许范围之内，尽可能使用短的、不限定html结构的选择符。这就是SMACSS的最小化适配深度的意义。&lt;/p&gt;
+
+&lt;p&gt;看起来，这一点和OOCSS的分离容器和内容的原则非常相似。&lt;/p&gt;
+
+&lt;h3&gt;主要目标&lt;/h3&gt;
+
+&lt;p&gt;SMACSS着力于实现两个主要目标：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;更语义化的html和css&lt;/li&gt;
+&lt;li&gt;降低对特定html结构的依赖&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;BEM&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://bem.info/&quot; title=&quot;BEM. Block, Element, Modifier&quot;&gt;BEM&lt;/a&gt;&lt;/strong&gt;，即&lt;strong&gt;Block&lt;/strong&gt;，&lt;strong&gt;Element&lt;/strong&gt;，&lt;strong&gt;Modifier&lt;/strong&gt;，是由&lt;a href=&quot;http://www.yandex.com/&quot; title=&quot;Yandex&quot;&gt;Yandex&lt;/a&gt;（俄罗斯最著名的互联网企业）的开发团队提出的前端开发理论。&lt;/p&gt;
+
+&lt;h2&gt;提纲&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;nested selector 功能层次过多。效率，维护修改的问题。和HTML对应的sass层次，结果使得html和css耦合了（还记得css的初衷是内容和样式分离吗？）&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;在之前，我只大概地了解过OOCSS，而另外2个是完全没有印象的。&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Date类型：了解日期和时间</title>

@@ -13,7 +13,9 @@ http://acgtofe.com/page2/index.html
 http://acgtofe.com/page3/index.html
 http://acgtofe.com/page4/index.html
 http://acgtofe.com/page5/index.html
+http://acgtofe.com/page6/index.html
 
+http://acgtofe.com/posts/2014/09/valuable-theories-of-css
 http://acgtofe.com/posts/2014/08/a-tale-of-date
 http://acgtofe.com/posts/2014/07/object-toolkit-in-yui
 http://acgtofe.com/posts/2014/06/percentage-in-css
