@@ -2,7 +2,7 @@
 layout: post
 title: "值得参考的css理论：OOCSS、SMACSS与BEM"
 category: "css"
-description: ""
+description: "css语言易于入门，但本身比较脆弱，如果不做有序的组织，很快就会变得难以维护。OOCSS、SMACSS和BEM都是帮助组织css的优秀理论，值得做一些了解。"
 ---
 {% include JB/setup %}
 
@@ -10,7 +10,7 @@ description: ""
 
 OOCSS、SMACSS及BEM都是有关css的方法论（准确地说，其中BEM应该是一个完整的前端开发理论，不仅限于css），可作为实现优秀css架构（css architecture）的指南。
 
-css易于理解，但应用和维护不简单。在各种开发情景下，css都可能成为一个问题点。因此，我们编写和组织css应认真、用心，也即优秀css架构的要求。
+css易于理解，但应用和维护并不简单。在各种开发情景下，css都可能成为一个问题点。因此，我们编写和组织css应认真、用心。
 
 ##OOCSS##
 
@@ -68,7 +68,7 @@ css易于理解，但应用和维护不简单。在各种开发情景下，css�
 
 ###Separate container and content###
 
-分离容器和内容要求使页面元素不依赖于其所处位置。在上面的例子中，css的选择符都很短，无继承选择符（例如`.header .media`），所以，这个图文排列的元件，可以在任何地方使用，且会有一致的外观。
+分离容器和内容要求使页面元素不依赖于其所处位置。在上面的例子中，css的选择符都很短，无继承选择符（例如`.header .media { }`），所以，这个图文排列的元件，可以在任何地方使用，且会有一致的外观。
 
 如果需要在特定的地方让这个元件看起来不一样一些，继续为这个元件增加class，将“不一样的部分”作为可配置的选项。元件的外观仍不依赖其所处位置。
 
@@ -87,7 +87,7 @@ OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体�
 
 - Categorizing CSS Rules（为css分类）
 - Naming Rules（命名规则）
-- Minimizing the Depth of Applicability（）
+- Minimizing the Depth of Applicability（最小化适配深度）
 
 这些原则分别是什么意思呢？
 
@@ -129,7 +129,7 @@ OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体�
 
 Naming Rules是说在想class等的命名时，考虑用命名体现样式对应的类别。
 
-按照前面5种的划分，Layout Rules用`l-`或`layout-`这样的前缀，例如：`.l-header`、'.l-sidebar'。
+按照前面5种的划分，Layout Rules用`l-`或`layout-`这样的前缀，例如：`.l-header`、`.l-sidebar`。
 
 Module Rules用模块本身的命名，例如图文排列的`.media`、`.media-image`。
 
@@ -168,20 +168,61 @@ SMACSS着力于实现两个主要目标：
 
 ##BEM##
 
-**[BEM][]**，即**Block**，**Element**，**Modifier**，是由[Yandex][]（俄罗斯最著名的互联网企业）的开发团队提出的前端开发理论。
+**[BEM][]**，即**Block**，**Element**，**Modifier**，是由[Yandex][]（俄罗斯最著名的互联网企业）的开发团队提出的前端开发理论。BEM通过Block、Element、Modifier来描述页面。
 
-##提纲##
+**Block**是页面中独立存在的区块，可以在不同场合下被重用。每个页面都可以看做是多个Block组成。
 
-1. nested selector 功能层次过多。效率，维护修改的问题。和HTML对应的sass层次，结果使得html和css耦合了（还记得css的初衷是内容和样式分离吗？）
-2. 
+![BEM-Block][img_bem_block]
 
+**Element**是构成Block的元素，只有在对应Block内部才具有意义，是依赖于Block的存在。
 
+![BEM-Element][img_bem_element]
+
+**Modifier**是描述Block或Element的属性或状态。同一Block或Element可以有多个Modifier。
+
+这三部分结合在一起，可以体现在class命名上，从而为开发者提供更友好、更有意义的css组织方式。其形式是：
+
+{% highlight css %}
+.block { }
+.block_modifier { }
+.block__element { }
+.block__element_modifier { }
+{% endhighlight %}
+
+再回到前面OOCSS的那个图文排列的例子，对应用BEM的写法的话就是：
+
+{% highlight html %}
+<div class="media media_shadow">
+    <div class="media__image-container">
+        <img class="media__image" src="rean.jpg" alt="">
+    </div>
+    <div class="media__body">
+        <p class="media__text">本作的主角，帝国北部地方贵族施瓦泽男爵的养子，也是托尔兹士官学校特科班“Ⅶ组”的成员。</p>
+    </div>
+</div>
+{% endhighlight %}
+
+这样的写法的好处是，在class命名上以约定的形式携带了更多有用信息。在多人合作的时候，新接手这个项目的人，也可以很容易从class命名上分辨出来，哪些部分是Block，哪些是对应的Element，哪些是Modifier，并进一步推断出哪部分html可以独立使用。
+
+BEM是完整的前端开发理论，这里只是提到了它采用的css的class命名规则。可以看出，BEM的命名规则可以使代码更易于维护。
+
+##综合结论##
+
+这些理论真的可以应用吗？
+
+是的，而且有用。但是，请不要过于乐观，任一种理论都只是对解决css编写、维护问题的一种尝试，及其经验总结。就实际具体的项目来说，你可能仍然会遇到困惑。这些理论最重要的是提供了一种思路（即使它们也提供开发模式的代码库），你可能不直接应用它们，但应该通过它们认识到，在写代码之前，需要多一些思考。
+
+不直接编写css而是采用less、sass等预编译器，也同样需要合理的代码编写和组织方式，因为可以从编译后得到的css来分析，所以原则是相通的。
 
 ##结语##
 
-在之前，我只大概地了解过OOCSS，而另外2个是完全没有印象的。
+在整理写文本之前，我只初步了解过OOCSS，而对另外2个还没有印象...（嗯，其实很正常）
+
+本文的3个理论各有各的风格，没有孰优孰劣之说，都是在编写css时值得参考的内容。如果可以，非常推荐自己根据这些理论背后的意图，想一个适合自己的方法。
 
 [img_oocss_media]: {{POSTS_IMG_PATH}}/201409/oocss_media.png "oocss示例"
+[img_bem_block]: {{POSTS_IMG_PATH}}/201409/bem_block.jpg "BEM-Block"
+[img_bem_element]: {{POSTS_IMG_PATH}}/201409/bem_element.jpg "BEM-Element"
 
 [The Sass Way]: http://thesassway.com/ "The Sass Way"
 [Modular CSS typography]: http://thesassway.com/advanced/modular-css-typography "Modular CSS typography"
@@ -190,4 +231,3 @@ SMACSS着力于实现两个主要目标：
 [Jonathan Snook]: http://snook.ca/ "snook.ca"
 [BEM]: http://bem.info/ "BEM. Block, Element, Modifier"
 [Yandex]: http://www.yandex.com/ "Yandex"
-
