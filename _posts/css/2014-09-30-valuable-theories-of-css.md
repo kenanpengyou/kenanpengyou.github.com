@@ -125,7 +125,7 @@ OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体�
 
 **Theme Rules**，**主题样式**，描述了页面主题外观，一般是指颜色、背景图。Theme Rules可以修改前面4个类别的样式，且应和前面4个类别分离开来（便于切换，也就是“换肤”）。SMACSS的Theme Rules不要求使用单独的class命名，也就是说，你可以在Module Rules中定义`.mod { }`然后在Theme Rules中也用`.mod { }`来定义需要修改的部分。
 
-##Naming Rules##
+###Naming Rules###
 
 Naming Rules是说在想class等的命名时，考虑用命名体现样式对应的类别。
 
