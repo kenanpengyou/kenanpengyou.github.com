@@ -2,7 +2,7 @@
 layout: post
 title: "在移动Web单页应用中实现固定页脚"
 category: "css"
-description: ""
+description: "固定页脚是一个很有用的功能，保证页面内容较少时页脚也能在底部。在现在流行的移动Web单页应用中，要如何做才能实现它呢？"
 ---
 {% include JB/setup %}
 
@@ -119,10 +119,10 @@ description: ""
 </body>
 {% endhighlight %}
 
-注意，`div.view-page`是绝对定位，且定义了`height: 100%;`，而此时`div.container`也定义了`min-height: 100%;`。以“为页脚留点空间”的想法来思考，得到现在**完整的css**：
+注意，`div.view-page`是绝对定位，且定义了`height: 100%;`，而此时`div.container`也定义了`min-height: 100%;`。考虑到要“为页脚留空间”，结合传统网页中的固定页脚的做法，得到**完整的css**：
 
 {% highlight css %}
-.wrapper{
+.container{
     min-height: 100%;
     margin-bottom: -120px;
     padding-bottom: 120px;
@@ -134,14 +134,25 @@ description: ""
 }
 {% endhighlight %}
 
-以上就是在这种条件下的固定页脚的实现方法。它其实还是参考了
+以上就是在这种条件下的固定页脚的实现方法。虽然最后看起来只是这样一小段代码，但我还是思考了相当一段时间加上试验才得到。其中`padding-bottom`和负值的`margin-bottom`的结合应用很关键。此外，作为移动端的网页，要想到使用`box-sizing`这个配合百分比会非常有用的CSS3属性。
+
+###其他形式的尝试？###
+
+我也试过使用主轴为垂直方向的Flexbox来实现，但可惜经过测试，`flex-direction: column;`还没有被现在的主流手机浏览器所支持。
 
 ##传统网页的固定页脚##
 
+关于传统网页的固定页脚，有一个专门的站点[HTML5 CSS Sticky Footer][]介绍了其实现方法和原理，你也可以阅读我以前写的[简单实现固定在页面底部的页脚][]。
 
+##结语##
 
+移动Web单页应用的页面结构是比较特别，所以固定页脚这么有用的东西做起来又是一个新话题了。想到并试验成功后，我第一反应就是赶紧记下来，真是担心以后忘掉了还得费劲重想...
+
+如果你也碰到过类似的需求或有过类似的想法，相信本文可以提供一点参考！
 
 [img_sticky_footer_explain]: {{POSTS_IMG_PATH}}/201410/sticky_footer_explain.png "单页应用中的固定页脚示意"
 
 [A Complete Guide to Flexbox]: http://css-tricks.com/snippets/css/a-guide-to-flexbox/  "A Complete Guide to Flexbox | CSS-Tricks"
 [Dive into Flexbox]: http://bocoup.com/weblog/dive-into-flexbox/ "Dive into Flexbox - Bocoup"
+[HTML5 CSS Sticky Footer]: http://ryanfait.com/html5-sticky-footer/ "HTML5 CSS Sticky Footer"
+[简单实现固定在页面底部的页脚]: http://acgtofe.com/posts/2013/03/sticky-footer/ "简单实现固定在页面底部的页脚 - acgtofe"
