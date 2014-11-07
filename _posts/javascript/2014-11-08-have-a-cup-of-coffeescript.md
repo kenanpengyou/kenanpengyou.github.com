@@ -70,17 +70,20 @@ CoffeeScript使用`is`表示`===`，不推荐的`==`和`!=`将不能使用。例
 
 ###空格与括号###
 
+直到表达式末尾，隐式括号才会闭合
+
 CoffeeScript允许你使用空格来表示函数调用，例如：
 
 {% highlight coffee %}
 # alert("pencil");
 alert "pencil"
-
-# also valid
-alert("pencil")
 {% endhighlight %}
 
-但同时，CoffeeScript也
+那么，下面这样的式子会怎样呢？
+
+{% highlight coffee %}
+console.log Math.round 3.1, Math.round 5.2
+{% endhighlight %}
 
 
 
