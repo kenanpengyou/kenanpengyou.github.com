@@ -193,13 +193,16 @@ rest = (function(_this) {
 
 总的来说，CoffeeScript相比JavaScript，写起来代码会少一点，好用的语言特性要多一点，大概就像是在用一种更标准的形式使用JavaScript。
 
-“它只是JavaScript”，保持这样的心态，CoffeeScript也许真地可以帮到你。
+“它只是JavaScript”，保持这样的心态，CoffeeScript也许可以帮到你。
+
+![休息一下...][img_coffee_chino_draw]
 
 [img_little_book_cover]: {{POSTS_IMG_PATH}}/201411/little_book_cover.jpg "The Little Book on CoffeeScript"
 [img_coffee_simple_compile]: {{POSTS_IMG_PATH}}/201411/coffee_simple_compile.png "CoffeeScript to Javascript" 
 [img_coffee_less_code]: {{POSTS_IMG_PATH}}/201411/coffee_less_code.gif ".js to .coffee" 
 [img_altJS]: {{POSTS_IMG_PATH}}/201411/altJS.png "altJS"
 [img_coffee_keyword]: {{POSTS_IMG_PATH}}/201411/coffee_keyword.png "CoffeeScript语义转化"
+[img_coffee_chino_draw]: {{POSTS_IMG_PATH}}/201411/coffee_chino_draw.jpg "休息一下..."
 
 [coffeescript.org]: http://coffeescript.org/ "CoffeeScript"
 [TypeScript]: http://www.typescriptlang.org/ "TypeScript"
