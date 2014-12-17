@@ -36,6 +36,16 @@ a:hover{text-decoration:underline;}
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'inconsolatamedium';
+    src: url('../fonts/inconsolata-webfont.eot');
+    src: url('../fonts/inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/inconsolata-webfont.woff') format('woff'),
+         url('../fonts/inconsolata-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*-------结构 start-------*/
 
 .wrapper{margin:0 auto;padding:0 10px;}
@@ -51,7 +61,7 @@ a{color:#99592b;}
 ::selection{background:#ed465d;color:#fff;}
 ::-moz-selection{background:#ed465d;color:#fff;}
 ::-webkit-selection{background:#ed465d;color:#fff;}
-pre,code{font-family:Inconsolata;}
+pre,code{font-family:"inconsolatamedium";}
 code{font-size:15px;}
 .img_prefetch{display:none;}
 
