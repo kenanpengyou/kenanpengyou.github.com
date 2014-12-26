@@ -2,7 +2,7 @@
 layout: post
 title: "HTML5 history API，创造更好的浏览体验"
 category: "javascript"
-description: "用一个例子告诉你如何用HTML5 history API来做优化。应该，简单，易读。"
+description: "用一个例子告诉你如何用HTML5 history API来做优化。应该...简单...易读..."
 ---
 {% include JB/setup %}
 
