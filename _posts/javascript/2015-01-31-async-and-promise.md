@@ -64,13 +64,13 @@ $.ajax({
 })
 {% endhighlight %}
 
-你一定比较反感这种称为Pyramid of Doom（金字塔厄运）的代码。习惯了直接附加回调的写法，就可能会对这种一个传递到下一个的异步事件感到无从入手。即便为这些回调函数分别命名（可以使形式上好看一点），也仍然无法解决问题。
+你一定会觉得这种称为Pyramid of Doom（金字塔厄运）的代码看起来很糟糕。习惯了直接附加回调的写法，就可能会对这种一个传递到下一个的异步事件感到无从入手。即便为这些回调函数分别命名（可以使形式上好看一点），也仍然无法解决问题。
 
 还有一个常见的难点是同时发送两个Ajax请求，然后要在两个请求都成功返回后再做一件接下来的事，这是不是好像也有点难办？
 
-专门应对这些异步的难题，让代码变得优雅的就是Promise。
+适于应对这些异步的难题，并让代码变得优雅的就是Promise。
 
-##拯救者Promise##
+##优雅的Promise##
 
 Promise是什么呢？先这样说，前面jQuery的Ajax请求示意代码，其实可以写成这样：
 
@@ -87,17 +87,43 @@ promise.fail(function(){});
 
 ###封装是有用的###
 
-Promise对象就像是一个封装好的对异步事件的引用。想要在这个异步事件完成后做点事情？请给它附加回调就可以了。不管附加多少个也没问题！
+Promise对象就像是一个封装好的对异步事件的引用。想要在这个异步事件完成后做点事情？给它附加回调就可以了，不管附加多少个也没问题！
 
-jQuery的Ajax方法会返回一个Promise对象，再回到我前面说的假如回调我需要做很多很多的事，那
+jQuery的Ajax方法会返回一个Promise对象（这是jQuery1.5重点增加的特性）。如果我有`do1()`、`do2()`两个函数要在异步事件成功完成后执行，只需要这样做：
 
+{% highlight javascript %}
+promise.done(do1);
+// Other code here.
+promise.done(do2);
+{% endhighlight %}
+
+这样可要自由多了，我只要保存这个Promise对象，就在写代码的任何时候，给它附加任意数量的回调，而不用管这个异步事件是在哪里发起的。
+
+###正式的介绍###
+
+Promise已经是CommonJS的一个规范，叫做[Promises/A][]。Promise代表的是某一操作结束后的返回值，它有3种状态：
+
+- **肯定（fulfilled或resolved）**，表明该Promise的操作成功了。
+- **否定（rejected或failed）**，表明该Promise的操作失败了。
+- **等待（pending）**，还没有得到肯定或者否定的结果，进行中。
+
+还有1种状态是用来概念上表示Promise的操作已经成功或失败，也就是肯定和否定状态的集合，叫做**结束（settled）**。要理解Promise，还需要知道它有以下的特性：
+
+- 一个Promise只能从等待状态转变为肯定或否定状态一次，一旦转变为肯定或否定状态，就再也不会改变状态。
+- 如果在一个Promise结束（成功或失败，同前面的说明）后，添加针对成功或失败的回调，则回调函数会立即执行。
+
+看过这些介绍用的概念后，再想想Ajax操作本身。发起一个请求后，等待着，然后成功收到返回或出现错误（失败）。这些，都和Promise非常一致。
+
+进一步解释Promise的特性还有一个很有用的例子：jQuery的`$(document).ready(onReady)`。其中`onReady`回调函数会在DOM就绪后执行，但有趣的是，如果在执行到这句代码之前，DOM就已经就绪了，那么`onReady`会立即执行，没有任何延迟（也就是说，是同步的）。
+
+这种潜在同步的东西是非常有用的
 
 
 ##结语##
 
 HTML5 history API简单易学，不多的几行代码就可以做到“状态记录”这个小小的改进，如果可以由你选择“渐进增强”，它还真的可以上线！
 
-[caniuse]: http://caniuse.com/#search=history "Can I use... #Session history management"
+[Promises/A]: http://wiki.commonjs.org/wiki/Promises/A "Promises/A - CommonJS Spec Wiki"
 
 
-http://www.html5rocks.com/zh/tutorials/es6/promises/ "JavaScript Promises: There and back again - HTML5 Rocks"
+[Promises/A]http://www.html5rocks.com/zh/tutorials/es6/promises/ "JavaScript Promises: There and back again - HTML5 Rocks"
