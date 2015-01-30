@@ -116,14 +116,29 @@ Promise已经是CommonJS的一个规范，叫做[Promises/A][]。Promise代表�
 
 进一步解释Promise的特性还有一个很有用的例子：jQuery的`$(document).ready(onReady)`。其中`onReady`回调函数会在DOM就绪后执行，但有趣的是，如果在执行到这句代码之前，DOM就已经就绪了，那么`onReady`会立即执行，没有任何延迟（也就是说，是同步的）。
 
-这种潜在同步的东西是非常有用的
+###Promise示例###
+
+[Promises/A][]里列出了一系列实现了Promise的JavaScript库，jQuery也在其中。下面是用jQuery生成Promise的代码：
+
+{% highlight javascript %}
+var deferred = $.Deferred();
+deferred.done(function(message){console.log("Done: " + message)});
+deferred.resolve("morin");  // Done: morin
+{% endhighlight %}
+
+可以看到，jQuery自己定义了名为Deferred的对象，它实际上就是Promise。`$.Deferred()`方法会生成一个Promise对象，除了通过`deferred.done()`、`deferred.fail()`等为它附加回调以外，还可以调用`deferred.resolve()`来肯定（或者`deferred.reject()`来否定）这个Promise，且可以向回调传递任意数据。
+
+
+
+
+
+
 
 
 ##结语##
 
-HTML5 history API简单易学，不多的几行代码就可以做到“状态记录”这个小小的改进，如果可以由你选择“渐进增强”，它还真的可以上线！
 
 [Promises/A]: http://wiki.commonjs.org/wiki/Promises/A "Promises/A - CommonJS Spec Wiki"
 
 
-[Promises/A]http://www.html5rocks.com/zh/tutorials/es6/promises/ "JavaScript Promises: There and back again - HTML5 Rocks"
+[原生JavaScript的Promise]: http://www.html5rocks.com/zh/tutorials/es6/promises/ "JavaScript Promises: There and back again - HTML5 Rocks"
