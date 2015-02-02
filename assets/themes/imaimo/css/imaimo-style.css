@@ -228,7 +228,8 @@ code{font-size:15px;}
 .sidebar .author_avatar{width:80px;height:80px;border:1px solid #bbb;-ms-interpolation-mode:bicubic;}
 .sidebar .info_note_line{padding-bottom:15px;}
 .sidebar .weibo_link,
-.sidebar .friend_site_link{color:#333;}
+.sidebar .friend_site_link,
+.sidebar .other_info_link{color:#333;}
 .sidebar .RSS_link{display:inline-block;margin-left:5px;vertical-align:middle;}
 .sidebar .icon_RSS{display:inline-block;width:18px;height:18px;background-position:0 -50px;cursor:pointer;}
 
