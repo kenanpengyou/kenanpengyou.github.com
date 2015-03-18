@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "省时省心的自动化工具 - Grunt使用介绍"
-category: "前端综合"
+category: "工作流"
 description: "Grunt是适用于前端开发的自动化工具，很有用，不过在使用方法上可能存在一些难点。本文希望以更为容易理解的方式，来说明如何使用Grunt。"
 ---
 {% include JB/setup %}
