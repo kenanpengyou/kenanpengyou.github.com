@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "BrowserSync，福利从免F5开始"
+title: "BrowserSync，迅捷从免F5开始"
 category: "工作流"
-description: "Go"
+description: "BrowserSync是一个同步浏览器测试工具。这里的“同步”有许多含义，其中之一就是代码和浏览器预览效果的同步。平时会按好多遍的F5？来试着省略掉它吧！"
 ---
 {% include JB/setup %}
 
@@ -38,7 +38,7 @@ BrowserSync是怎么做到的？请看它的安装及使用。
 
 这个命令用于纯静态站点，也就是仅一些`.html`文件的情况。后面的`--files "css/*.css"`，是指监听`css`目录中的后缀名为`.css`的文件。请注意这个命令里的`start --server`，这其实是BrowserSync自己启动了一个小型服务器。
 
-如果是动态站点，则使用代理模式。例如PHP站点，已经建立了一个本地服务器如`http://localhost:8080`，会是这样的命令：
+如果是动态站点，则使用代理模式。例如PHP站点，已经建立了一个本地服务器如`http://localhost:8080`，此时会是这样的命令：
 
     browser-sync start --proxy "localhost:8080" --files "css/*.css"
 
@@ -48,13 +48,13 @@ BrowserSync会提供一个新地址（如未被占用的话，`http://localhost:
 
 ![hint tag: Connected to BrowserSync][img_hint_tag]
 
-这说明当前浏览的网页已连接到BrowserSync。查看一下源码，会发现它们都被添加了与BrowserSync有关的一段`<script>`代码，就像LiveReload浏览器插件做的那样。这些代码会在浏览器和BrowserSync的服务器之间建立web socket连接，一旦有监听的文件发生变化，而且和当前网页有关，BrowserSync会通知浏览器。
+这说明当前浏览的网页已连接到BrowserSync。查看一下源码，会发现它们都被添加了与BrowserSync有关的一段`<script>`代码，就像LiveReload浏览器插件做的那样。这些代码会在浏览器和BrowserSync的服务器之间建立web socket连接，一旦有监听的文件发生变化，BrowserSync会通知浏览器。
 
 如果发生变化的文件是css，BrowserSync不会刷新整页，而是直接重新请求这个css文件，并更新到当前页中，效果像这样：
 
 ![css injection][img_browsersync_preview_1]
 
-显然，这感觉更加快捷。如果你正在开发的是一个单页应用，刷新整页会回到初始视图，而你又需要修改后面的某一个视图时，这一功能尤其有用。
+显然，这感觉更加快捷。如果你正在开发的是一个单页应用（[SPA][]），刷新整页会回到初始视图，而你又需要修改后面的某一个视图时，这一功能尤其有用。
 
 ###文件匹配###
 
@@ -106,30 +106,57 @@ gulp.task('default', ["browser-sync"]);
 
 就将以`bs-config.js`的完整配置信息运行BrowserSync。
 
-##不仅是自动刷新##
+###不只是自动刷新###
 
-然而，BrowserSync做得很出色
-
-
+BrowserSync并不只是一个自动刷新工具，它还有许多其他功能。默认配置下，BrowserSync会在多个浏览器中同步滚动条位置，表单行为和点击事件。例如，表单行为的情形像这样：
 
 ![synchronize form actions][img_browsersync_preview_2]
 
+我觉得这是很酷的功能！想象一下桌上摆很多个不同屏幕尺寸的手机来测试的情景，你操作一个，就会带动其他的一起！当然，这些功能还可以在不需要的时候关闭。
+
+###UI界面及其他###
+
+下面是一个BrowserSync的控制台输出示例：
+
 ![console output of browsersync with glup][img_gulp_browsersync_console]
 
+可以看到还有一个叫做`UI`的一个地址，它是BrowserSync提供的一个简易控制面板。BrowserSync最常用的几个配置选项，都可以在这个面板里调整。
 
+在面板里面你还会发现那个经典的远程调试工具[weinre][]也在这：
 
+![weinre in browsersync UI][img_browsersync_remote_debug]
+
+##BrowserSync目前已知的一点问题##
+
+前文提到，如果发生变化的文件是css，BrowserSync会以无刷新方式来更新，这是一个很棒的效果。如果使用scss、less等预编译器，将监听设置为编译后的css文件即可。
+
+但是，Web应用框架[Rails][]会有一些问题。在开发环境中，css是在被请求的时候编译（Rails一般使用sass）再返回给浏览器的，它只有缓存，而没有实际的`.css`文件。因此，BrowserSync的文件监听将无法指向它们，而如果指向sass文件，浏览器只会以整页刷新的形式来处理。这个问题可以参见[Github上的issue][]。
+
+一个可行的解决方法是用其他工具替代Rails的Asset Pipeline。但在这里，我推荐另一个解决方案：使用LiveReload（LiveReload你还是有点水平的！）。经测试，LiveReload在Rails中也可以处理好css的快捷更新。关于LiveReload做到这一点的原理，你可以阅读[Lightning-Fast Sass Reloading in Rails][]。
+
+也期待BrowserSync可以在未来解决这个问题。
+
+##结语##
+
+想要在开发中更流畅，更快捷？请尝试BrowserSync！节约一点时间，你也许就可以做到更多。
 
 [img_hint_tag]: {{POSTS_IMG_PATH}}/201503/hint_tag.png "hint tag: Connected to BrowserSync"
 [img_browsersync_preview_1]: {{POSTS_IMG_PATH}}/201503/browsersync_preview_1.gif "css injection"
 [img_browsersync_preview_2]: {{POSTS_IMG_PATH}}/201503/browsersync_preview_2.gif "synchronize form actions"
 [img_gulp_browsersync_console]: {{POSTS_IMG_PATH}}/201503/gulp_browsersync_console.png "console output of browsersync with glup"
+[img_browsersync_remote_debug]: {{POSTS_IMG_PATH}}/201503/browsersync_remote_debug.png "weinre in browsersync UI"
 
 [LiveReload]: http://livereload.com/ "LiveReload"
 [BrowserSync]: http://www.browsersync.io/ "BrowserSync - Time-saving synchronised browser testing"
 [这页]: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions- "How do I install and use the browser extensions? – LiveReload Help & Support"
 [Node]: https://nodejs.org/ "Node"
 [npm]: http://zh.wikipedia.org/zh-cn/Node%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8 "npm"
+[SPA]: http://en.wikipedia.org/wiki/Single-page_application "Single-page application - Wikipedia, the free encyclopedia"
 [isaacs's minimatch]: https://github.com/isaacs/minimatch "isaacs/minimatch · GitHub"
 [Gulp]: http://gulpjs.com/ "Gulp"
 [gulp-browser-sync]: https://github.com/BrowserSync/gulp-browser-sync "BrowserSync/gulp-browser-sync · GitHub"
 [官方文档]: http://www.browsersync.io/docs/options/ "BrowserSync options"
+[weinre]: http://people.apache.org/~pmuellr/weinre-docs/latest/ "weinre"
+[Rails]: http://rubyonrails.org/ "Ruby on Rails"
+[Github上的issue]:https://github.com/BrowserSync/browser-sync/issues/50 "using browser sync with rails - asset pipeline · Issue #50 · BrowserSync/browser-sync · GitHub"
+[Lightning-Fast Sass Reloading in Rails]: https://mattbrictson.com/lightning-fast-sass-reloading-in-rails "Lightning-Fast Sass Reloading in Rails | mattbrictson.com"
