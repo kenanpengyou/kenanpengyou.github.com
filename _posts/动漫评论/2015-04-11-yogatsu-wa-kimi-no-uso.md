@@ -128,7 +128,9 @@ category: "动漫评论"
 
 为什么会喜欢“四月”这样的故事呢？我想，即便生活中一定会有诸多现实的、令人失望的地方，也仍然应该保持对美好的事物的期待和追求。毕竟好心态很重要，不是么？
 
-最后，很高兴能在四月这样一个时间里完成这篇关于“四月”的文章。
+最后，很高兴能在四月这样一个时间里完成这篇关于“四月”的文章。附上自己涂的薰：
+
+![涂鸦-宫园薰][img_yogatsu_kaori_draw]
 
 *（附：四月是你的谎言，日文原名“四月は君の嘘”，是日本漫画家新川直司作画的漫画作品，并由动画公司A-1 Pictures改编为动画，2014年10月番，全22话）*
 
@@ -139,3 +141,4 @@ category: "动漫评论"
 [img_yogatsu_friends]: {{POSTS_IMG_PATH}}/201504/yogatsu_friends.jpg "四月-friends"
 [img_yogatsu_combination_air]: {{POSTS_IMG_PATH}}/201504/yogatsu_combination_air.jpg "四月-combination-air"
 [img_yogatsu_title]: {{POSTS_IMG_PATH}}/201504/yogatsu_title.jpg "四月-title"
+[img_yogatsu_kaori_draw]: {{POSTS_IMG_PATH}}/201504/yogatsu_kaori_draw.jpg "涂鸦-宫园薰"
