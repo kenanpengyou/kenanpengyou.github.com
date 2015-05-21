@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "PostCSS"
+title: "在css预编译器之后，PostCSS"
 category: "css"
-description: "PostCSS"
+description: "可替代css预编译器的PostCSS，有兴趣尝试一下吗？"
 ---
 {% include JB/setup %}
 
@@ -141,7 +141,7 @@ var custom = function(css, opts){
 };
 {% endhighlight %}
 
-然后，你将这个方法直接添加到`processors`中（就像`postcssMixins`那些那样）就可以使用。如果原来有`3rem`的值，将变成`48px`。
+然后，你将这个方法直接添加到`processors`中（就像`postcssMixins`那些那样）就可以使用。如果原来有值是`3rem`，将变成`48px`。
 
 以上只是一个简单的转换，如果要正式做一个插件，请参考[PostCSS插件指南][]。
 
@@ -151,7 +151,7 @@ var custom = function(css, opts){
 
 ##性能##
 
-PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass原本是Ruby编写的，但后来出了C++的引擎，也就是libsass，它更快）还要快3倍。这里的具体数字倒不用多关心，至少可以确认，PostCSS的运行速度还是比较快的，这就足够了。
+PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass原本是Ruby编写的，但后来出了C++的引擎，也就是libsass，它更快）还要快3倍。这里的具体数字我觉得不用多关心，可以感受到“PostCSS的运行速度很快”就足够了。
 
 实际运行起来大概这样：
 
@@ -159,19 +159,26 @@ PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass�
 
 ##做到更多##
 
-基于PostCSS，可以做到更多现有的css预编译器做不到的事。例如，插件系列[cssnext][]可以让你使用CSS4+的语法（增加了变量等许多特性），它会帮你转化为目前可用的CSS3。
+基于PostCSS，可以做到许多现有的css预编译器做不到的事。例如，插件系列[cssnext][]可以让你使用CSS4+的语法（增加了变量等许多特性），它会帮你转化为目前可用的CSS3。
+
+##一点问题##
+
+PostCSS有一个问题，那就是它是零散的，所以我无法找到一个编辑器能正确地解析并高亮准备使用PostCSS的css代码。例如在WebStorm中我把它当做普通的css文件，结果就会收到很多红色的错误提示。
 
 ##所以，css预编译器过时了吗？##
 
-当然不会。
+当然不会。就像其他流行的框架和工具那样，css预编译器是已经验证过的可用工具，我们完全可以根据需要选用。
 
-Sass等css预编译器的优势是成熟。一方面，它们成为了一种新的模板语言，集成的风格也是比较方便的，会比较适合很多种开发情况。
+Sass等css预编译器的特点是成熟可靠。一方面，它们已经是流行的模板语言，有完善的文档和周边支持，相对稳定，新加入团队的人也能比较容易地理解。另一方面，集成的风格有它的方便之处，就像你可能会懒得去组装一个模型，但能找到专业的人替你完成。
 
-PostCSS的优势在于模块化，
+PostCSS的特点则是模块化。从长远来看，PostCSS可以做到更多类型的css转换。而可定制的风格非常适合追求个性的人（更快捷，而且可以自己做出很有趣的插件）。
 
-虽然本文介绍了PostCSS的一系列特性，但
+此外，css预编译器和PostCSS可以协同使用。有一个流行的用法就是Sass编译后再接PostCSS的`Autoprefixer`（毕竟这是PostCSS的招牌插件）。
 
 ##结语##
+
+PostCSS的风格可以说是在打造一个改变css开发方式的生态系统。所以如果说到未来，还是挺期待的。
+
 
 
 [img_postcss_logo]: {{POSTS_IMG_PATH}}/201505/postcss_logo.png "Philosopher’s stone, logo of PostCSS"
