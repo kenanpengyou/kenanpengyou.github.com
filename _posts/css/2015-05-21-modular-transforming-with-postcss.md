@@ -94,9 +94,9 @@ PostCSS最有名的插件是[Autoprefixer][]。如名所示，可以自动为你
 
 ##如何使用PostCSS##
 
-我个人推荐结合[Gulp][]使用，所以本文只介绍[gulp-postcss][]的用法。
+我个人推荐结合[Gulp][]使用，本文在此只介绍[gulp-postcss][]的用法。
 
-`gulp-postcss`及插件都是[npm][]，将它们通过`npm install`安装到项目目录后，再分别
+`gulp-postcss`及插件都是[npm][]，首先，使用`npm install`将它们分别安装到项目目录中（会位于`node_modules`）。然后，编辑`glupfile.js`，将PostCSS注册为Gulp的一个任务。以下是一个结合使用了`Autoprefixer`、`postcss-simple-vars`、`postcss-mixins`、`postcss-nested`4个插件，且生成source map文件的例子：
 
 {% highlight javascript %}
 var gulp = require("gulp");
@@ -125,15 +125,58 @@ gulp.task("postcss", function(){
 });
 {% endhighlight %}
 
+在上面这段代码中，`processors`是一个数组，定义了用到的PostCSS插件。PostCSS会按照定义顺序依次执行插件，因此，在结合多个插件使用时，请注意它们的位置。
+
+###自定义转换###
+
+此外，你可以很容易地创建你自己的转换（还记得前面说过PostCSS的插件都是JavaScript函数吧？）。例如，下面是一个自定义的转换方法，它将css代码中的带有`rem`单位的值，更改为`px`的值。
+
+{% highlight javascript %}
+var custom = function(css, opts){
+    css.eachDecl(function(decl){
+        decl.value = decl.value.replace(/\d+rem/, function(str){
+            return 16 * parseFloat(str) + "px";
+        });
+    });
+};
+{% endhighlight %}
+
+然后，你将这个方法直接添加到`processors`中（就像`postcssMixins`那些那样）就可以使用。如果原来有`3rem`的值，将变成`48px`。
+
+以上只是一个简单的转换，如果要正式做一个插件，请参考[PostCSS插件指南][]。
+
+{% highlight javascript %}
+
+{% endhighlight %}
+
 ##性能##
 
+PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass原本是Ruby编写的，但后来出了C++的引擎，也就是libsass，它更快）还要快3倍。这里的具体数字倒不用多关心，至少可以确认，PostCSS的运行速度还是比较快的，这就足够了。
+
+实际运行起来大概这样：
+
+![Run PostCSS with Gulp][img_postcss_console]
+
 ##做到更多##
+
+基于PostCSS，可以做到更多现有的css预编译器做不到的事。例如，插件系列[cssnext][]可以让你使用CSS4+的语法（增加了变量等许多特性），它会帮你转化为目前可用的CSS3。
+
+##所以，css预编译器过时了吗？##
+
+当然不会。
+
+Sass等css预编译器的优势是成熟。一方面，它们成为了一种新的模板语言，集成的风格也是比较方便的，会比较适合很多种开发情况。
+
+PostCSS的优势在于模块化，
+
+虽然本文介绍了PostCSS的一系列特性，但
 
 ##结语##
 
 
 [img_postcss_logo]: {{POSTS_IMG_PATH}}/201505/postcss_logo.png "Philosopher’s stone, logo of PostCSS"
 [img_postcss_process]: {{POSTS_IMG_PATH}}/201505/postcss_process.png "postcss process"
+[img_postcss_console]: {{POSTS_IMG_PATH}}/201505/postcss_console.png "Run PostCSS with Gulp"
 
 [Sass]: http://sass-lang.com/  "Sass: Syntactically Awesome Style Sheets"
 [Less]: http://lesscss.org/ "Less.js"
@@ -145,3 +188,6 @@ gulp.task("postcss", function(){
 [Gulp]: http://gulpjs.com/ "gulp.js - the streaming build system"
 [gulp-postcss]: https://github.com/postcss/gulp-postcss "gulp-postcss"
 [npm]: https://www.npmjs.com/ "npm"
+[PostCSS插件指南]: https://github.com/postcss/postcss/blob/master/docs/guidelines/plugin.md "PostCSS Plugin Guidelines"
+[libsass]: http://libsass.org/ "LibSass | A C implementation of a Sass compiler"
+[cssnext]: https://cssnext.github.io/ "cssnext"
