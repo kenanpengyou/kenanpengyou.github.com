@@ -145,10 +145,6 @@ var custom = function(css, opts){
 
 以上只是一个简单的转换，如果要正式做一个插件，请参考[PostCSS插件指南][]。
 
-{% highlight javascript %}
-
-{% endhighlight %}
-
 ##性能##
 
 PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass原本是Ruby编写的，但后来出了C++的引擎，也就是libsass，它更快）还要快3倍。这里的具体数字我觉得不用多关心，可以感受到“PostCSS的运行速度很快”就足够了。
@@ -178,7 +174,6 @@ PostCSS的特点则是模块化。从长远来看，PostCSS可以做到更多类
 ##结语##
 
 PostCSS的风格可以说是在打造一个改变css开发方式的生态系统。所以如果说到未来，还是挺期待的。
-
 
 
 [img_postcss_logo]: {{POSTS_IMG_PATH}}/201505/postcss_logo.png "Philosopher’s stone, logo of PostCSS"
