@@ -235,6 +235,8 @@ code{font-size:15px;}
 .sidebar .other_info_link{color:#333;}
 .sidebar .RSS_link{display:inline-block;margin-left:5px;vertical-align:middle;}
 .sidebar .icon_RSS{display:inline-block;width:18px;height:18px;background-position:0 -50px;cursor:pointer;}
+.sidebar .project_line{padding-bottom:15px;}
+.sidebar .project_cover_img{background: #fff;}
 
 /*-------侧边栏 end-------*/
 
