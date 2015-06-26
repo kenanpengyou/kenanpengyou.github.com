@@ -184,7 +184,7 @@ console.log("Hello! " + name);
 
 ###模块map###
 
-第1个参数是一个Object，它的每一个key都是数字，每一个数字key对应的值是长度为2的数组。可以看出，前面的`main.js`中的代码，被`function(require, module, exports){}`这样的结构包装了起来，然后作为了key`1`数组里的第一个元素。类似的，`name.js`中的代码，也被包装，对应到key`2`。
+第1个参数是一个Object，它的每一个key都是数字，作为模块的id，每一个数字key对应的值是长度为2的数组。可以看出，前面的`main.js`中的代码，被`function(require, module, exports){}`这样的结构包装了起来，然后作为了key`1`数组里的第一个元素。类似的，`name.js`中的代码，也被包装，对应到key`2`。
 
 数组的第2个元素，是另一个map对应，它表示的是模块的依赖。`main.js`在key`1`，它依赖`name.js`，所以它的数组的第二个元素是`{"./name": 2}`。而在key`2`的`name.js`，它没有依赖，因此其数组第二个元素是空Object`{}`。
 
@@ -198,11 +198,22 @@ console.log("Hello! " + name);
 
 ###缓存###
 
-第2个参数几乎总是空的`{}`。它如果有的话，也是一个模块map，表示本次编译之前被加载进来的来自于其他地方的内容。总之，忽略它吧。
+第2个参数几乎总是空的`{}`。它如果有的话，也是一个模块map，表示本次编译之前被加载进来的来自于其他地方的内容。现阶段，让我们忽略它吧。
 
 ###入口模块###
 
-第3个
+第3个参数是一个数组，指定的是作为入口的模块id。前面的例子中，`main.js`是入口模块，它的id是1，所以这里的数组就是`[1]`。数组说明其实还可以有多个入口，但这种情况比较少，比较可能的场景是运行多个测试用例。
+
+###实现功能###
+
+还记得前面忽略掉的省略号里的代码吗？这部分代码将解析前面所说的3个参数，然后让一切运行起来。这段代码是一个函数，来自于browser-pack项目的[prelude.js][]。令人意外的是，它并不复杂，而且有丰富的注释，推荐你自行阅读。
+
+###所以，要注意的是###
+
+到这里，你体会到了Browserify是如何工作的。
+
+
+
 
 
 ##Browserify shim##
@@ -218,10 +229,6 @@ console.log("Hello! " + name);
 ##提纲##
 
 在我看来，Browserify很关键的一点是，它为你做了更多的部分，而你需要遵循的事情更少（对比RequireJS，国内的seaJS），当然，Browserify在开发中的工作流也要求更多，会需要自己准备一个一直运行着的随时编译，而不像RequireJS和seaJS那样本身就是模块加载器，开发状态，只需要刷新就可以了。
-
-完全的npm。
-
- watchify可以增量更新，提高browserify的编译速度。
 
  browserify包含有transforms，可以将bower也require进来。另外，传统的通过`<script>`引入的如jQuery插件，也就是非CommonJS兼容的js库，可以使用browserify的shim，这也是一个transform。
 
@@ -244,3 +251,4 @@ console.log("Hello! " + name);
 [watchify]: https://github.com/substack/watchify "watchify"
 [Gulp Recipes]: https://github.com/gulpjs/gulp/tree/master/docs/recipes "Gulp Recipes"
 [IIFE]: http://benalman.com/news/2010/11/immediately-invoked-function-expression/ "Ben Alman » Immediately-Invoked Function Expression (IIFE)"
+[prelude.js]: https://github.com/substack/browser-pack/blob/master/prelude.js "prelude.js"
