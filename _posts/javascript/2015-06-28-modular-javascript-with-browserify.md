@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Browserify"
+title: "前端模块及依赖管理的新选择：Browserify"
 category: "javascript"
-description: ""
+description: "前端开发模块化是一个很有意义的课题，在此之前，已有RequireJS、Sea.js这样的作品。而现在，我们又有了新的选择：Browserify。本文将较详细地解读Browserify这个新的模块及依赖管理工具。"
 ---
 {% include JB/setup %}
 
@@ -44,7 +44,7 @@ var $ = require("jquery");
 
 没错，这就是使用npm的包的一般方法。但特别的是，这个npm的包是我们熟知的`jquery`，而它将用在浏览器中。
 
-[Browserify][]，正如其名字所体现的动作那样，让原本属于服务器端的Node的npm，在浏览器端也可使用。
+[Browserify][]，正如其名字所体现的动作那样，让原本属于服务器端的Node及npm，在浏览器端也可使用。
 
 显然，上面的过程还没结束，接下来是Browserify的工作（假定上面那段代码所在的文件叫`main.js`）：
 
@@ -64,7 +64,7 @@ var $ = require("jquery");
 
 其实，在这个看起来更复杂的过程中，`require()`具有非凡的意义。
 
-Browserify并不只是一个让你轻松引用JavaScript包的工具。它的关键能力之一，是JavaScript模块及依赖管理。（~~这才是为师的主业~~）
+Browserify并不只是一个让你轻松引用JavaScript包的工具。它的关键能力，是JavaScript模块及依赖管理。（~~这才是为师的主业~~）
 
 就模块及依赖管理这个问题而言，已经有[RequireJS][]和国内的[Sea.js][]这些优秀的作品。而现在，Browserify又给了我们新的选择。
 
@@ -180,7 +180,7 @@ console.log("Hello! " + name);
 //# sourceMappingURL=bundle.js.map
 {% endhighlight %}
 
-请忽略掉省略号里的部分（~~这能看？？~~），然后，它的结构就清晰多了。可以看到，整体是一个立即执行的函数（[IIFE][]），该函数接收了3个参数。其中第1个参数比较复杂，第2、3个参数在这里分别是`{}`和`[1]`。
+请先忽略掉省略号里的部分。然后，它的结构就清晰多了。可以看到，整体是一个立即执行的函数（[IIFE][]），该函数接收了3个参数。其中第1个参数比较复杂，第2、3个参数在这里分别是`{}`和`[1]`。
 
 ###模块map###
 
@@ -202,42 +202,135 @@ console.log("Hello! " + name);
 
 ###入口模块###
 
-第3个参数是一个数组，指定的是作为入口的模块id。前面的例子中，`main.js`是入口模块，它的id是1，所以这里的数组就是`[1]`。数组说明其实还可以有多个入口，但这种情况比较少，比较可能的场景是运行多个测试用例。
+第3个参数是一个数组，指定的是作为入口的模块id。前面的例子中，`main.js`是入口模块，它的id是1，所以这里的数组就是`[1]`。数组说明其实还可以有多个入口，比如运行多个测试用例的场景，但相对来说，多入口的情况还是比较少的。
 
 ###实现功能###
 
-还记得前面忽略掉的省略号里的代码吗？这部分代码将解析前面所说的3个参数，然后让一切运行起来。这段代码是一个函数，来自于browser-pack项目的[prelude.js][]。令人意外的是，它并不复杂，而且有丰富的注释，推荐你自行阅读。
+还记得前面忽略掉的省略号里的代码吗？这部分代码将解析前面所说的3个参数，然后让一切运行起来。这段代码是一个函数，来自于browser-pack项目的[prelude.js][]。令人意外的是，它并不复杂，而且写有丰富的注释，很推荐你自行阅读。
 
-###所以，要注意的是###
+###所以，到底要注意什么？###
 
-到这里，你体会到了Browserify是如何工作的。
+到这里，你已经看过了Browserify是如何工作的。是时候回到前面的问题了。首先，**在每个文件内，不再需要自行包装**。
 
+你可能已经很习惯类似下面这样的写法：
 
+{% highlight javascript %}
+;(function(){
+    // Your code here.
+}());
+{% endhighlight %}
 
+但你已经了解到，Browserify的编译会将你的代码封装在局部作用域内，所以，你不再需要自己做这个事情，像这样会更好：
 
+{% highlight javascript %}
+// Your code here.
+{% endhighlight %}
 
-##Browserify shim##
+类似的，如果你想用`"use strict";`启用严格模式，直接写在外面就可以了，这表示在某个文件的代码范围内启用严格模式。
 
-比如以前的jQuery插件如何通过browserify来使用。
+其次，**保持局部变量风格**。我们很习惯通过`window.jQuery`和`window.$`这样的全局变量来访问jQuery这样的库，但如果使用Browserify，它们都应只作为局部变量：
 
-##备用##
+{% highlight javascript %}
+var $ = require("jquery");
 
+$("#alice").text("Hello!");
+{% endhighlight %}
 
-到此，你已经看过了这个有意思的变化过程。如今，这三种引入方式都是可用的，你可以根据自己的喜好选择。
+这里的`$`就只存在于这个文件的代码范围内（独立的作用域）。如果你在另一个文件内要使用jQuery，需要按照同样的方式去`require()`。
 
+然而，新的问题又来了，既然jQuery变成了这种局部变量的形式，那我们熟悉的各种jQuery插件要如何使用呢？
 
-##提纲##
+##browserify-shim##
 
-在我看来，Browserify很关键的一点是，它为你做了更多的部分，而你需要遵循的事情更少（对比RequireJS，国内的seaJS），当然，Browserify在开发中的工作流也要求更多，会需要自己准备一个一直运行着的随时编译，而不像RequireJS和seaJS那样本身就是模块加载器，开发状态，只需要刷新就可以了。
+你一定熟悉这样的jQuery插件使用方式：
 
- browserify包含有transforms，可以将bower也require进来。另外，传统的通过`<script>`引入的如jQuery插件，也就是非CommonJS兼容的js库，可以使用browserify的shim，这也是一个transform。
+{% highlight html %}
+<script src="jquery.js"></script>
+<script src="jquery.plugin.js"></script>
+<script>
+    // Now the jQuery plugin is available.
+</script>
+{% endhighlight %}
 
- Browserify的require并不能使用变量。
+很多jQuery插件是这样做的：默认`window.jQuery`存在，然后取这个全局变量，把自己添加到jQuery中。显然，这在Browserify的组织方式里是没法用的。
 
+为了让这样的“不兼容Browserify”（其实是不兼容CommonJS）的JavaScript模块（如插件）也能为Browserify所用，于是有了[browserify-shim][]。
+
+下面，以jQuery插件[jquery.pep.js][]为例，请看browserify-shim的使用方法。
+
+###使用示例###
+
+安装browserify-shim：
+
+    npm install browserify-shim --save-dev
+
+然后在`package.json`中做如下配置：
+
+{% highlight json %}
+"browserify": {
+    "transform": [ "browserify-shim" ]
+},
+"browser": {
+    "jquery.pep" :  "./vendor/jquery.pep.js"
+},
+"browserify-shim": {
+    "jquery.pep" :  { "depends": ["jquery:jQuery"] }
+}
+{% endhighlight %}
+
+最后是`.js`中的代码：
+
+{% highlight javascript %}
+var $ = require("jquery");
+require("jquery.pep");
+
+$(".move-box").pep();
+{% endhighlight %}
+
+完成！到此，经过Browserify编译后，将可以正常运行这个jQuery插件。
+
+这是一个怎样的过程呢？
+
+在本例中，jQuery使用的是npm里的，而jquery.pep.js使用的是一个自己下载的文件（它与很多jQuery插件一样，还没有发布到npm）。查看`jquery.pep.js`源码，注意到它用了这样的包装：
+
+{% highlight javascript %}
+;(function ( $, window, undefined ) {
+    // ...
+}(jQuery, window));
+{% endhighlight %}
+
+可以看出，它默认当前环境中已存在一个变量`jQuery`（如果不存在，则报错）。`package.json`中的`"depends": ["jquery:jQuery"] `是为它添加依赖声明，前一个`jquery`表示`require("jquery")`，后一个`jQuery`则表示将其命名为`jQuery`（赋值语句）。这样，插件代码运行的时候就可以正常找到`jQuery`变量，然后将它自己添加到jQuery中。
+
+实际上，browserify-shim的配置并不容易。针对代码包装（尽管都不兼容CommonJS，但也存在多种情况）及使用场景的不同，browserify-shim有不同的解决方案，本文在此只介绍到这。
+
+关于配置的更多说明，请参照[browserify-shim官方文档][]。更多参考可以查看[browserify shim recipes][]。此外，如果你觉得browserify-shim有些难以理解或者对它的原理也有兴趣，推荐阅读[这篇Stack Overflow上的回答][]。
+
+当然，对于已经处理了CommonJS兼容的库或插件（比如已经发布到npm），browserify-shim是不需要的。
+
+###其实还有的更多transform###
+
+在前面browserify-shim的例子中，`"browserify": {"transform": [ "browserify-shim" ]}`其实是Browserify的配置。可以看出，browserify-shim只是Browserify的其中一种transform。在它之外，还有[很多的transform][]可用，分别应对不同的需求，使Browserify的体系更为完善。
+
+比如，还记得本文引言里的Bower吗？[debowerify][]可以让通过Bower安装的包也可以用`require()`引用。~~npm和bower同为包管理工具，Browserify表示你们都是我的翅膀。~~
+
+##一点提示##
+
+Browserify是静态分析编译工具，因此不支持动态`require()`。例如，下面这样是不可以的：
+
+{% highlight javascript %}
+var lang = "zh_cn";
+var i18n = require("./" + lang);
+{% endhighlight %}
+
+##文档资料##
+
+有关Browserify更详细的说明文档，请看[browserify-handbook][]。
 
 ##结语##
 
-有了Browserify之后，npm已经可以算作通用的javascript包管理工具。
+我觉得Browserify很有趣，它用了这样一个名字，让你觉得它好像只是一个Node的浏览器端转化工具。为此，它还完成了Node中大部分核心库的浏览器端实现。但实际上，它走到了更远的地方，并在JavaScript模块化开发这个重要的领域中，创立了一个全新的体系。
+
+喜欢CommonJS的简洁风格？请尝试Browserify！
 
 [img_browserify_logo]: {{POSTS_IMG_PATH}}/201506/browserify_logo.png "Browserify"
 [img_browserify_console]: {{POSTS_IMG_PATH}}/201506/browserify_console.png "Gulp + Browserify结果示例"
@@ -252,3 +345,11 @@ console.log("Hello! " + name);
 [Gulp Recipes]: https://github.com/gulpjs/gulp/tree/master/docs/recipes "Gulp Recipes"
 [IIFE]: http://benalman.com/news/2010/11/immediately-invoked-function-expression/ "Ben Alman » Immediately-Invoked Function Expression (IIFE)"
 [prelude.js]: https://github.com/substack/browser-pack/blob/master/prelude.js "prelude.js"
+[browserify-shim]: https://github.com/thlorenz/browserify-shim "browserify-shim"
+[jquery.pep.js]: http://pep.briangonzalez.org/ "jquery.pep.js | kinetic drag for mobile & desktop"
+[browserify-shim官方文档]: https://github.com/thlorenz/browserify-shim "browserify-shim"
+[browserify shim recipes]: https://github.com/thlorenz/browserify-shim/wiki/browserify-shim-recipes "browserify shim recipes"
+[这篇Stack Overflow上的回答]: http://stackoverflow.com/questions/24835954/configure-a-generic-jquery-plugin-with-browserify-shim#answer-25585778 "javascript - Configure a generic jQuery plugin with Browserify-shim? - Stack Overflow"
+[很多的transform]: https://github.com/substack/node-browserify/wiki/list-of-transforms "list of transforms · substack/node-browserify Wiki · GitHub"
+[debowerify]: https://github.com/eugeneware/debowerify "eugeneware/debowerify · GitHub"
+[browserify-handbook]: https://github.com/substack/browserify-handbook "substack/browserify-handbook · GitHub"
