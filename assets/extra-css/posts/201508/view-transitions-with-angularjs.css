@@ -24,6 +24,8 @@
     height: 100%;
     left: 0;
     top: 0;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 .view-page{
     display: -webkit-box;
