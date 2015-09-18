@@ -53,7 +53,13 @@ gulp.task('javascript', function () {
 
 Stream如其名字所示的“流”那样，就像是工厂的流水线。你要加工一个产品，不用全部在一个位置完成，而是可以拆分成多道工序。产品从第一道工序开始，第一道工序完成后，输出然后流入第二道工序，然后再第三道工序...一方面，大批量的产品需求也不用等到全部完工（这通常很久），而是可以完工一个就拿到一个。另一方面，复杂的加工过程被分割成一系列独立的工序，这些工序可以反复使用，还可以在需要的时候进行替换和重组。这就是Stream的理念。
 
+###管道###
+
 Stream有一个很基本的操作叫做**管道**（**pipe**）。Stream是水流，而管道可以从一个流的输出口，接到另一个流的输入口，从而控制流向。如果用前面的流水线工序来说的话，就是连接工序的传输带了。
+
+![pipes][img_pipes]
+
+再来说Node的Stream。
 
 ####
 
@@ -74,7 +80,6 @@ Gulp on the other hand is all about streams and building complex pipelines with 
 ##结语##
 
 
-
-[img_browsersync_remote_debug]: {{POSTS_IMG_PATH}}/201503/browsersync_remote_debug.png "xxxx"
+[img_pipes]: {{POSTS_IMG_PATH}}/201509/pipes.jpg "pipes"
 
 [这份recipe]: https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-uglify-sourcemap.md "Browserify + Uglify2 with sourcemaps"
