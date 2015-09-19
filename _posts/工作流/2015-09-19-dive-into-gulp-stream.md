@@ -45,7 +45,7 @@ gulp.task('javascript', function () {
 - 为什么还要`vinyl-source-stream`和`vinyl-buffer`？它们是什么？
 - 添加在中间的`.on('error', gutil.log)`有什么作用？
 
-要回答这些问题，需要对Gulp做更深入的了解，这可以分成几个要素。
+要回答这些问题，就需要对Gulp做更深入的了解，这可以分成几个要素。
 
 ##要素之一：Stream##
 
@@ -176,11 +176,13 @@ Vinyl File Object的contents可以有三种类型：Stream、Buffer（二进制�
 gulp.src("*.js", {buffer: false});
 {% endhighlight %}
 
-在Gulp的插件编写指南中，也可以找到[Using buffers][]及[Dealing with streams][]两种类型的参考。
+在Gulp的插件编写指南中，也可以找到[Using buffers][]及[Dealing with streams][]这样两种类型的参考。
 
+##Stream转换模块##
 
+###vinyl-source-stream###
 
-
+######
 
 ##结语##
 
