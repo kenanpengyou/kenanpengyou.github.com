@@ -2,7 +2,7 @@
 layout: post
 title: "探究Gulp的Stream"
 category: "工作流"
-description: "Gulp很容易上手，但理解起来需要一点时间。Stream与Gulp到底是什么关系？请待本文解答。"
+description: "Gulp很容易上手，但理解起来需要一点时间。Stream与Gulp到底是什么关系？本文将解答。"
 ---
 {% include JB/setup %}
 
@@ -61,7 +61,7 @@ Stream有一个很基本的操作叫做**管道**（**pipe**）。Stream是水�
 
 ![pipes][img_pipes]
 
-Node的Stream都有一个方法`pipe()`，也就是管道操作对应的方法。它一般这样用：
+Node的Stream有一个方法`pipe()`，也就是管道操作对应的方法。它一般这样用：
 
 {% highlight javascript %}
 src.pipe(dst)
@@ -81,11 +81,11 @@ Stream的整个操作过程，都在内存中进行。因此，相比Grunt，使
 
 Node的Stream都是Node事件对象EventEmitter的实例，它们可以通过`.on()`添加事件侦听。
 
-你可以[查看EventEmitter的API文档][]。
+你可以查看[EventEmitter的API文档][]。
 
 ###类型###
 
-在现在的Node里，Stream被分为4类，分别是Readable（只读）、Writable（只写）、Duplex（双向）、 Transform（转换）。其中Duplex就是指可读可写，而Transform也是Duplex，只不过输出是由输入计算得到的，因此算作Duplex的特例。
+在现在的Node里，Stream被分为4类，分别是**Readable**（**只读**）、**Writable**（**只写**）、**Duplex**（**双向**）、** Transform**（**转换**）。其中Duplex就是指可读可写，而Transform也是Duplex，只不过输出是由输入计算得到的，因此算作Duplex的特例。
 
 Readable Stream和Writable Stream分别有不同的API及事件（例如`readable.read()`和`writable.write()`），Duplex Stream和Transform Stream因为是可读可写，因此拥有前两者的全部特性。
 
@@ -162,7 +162,7 @@ Gulp.prototype.dest = vfs.dest;
 
 ###类型###
 
-Vinyl File Object的contents可以有三种类型：Stream、Buffer（二进制数据）、Null（就是JavaScript里的`null`）。需要注意的是，各类Gulp插件虽然操作的都是Vinyl File Object，但可能会要求不同的类型。
+Vinyl File Object的**contents可以有三种类型**：**Stream**、**Buffer**（二进制数据）、**Null**（就是JavaScript里的`null`）。需要注意的是，**各类Gulp插件虽然操作的都是Vinyl File Object，但可能会要求不同的类型**。
 
 在使用Gulp过程中，可能会碰到incompatible streams的问题，像这样：
 
@@ -173,7 +173,7 @@ Vinyl File Object的contents可以有三种类型：Stream、Buffer（二进制�
 `gulp.src()`方法默认会返回Buffer类型，如果想要Stream类型，可以这样指明：
 
 {% highlight javascript %}
-gulp.src("*.js", {buffer: false});
+gulp.src("*.js", {buffer: false})
 {% endhighlight %}
 
 在Gulp的插件编写指南中，也可以找到[Using buffers][]及[Dealing with streams][]这样两种类型的参考。
@@ -227,7 +227,7 @@ gulp.task("css", function() {
 
 如果你不想这样自己定义错误处理函数，可以考虑[gulp-util][]的`.log()`方法。
 
-另外，这种方法可能会需要在多个位置加入`on("error")`，此时推荐[gulp-plumber][]，这个插件方便地处理整个管道内的错误。
+另外，这种方法可能会需要在多个位置加入`on("error")`，此时推荐[gulp-plumber][]，这个插件可以很方便地处理整个管道内的错误。
 
 据说Gulp下一版本，Gulp 4，将大幅改进Gulp的错误处理功能，敬请期待。
 
@@ -235,7 +235,7 @@ gulp.task("css", function() {
 
 现在，来回答本文开头的问题吧。
 
-`b.bundle()`生成了什么，为什么也可以`.pipe()`？`b.bundle()`生成了普通Node Stream，只要是Stream，就有管道方法`pipe()`。
+`b.bundle()`生成了什么，为什么也可以`.pipe()`？`b.bundle()`生成了Node Stream中的Readable Stream，而Readable Stream有管道方法`pipe()`。
 
 为什么不是从`gulp.src()`开始？Browserify来自Node体系而不是Gulp体系，要结合Gulp和Browserify，适当的做法是先从Browserify生成的普通Node Stream开始，然后再转换为VInyl File Object Stream连接到Gulp体系中。
 
@@ -245,7 +245,7 @@ gulp.task("css", function() {
 
 ##结语##
 
-Gulp确实是一个有关Stream的构建系统。Gulp对其插件有非常严格的要求（看看插件指南就可以知道），认为插件必须专注于单一事务。这也可以看做Gulp对Stream理念的一点推崇。
+再次确认，Gulp是一个有关Stream的构建系统。Gulp对其插件有非常严格的要求（看看插件指南就可以知道），认为插件必须专注于单一事务。这也许算是Gulp对Stream理念的推崇。
 
 尝试用Gulp完成更高级、更个性化的构建工作吧！
 
@@ -253,7 +253,7 @@ Gulp确实是一个有关Stream的构建系统。Gulp对其插件有非常严格
 [img_incompatible_streams]: {{POSTS_IMG_PATH}}/201509/incompatible_streams.png "incompatible streams"
 
 [这份recipe]: https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-uglify-sourcemap.md "Browserify + Uglify2 with sourcemaps"
-[查看EventEmitter的API文档]: https://nodejs.org/api/events.html "Events Node.js v4.1.0 Manual & Documentation"
+[EventEmitter的API文档]: https://nodejs.org/api/events.html "Events Node.js v4.1.0 Manual & Documentation"
 [Stream Handbook]: https://github.com/substack/stream-handbook "Stream Handbook"
 [Stream API]: https://nodejs.org/api/stream.html "Stream Node.js v4.1.0 Manual & Documentation"
 [Vinyl]: https://github.com/wearefractal/vinyl "Vinyl"
