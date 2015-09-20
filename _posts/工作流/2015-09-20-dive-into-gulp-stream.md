@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Gulp的Stream理论"
+title: "探究Gulp的Stream"
 category: "工作流"
-description: ""
+description: "Gulp很容易上手，但理解起来需要一点时间。Stream与Gulp到底是什么关系？请待本文解答。"
 ---
 {% include JB/setup %}
 
@@ -178,14 +178,76 @@ gulp.src("*.js", {buffer: false});
 
 在Gulp的插件编写指南中，也可以找到[Using buffers][]及[Dealing with streams][]这样两种类型的参考。
 
-##Stream转换模块##
+##Stream转换##
+
+为了让Gulp可以更多地利用当前Node生态体系的Stream，出现了许多Stream转换模块。下面介绍一些比较常用的。
 
 ###vinyl-source-stream###
 
-######
+[vinyl-source-stream][]可以把普通的Node Stream转换为Vinyl File Object Stream。这样，相当于就可以把普通Node Stream连接到Gulp体系内。具体用法是：
+
+{% highlight javascript %}
+var fs = require("fs");
+var source = require('vinyl-source-stream');
+var gulp = require('gulp');
+
+var nodeStream = fs.createReadStream("komari.txt");
+nodeStream
+    .pipe(source("hotaru.txt"))
+    .pipe(gulp.dest("./"));
+{% endhighlight %}
+
+这段代码中的Stream管道，作为起始的并不是`gulp.src()`，而是普通的Node Stream。但经过vinyl-source-stream的转换后，就可以用`gulp.dest()`进行输出。其中`source([filename])`就是调用转换，我们知道Vinyl至少要有contents和path，而这里的原Node Stream只提供了contents，因此还要指定一个`filename`作为path。
+
+vinyl-source-stream中的stream，指的是生成的Vinyl File Object，其contents类型是Stream。类似的，还有[vinyl-source-buffer][]，它的作用相同，只是生成的contents类型是Buffer。
+
+###vinyl-buffer###
+
+[vinyl-buffer][]接收Vinyl File Object作为输入，然后判断其contents类型，如果是Stream就转换为Buffer。
+
+很多常用的Gulp插件如gulp-sourcemaps、gulp-uglify，都只支持Buffer类型，因此vinyl-buffer可以在需要的时候派上用场。
+
+##Gulp错误处理##
+
+Gulp有一个比较令人头疼的问题是，如果管道中有任意一个插件运行失败，整个Gulp进程就会挂掉。尤其在使用`gulp.watch()`做即时更新的时候，仅仅是临时更改了代码产生了语法错误，就可能使得watch挂掉，又需要到控制台里开启一遍。
+
+对错误进行处理就可以改善这个问题。前面提到过，Stream可以通过`.on()`添加事件侦听。对应的，在可能产生错误的插件的位置后面，加入`on("error")`，就可以做错误处理：
+
+{% highlight javascript %}
+gulp.task("css", function() {
+    return gulp.src(["./stylesheets/src/**/*.scss"])
+        .pipe(sass())
+        .on("error", function(error) {
+            console.log(error.toString());
+            this.emit("end");
+        })
+        .pipe(gulp.dest("./stylesheets/dest"));
+});
+{% endhighlight %}
+
+如果你不想这样自己定义错误处理函数，可以考虑[gulp-util][]的`.log()`方法。
+
+另外，这种方法可能会需要在多个位置加入`on("error")`，此时推荐[gulp-plumber][]，这个插件方便地处理整个管道内的错误。
+
+据说Gulp下一版本，Gulp 4，将大幅改进Gulp的错误处理功能，敬请期待。
+
+##解答##
+
+现在，来回答本文开头的问题吧。
+
+`b.bundle()`生成了什么，为什么也可以`.pipe()`？`b.bundle()`生成了普通Node Stream，只要是Stream，就有管道方法`pipe()`。
+
+为什么不是从`gulp.src()`开始？Browserify来自Node体系而不是Gulp体系，要结合Gulp和Browserify，适当的做法是先从Browserify生成的普通Node Stream开始，然后再转换为VInyl File Object Stream连接到Gulp体系中。
+
+为什么还要`vinyl-source-stream`和`vinyl-buffer`？它们是什么？因为Gulp插件的输入必须是Buffer或Stream类型的Vinyl File Object。它们分别是具有不同功能的Stream转换模块。
+
+添加在中间的`.on('error', gutil.log)`有什么作用？错误处理，以便调试问题。
 
 ##结语##
 
+Gulp确实是一个有关Stream的构建系统。Gulp对其插件有非常严格的要求（看看插件指南就可以知道），认为插件必须专注于单一事务。这也可以看做Gulp对Stream理念的一点推崇。
+
+尝试用Gulp完成更高级、更个性化的构建工作吧！
 
 [img_pipes]: {{POSTS_IMG_PATH}}/201509/pipes.jpg "pipes"
 [img_incompatible_streams]: {{POSTS_IMG_PATH}}/201509/incompatible_streams.png "incompatible streams"
@@ -198,3 +260,9 @@ gulp.src("*.js", {buffer: false});
 [vinyl-fs]: https://github.com/wearefractal/vinyl-fs "vinyl-fs"
 [Using buffers]: https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/using-buffers.md "Using buffers"
 [Dealing with streams]: https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/dealing-with-streams.md "Dealing with streams"
+[vinyl-source-stream]: https://www.npmjs.com/package/vinyl-source-stream "vinyl-source-stream"
+[vinyl-source-buffer]: https://www.npmjs.com/package/vinyl-source-buffer "vinyl-source-buffer"
+[vinyl-buffer]: https://www.npmjs.com/package/vinyl-buffer "vinyl-buffer"
+[vinyl-transform]: https://www.npmjs.com/package/vinyl-transform "vinyl-transform"
+[gulp-util]: https://www.npmjs.com/package/gulp-util "gulp-util"
+[gulp-plumber]: https://www.npmjs.com/package/gulp-plumber "gulp-plumber"
