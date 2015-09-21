@@ -192,4 +192,4 @@ PostCSS的风格可以说是在打造一个改变css开发方式的生态系统�
 [npm]: https://www.npmjs.com/ "npm"
 [PostCSS插件指南]: https://github.com/postcss/postcss/blob/master/docs/guidelines/plugin.md "PostCSS Plugin Guidelines"
 [libsass]: http://libsass.org/ "LibSass | A C implementation of a Sass compiler"
-[cssnext]: https://cssnext.github.io/ "cssnext"
+[cssnext]: http://cssnext.io/ "cssnext"
