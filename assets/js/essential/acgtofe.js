@@ -1,8 +1,8 @@
 /*
  * acgtofe.js
- * Based on jquery-1.11.0
- * By Liang Zhu(kenanpengyou@yeah.net)
- * Date 2014-02-27
+ * based on jquery-1.x
+ * by Liang Zhu(kenanpengyou@yeah.net)
+ * date 2015-09-29
  */
 
 // From https://gist.github.com/bobslaede/1221602
@@ -93,31 +93,25 @@ Modernizr.addTest('positionfixed', function() {
             }, handleShowDuration);
         }
 
-        function clickHandler(event) {
-            animateToTop();
-        }
-
-        function scrollHandler(event) {
-            controlHandleNode();
-        }
-
-        function resizeHandler(event) {
-            acgtofe.util.throttle(function(){
-                windowResize = true;
-                controlHandleNode();
-            }, null, 100);
-        }
-
         function bindEvents() {
-            handleNode.on("click", clickHandler);
+            handleNode.on("click", function(event) {
+                animateToTop();
+            });
             win.on({
-                scroll: scrollHandler,
-                resize: resizeHandler
+                scroll: function(event) {
+                    controlHandleNode();
+                },
+                resize: function(event) {
+                    acgtofe.util.throttle(function() {
+                        windowResize = true;
+                        controlHandleNode();
+                    }, null, 100);
+                }
             });
         }
 
         function init() {
-            if (handleNode.length) {
+            if (handleNode.length > 0) {
                 handleNode.css({
                     "position": posString,
                     "right": handlePos.right,
@@ -154,17 +148,73 @@ Modernizr.addTest('positionfixed', function() {
             bgNode.css("min-height", properNumber * Constants.REFER_HEIGHT);
         }
 
-        function handleWinResize(){
-            acgtofe.util.throttle(reviseHeight, null, 100);
-        }
-
         function bindEvents(){
-            win.on("resize", handleWinResize);
+            win.on("resize", function(event){
+                acgtofe.util.throttle(reviseHeight, null, 100);
+            });
         }
 
         function init(){
-            if(bgNode.length){
+            if(bgNode.length > 0){
                 reviseHeight();
+                bindEvents();
+            }
+        }
+
+        init();
+    };
+
+    acgtofe.setExtendControl = function() {
+        var topSpace = 20,
+            linkEl = $(".extend_link"),
+            mainEl = $(".main"),
+            win = $(window),
+            properX, originalY;
+
+        function refreshOrigin(){
+            originalY = linkEl.offset().top;
+        }
+
+        function ensureSticky(){
+            var scrollPos = win.scrollTop();
+
+            if(scrollPos + topSpace > originalY){
+                properX = mainEl.offset().left + mainEl.width();
+                linkEl.css({
+                    position: "fixed",
+                    left: properX,
+                    top: topSpace
+                });
+            }else{
+                linkEl.removeAttr("style");
+            }
+        }
+
+        function assignData(){
+
+            // Get the original data for the first time.
+            refreshOrigin();
+        }
+
+        function bindEvents() {
+            linkEl.on("click", function(event) {
+                linkEl.parents(".content").toggleClass("is_extended");
+                ensureSticky();
+            });
+            win.on("scroll", function(event){
+                ensureSticky();
+            });
+            win.on("resize", function(event){
+                acgtofe.util.throttle(function(){
+                    refreshOrigin();
+                    ensureSticky();
+                }, null, 50);
+            });
+        }
+
+        function init() {
+            if (linkEl.length > 0) {
+                assignData();
                 bindEvents();
             }
         }
@@ -181,6 +231,12 @@ Modernizr.addTest('positionfixed', function() {
     //functions which run after page ready
     $(function() {
         acgtofe.setup();
+    });
+
+    $(window).on("load", function(){
+
+        // This should be run after loaded.
+        acgtofe.setExtendControl();
     });
 
 }(jQuery));
