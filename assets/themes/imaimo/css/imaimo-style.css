@@ -130,11 +130,17 @@ code{font-size:15px;}
 .main{position:relative;}
 .main .ribbon_brown{position:absolute;width:145px;height:84px;background-position:-15px 0;top:-20px;right:-10px;}
 
+/*扩展状态控制按钮*/
+.extend_link{position:absolute;width:12px;height:34px;margin-right:-12px;background:#977f6e;right:0;top:100px;}
+.extend_link:hover{background:#ef8484;}
+.extend_link:after{position:absolute;width:0;height:0;margin:-6px 0 0 -3px;border:solid transparent;border-width:6px;border-left-color:#fff;left:50%;top:50%;content:"";}
+.content.is_extended .extend_link:after{margin:-6px 0 0 -9px;border-left-color:transparent;border-right-color:#fff;}
+
 /*内容基础*/
 .h1_hidden{position:absolute;left:-9999em;}
 
 /*首页文章列表*/
-.posts .post_item{padding:30px 0;background:url(../images/separate_line.png) center bottom no-repeat;zoom:1;}
+.posts .post_item{padding:30px 0;background:url(../images/separate_line.png) center bottom repeat-x;zoom:1;}
 .posts .icon_post_prefix{display:inline-block;width:22px;height:22px;margin-right:6px;background-position:0 0;vertical-align:text-bottom;}
 .posts .post_title{font-size:17px;line-height:1.8;}
 .posts .post_title_link:hover{color:#b97849;text-decoration:none;}
@@ -170,7 +176,7 @@ code{font-size:15px;}
 .tags_exhibit .tag_link{margin:0 10px;}
 
 /*下一篇和上一篇*/
-.post_nav{height:20px;padding:30px 0 15px 0;background:url(../images/separate_line.png) center bottom no-repeat;font-size:12px;line-height:18px;}
+.post_nav{height:20px;padding:30px 0 15px 0;background:url(../images/separate_line.png) center bottom repeat-x;font-size:12px;line-height:18px;}
 .post_nav .post_nav_link{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .post_nav .post_next_link{float:right;padding-right:20px;background-position:right -20px;}
 .post_nav .post_prev_link{float:left;padding-left:20px;background-position:left 0;}
@@ -256,7 +262,7 @@ code{font-size:15px;}
 .single_demo_title{color:#99592b;font-size:21px;text-align:center;line-height: 1.6;}
 .single_demo_content{padding:20px 0;word-wrap:break-word;}
 .single_demo_content p{margin-bottom:1.5em;line-height:1.7;}
-.demo_comments{max-width:570px;padding:10px 0;background:url(../images/separate_line.png) center top no-repeat;}
+.demo_comments{padding:10px 0;background:url(../images/separate_line.png) center top repeat-x;}
 
 /*-------每一篇demo end-------*/
 
@@ -272,7 +278,7 @@ code{font-size:15px;}
 .contruction_note{height:100px;padding:80px 0 80px 0;}
 .note_img_container{float:left;width:80px;padding:0 30px 0 120px;}
 .note_text{padding-top:80px;overflow:hidden;}
-.demo_item{padding:20px 10px;background:url(../images/separate_line.png) center bottom no-repeat;overflow:hidden;zoom:1;}
+.demo_item{padding:20px 10px;background:url(../images/separate_line.png) center bottom repeat-x;overflow:hidden;zoom:1;}
 .demo_title{font-size:17px;line-height:1.4;}
 .demo_title_link:hover{color:#b97849;text-decoration:none;}
 .demo_intro{padding-top:15px;line-height:1.7;}
@@ -282,7 +288,7 @@ code{font-size:15px;}
 /*分类-categories*/
 .title_categories{background-position:0 -40px;}
 .category_exhibit{}
-.category_exhibit_item{padding:30px 0 22px 0;background:url(../images/separate_line.png) center bottom no-repeat;}
+.category_exhibit_item{padding:30px 0 22px 0;background:url(../images/separate_line.png) center bottom repeat-x;}
 .category_note{font-size:16px;}
 .post_list_in_category{padding: 10px 0 0 20px;}
 .post_item_in_category{height:16px;padding:8px 0;}
@@ -372,6 +378,9 @@ html,body{height:100%;}
     .wrapper{max-width:700px;}
     .main{margin-bottom:30px;}
     .main_inner{padding:10px 20px 60px 20px;}
+
+    /*扩展控制按钮，非两栏结构时，将不显示*/
+    .extend_link{visibility:hidden;}
     
     /*文章链接*/
     .post_nav .post_nav_link{max-width:100px;}
@@ -398,6 +407,10 @@ html,body{height:100%;}
     .main{float:left;width:70%;min-height:600px;}
     .sidebar{float:right;width:25%;}
     .main_inner{padding:10px 40px 80px 40px;}
+
+    /*扩展形态*/
+    .content.is_extended .main{float:none;width:auto;}
+    .content.is_extended .sidebar{display:none;}
 
     /*文章链接*/
     .post_nav .post_nav_link{max-width:180px;}
