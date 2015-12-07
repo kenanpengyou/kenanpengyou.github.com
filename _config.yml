@@ -20,7 +20,11 @@ author :
   email : kenanpengyou@gmail.com
   github : kenanpengyou
   twitter : 
-  feedsky : acgtofe
+
+# Jekyll RSS Feed
+name: "acgtofe"
+description: "acgtofe - 动漫与前端技术的综合博客"
+url: http://acgtofe.com
 
 # Custom plugin
 # Liang Zhu(kenanpengyou@gmail.com)
