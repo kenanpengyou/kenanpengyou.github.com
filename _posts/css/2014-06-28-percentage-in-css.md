@@ -136,5 +136,5 @@ description: "大部分人肯定都在css中使用过百分比值，虽然写起
 [固定页脚]: http://acgtofe.com/posts/2013/03/sticky-footer/ "简单实现固定在页面底部的页脚 - acgtofe"
 [MDN对border-radius的说明]: https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius "border-radius - CSS | MDN"
 [W3C的background-position]: http://www.w3.org/TR/css3-background/#background-position "CSS Backgrounds and Borders Module Level 3 - background-position"
-[MDN的CSS percentage values]: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_percentage_values "CSS percentage values - CSS | MDN"
+[MDN的CSS percentage values]: https://web.archive.org/web/20150906065047/https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_percentage_values "CSS percentage values - CSS | MDN"
 
