@@ -71,7 +71,7 @@ description: "大部分人肯定都在css中使用过百分比值，虽然写起
 .circle{border-radius:50%;}
 {% endhighlight %}
 
-对此的解释是，*为一个元素的`border-radius`定义的百分比值，参照物是这个元素自身的尺寸*。也就是说，假如这个元素宽是60px，高是50px（border-box的尺寸），那么`border-radius:50%`的结果等同于`border-radius:30px/20px;`。
+对此的解释是，*为一个元素的`border-radius`定义的百分比值，参照物是这个元素自身的尺寸*。也就是说，假如这个元素宽是60px，高是40px（border-box的尺寸），那么`border-radius:50%`的结果等同于`border-radius:30px/20px;`。
 
 如果你还疑惑这里带`/`的圆角写法，请查看[MDN对border-radius的说明][]。
 
