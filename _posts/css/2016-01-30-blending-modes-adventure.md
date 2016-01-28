@@ -1,10 +1,32 @@
 ---
 layout: post
-title: "图层混合模式"
+title: "更丰富的网页多图层效果：css混合模式"
 category: "css"
 description: "和ps的很类似！"
 ---
 {% include JB/setup %}
+
+##图层与图层混合##
+
+在Photoshop等图像编辑软件里，图层是最基础的概念之一。我们平时看一张照片，就可能想到“远处的背景”、“近处的人物”这样的描述，这其实就是在划分图层。多个图层从下到上（从远到近）依次拼合，就得到完整的图像。
+
+分图层很有用。一方面，图层是独立的，修改时不会相互影响，另一方面，图层可以保留原始图像，便于还原或做其他调整。
+
+###网页里的图层###
+
+在网页里，并没有明确的图层的概念，但却可以当做图层去理解。css里的`z-index`，就非常符合多图层相互覆盖的效果。
+
+实际上，决定网页内元素覆盖关系的是**绘制顺序**，绘制顺序靠后的元素，将覆盖绘制顺序靠前的元素。
+
+**[层叠上下文][]**（**stacking context**）是与绘制顺序密切相关的概念。在一个层叠上下文内，浏览器总是遵循[特定的顺序][]去绘制该上下文内的所有元素。
+
+###图层重叠的部分###
+
+为什么有时候我们会很
+
+##透明度混合##
+
+
 
 ##混合模式是在layout之后，属于视觉渲染部分的效果##
 
@@ -73,6 +95,8 @@ If a property doesn’t have enough comma-separated values to match the number o
 }
 {% endhighlight %}
 
+`mix-blend-mode`就像`opacity`那样，会作用于一个元素以及它内部的所有子元素。
+
 `isolate`的元素内的各类子元素都不会再和外边的backdrop背景进行混合，但`isolate`元素内的各类子元素之间是可以继续混合的，包括`isolate`元素自己的背景。
 
 `background-blend-mode`不需要搭配`isolate`，它本身就是隔离的。`isolate`是和`mix-blend-mode`搭配使用的。
@@ -89,5 +113,6 @@ If a property doesn’t have enough comma-separated values to match the number o
 
 [img_unity3d_impression]: {{POSTS_IMG_PATH}}/201512/unity3d_impression.png "Unity3D"
 
-[3D rendering context]: http://www.w3.org/TR/css-transforms-1/#3d-transform-rendering "CSS Transforms Module Level 1"
+[层叠上下文]: https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context "The stacking context - Web 开发者指南 | MDN"
 https://www.w3.org/TR/compositing-1/
+[特定的顺序]: https://www.w3.org/TR/CSS21/zindex.html#painting-order "Elaborate description of Stacking Contexts - Painting order"
