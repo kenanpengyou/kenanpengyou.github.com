@@ -105,7 +105,7 @@ x = a × b
 
 ###background-blend-mode###
 
-这个属性一般和多重背景的`background-image`搭配使用，它和`background-image`一样可以通过`,`分隔指定多个值。这将在某一个元素的多个背景之间形成混合，比如：
+这个属性一般和多重背景的`background-image`搭配使用，它和`background-image`一样可以指定多个值。这将在某一个元素的多个背景之间形成混合，比如：
 
 {% highlight css %}
 .blending-element-0 {
@@ -122,10 +122,9 @@ x = a × b
 
 ###mix-blend-mode与isolation###
 
-这2个属性是搭配使用的。相比前面的`background-blend-mode`是应用在单个元素的多背景之间，`mix-blend-mode`则是应用于多个元素，而且除背景外，元素内的文字等全部内容都会被混合。
+这2个属性是搭配使用的。相比前面的`background-blend-mode`是应用在单个元素的多背景之间，`mix-blend-mode`则是应用于多个元素，而且除背景外，元素内的文字等其他内容也会被混合。
 
-`mix-blend-mode`的效果比较重，类似`opacity`
-
+`mix-blend-mode`比较类似`opacity`，作用于一个元素时也会作用于这个元素的全部子元素。因此
 
 总共3个属性。`background-blend-mode`是单个元素的多背景之间的混合。`mix-blend-mode`是任意元素之间的混合，类似`opacity`，不限于图，元素内的文字等内容，也都会混合。
 `isolation`是用于在需要的时候建立新stacking context，以手工控制某些设置了`mix-blend-mode`的元素之间不产生混合。
@@ -133,7 +132,7 @@ x = a × b
 {% highlight css %}
 .img-wrapper {
   isolation: isolate;
-}
+}；
 {% endhighlight %}
 
 `mix-blend-mode`就像`opacity`那样，会作用于一个元素以及它内部的所有子元素。
