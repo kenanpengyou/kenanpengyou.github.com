@@ -109,8 +109,8 @@ x = a × b
 
 {% highlight css %}
 .blending-element-0 {
-  background-image: url(1.jpg), url(2.jpg), url(3.jpg);
-  background-blend-mode: multiply, screen;
+    background-image: url(1.jpg), url(2.jpg), url(3.jpg);
+    background-blend-mode: multiply, screen;
 }
 {% endhighlight %}
 
