@@ -2,7 +2,7 @@
 layout: post
 title: "更丰富的网页多图层效果：css混合模式"
 category: "css"
-description: "和ps的很类似！"
+description: "css混合模式和Photoshop里的图层混合模式非常近似，本文将带你做对比了解。"
 ---
 {% include JB/setup %}
 
@@ -18,7 +18,7 @@ description: "和ps的很类似！"
 
 准确地说，决定网页内元素覆盖关系的是**绘制顺序**，绘制顺序靠后的元素，将覆盖绘制顺序靠前的元素。
 
-与绘制顺序密切相关的概念是**[层叠上下文][]**（**stacking context**）。在一个层叠上下文内，浏览器总是遵循[特定的顺序][]去绘制该上下文内的所有元素。
+与绘制顺序密切相关的概念是**层叠上下文**（**stacking context**）。在一个层叠上下文内，浏览器总是遵循[特定的顺序][]去绘制该上下文内的所有元素。
 
 ##重叠与合成##
 
@@ -120,75 +120,118 @@ x = a × b
 
 如果元素指定了背景色（`background-color`），那么背景色将成为最下层的背景。
 
+如果有使用`background`这个简写属性，那么`background-blend-mode`的值将会被重置为默认。
+
 ###mix-blend-mode与isolation###
 
 这2个属性是搭配使用的。相比前面的`background-blend-mode`是应用在单个元素的多背景之间，`mix-blend-mode`则是应用于多个元素，而且除背景外，元素内的文字等其他内容也会被混合。
 
-`mix-blend-mode`比较类似`opacity`，作用于一个元素时也会作用于这个元素的全部子元素。因此
+`mix-blend-mode`比较类似`opacity`，作用于一个元素的同时也会作用于这个元素的全部子元素。因此，如果不想要子元素内容也受到影响（就像设置半透明时可能希望里面的文字仍是不透明的），改用`background-blend-mode`会更合适。
 
-总共3个属性。`background-blend-mode`是单个元素的多背景之间的混合。`mix-blend-mode`是任意元素之间的混合，类似`opacity`，不限于图，元素内的文字等内容，也都会混合。
-`isolation`是用于在需要的时候建立新stacking context，以手工控制某些设置了`mix-blend-mode`的元素之间不产生混合。
+使用`mix-blend-mode`的代码大致这样：
 
-{% highlight css %}
-.img-wrapper {
-  isolation: isolate;
-}；
+{% highlight html %}
+<div class="container">
+    <div class="blending-element-1"></div>
+    <div class="blending-element-2"></div>
+</div>
 {% endhighlight %}
 
-`mix-blend-mode`就像`opacity`那样，会作用于一个元素以及它内部的所有子元素。
+{% highlight css %}
+.blending-element-1,
+.blending-element-2{
+    mix-blend-mode: soft-light;
+}
+{% endhighlight %}
 
-`isolate`的元素内的各类子元素都不会再和外边的backdrop背景进行混合，但`isolate`元素内的各类子元素之间是可以继续混合的，包括`isolate`元素自己的背景。
+在这个例子中，只要`div.blending-element-1`和`div.blending-element-2`存在重叠，就可以有混合效果。那么，只是这2个元素之间混合吗？父元素`div.container`有背景，甚至前面还有其他的位于下方的元素的话，它们也参与混合吗？
 
-`background-blend-mode`不需要搭配`isolate`，它本身就是隔离的。`isolate`是和`mix-blend-mode`搭配使用的。
+这就是如何界定哪些元素参与混合的问题。网页里是这样做的：**以层叠上下文（stacking context）为依据，为元素进行分组，位于同一个层叠上下文内的元素算作同一组，同一组内才能发生混合**。
 
+请再看这样一个例子（只列出了相关的css）：
 
-##一些混合模式##
+{% highlight html %}
+<div class="container">
+    <div class="inner-wrapper">
+        <img class="blending-image" src="1.jpg" alt="Rorona">
+    </div>
+</div>
+{% endhighlight %}
 
-只列举最好用的几种。例如纯白背景的图去除白背景（正片叠底）， 纯黑背景的图去除黑背景（滤色）
+{% highlight css %}
+.container {
+    background: gray;
+}
+.blending-image {
+    mix-blend-mode: multiply;
+}
+{% endhighlight %}
 
-混合模式是在layout之后，属于视觉渲染部分的效果
+效果是：
 
-Multiply 
-正片叠底模式。考察每个通道里的颜色信息，并对底层颜色进行正片叠加处理。其原理和色彩模式中的“减色原理”是一样的。这样混合产生的颜色总是比原来的要暗。如果和黑色发生正片叠底的话，产生的就只有黑色。而与白色混合就不会对原来的颜色产生任何影响。 
+![mix-blend-mode][img_mix_blend_mode_example_1]
 
-##不同浏览器对混合模式的实现效果有差异，也可能不同于PS##
+可以看到`div.container`的灰色背景和`img.blending-image`的图片内容已经有了混合效果。这时候，再给中间的元素`div.inner-wrapper`稍作改变：
 
-而且可能会很影响性能。有blending mode的话，就会比较卡。
+{% highlight css %}
+.inner-wrapper{
+    isolation: isolate;
+}
+{% endhighlight %}
 
+会看到混合模式失效了：
 
-##附加细节##
+![mix-blend-mode + isolation][img_mix_blend_mode_example_2]
 
-The source is what you want to draw, and the destination is what is already drawn (the backdrop).
+可以看到，在有了`isolation: isolate`这个属性后，好像就有了字面上“隔离”的效果。
 
-Typically, the blending step is performed first, followed by the Porter-Duff compositing step. In the blending step, the resultant color from the mix of the element and the the backdrop is calculated. The graphic element’s color is replaced with this resultant color. The graphic element is then composited with the backdrop using the specified compositing operator.
-(这段话好像是说有两步，第一步是我们一般说的混合模式，blending，由上面的元素和下面的背景先计算得到一个混合色，然后，上边的元素的颜色替换成这个合成色，再最后这个合成色和背景通过某种指定特定运算再进行混合，最后这一步混合不是混合模式，而是决定是取元素和背景的相交部分，还是并集部分，或者只取元素部分这种选区性质的)
+事实上，并没有“隔离”这种特殊效果，它的本质是创建新的层叠上下文。在元素合成这一点上，你可以理解为是新开一个分组。分组有什么用呢？请看下图：
 
-Porter-Duff compositing是决定元素（前景）和背景在一起后最终得到的内容区域范围。而blending只决定元素和背景的重叠部分（overlap）的像素点的值。
+![为图层分组][img_stacking_context_to_group]
 
-In CSS, we have no way to specify a composite operation. The default composite operation used is source-over
+这种层级关系非常像html的DOM树，只不过，每一个节点（分组）的生成，都需要有对应元素创建新的层叠上下文。如果没有元素创建新层叠上下文，那么无论DOM树多么复杂，它们都属于同一个层叠上下文内（也就是上图没有任何group，layer1~6平铺）。
 
-The blending calculations must not use pre-multiplied color values.(blending的运算一定是用的纯色值，不包含对alpha的考虑，alpha仍然是通过blending之后的Porter-Duff compositing来体现作用)。
+分组会改变元素参与混合的先后顺序。在复杂的DOM树中，可能有多个元素都设置了混合模式，这时候，**总是组内的图层先相互混合，然后把整个组看作一个整体，再和组外的其他元素混合**。由于DOM元素默认的混合方式都是`normal`，也就是上层遮挡下层的风格，因此看起来就好像组内和组外隔离了开来，这就是`isolation`的意思。
 
-Everything in CSS that creates a stacking context must be considered an ‘isolated’ group.
+前面说`isolation`可以和`mix-blend-mode`搭配使用，就是因为它可以为元素之间的混合增加一层控制。对于`background-blend-mode`而言，`isolation`并没有用，因为`background-blend-mode`作用的多个背景都位于同一个元素内部，相当于一定在一个独立的分组内，和外部的其他元素无关。
 
-Also note that if the background shorthand is used, the background-blend-mode property for that element must be reset to its initial value.
+关于更多的创建新的层叠上下文的条件，推荐查看[MDN的文档][]。你可以看到`isolation: isolate;`只是其中的一种情况。
 
-和opacity类似，`mix-blend-mode`值不为`normal`，以及`isolation`的值为`isolate`，都会触发层叠上下文（stacking context）。
+##附带的一点补充##
 
-相互混合的图像，必须处于同一个stacking context里。 而例如`isolation`为`isolate`，其实就是会新创建一个stacking context，从而实现隔离。
+###浏览器兼容性###
 
+- [background-blend-mode](http://caniuse.com/#search=background-blend-mode)
+- [mix-blend-mode](http://caniuse.com/#search=mix-blend-mode)
 
+就本文的时间点而言，浏览器的支持范围还是有些不足。不过，混合模式只是一个视觉效果，要做兼容的话，先看看那些不支持的浏览器里的效果吧。如果差得不多，你也许可以接受。如果情况并不能接受，那就做一些调整，比如图片素材等，直到它看起来不是太难看。
+
+###合成的另一个步骤###
+
+w3c文档里提到合成（compositing）实际上分为两步，第一步是混合（blending），紧接着还有第二步叫[Porter-Duff compositing][]。如果你有兴趣，可以自行查看。
+
+这个Porter-Duff compositing虽然包含了很多种类，但就css而言，其实只有`source-over`可用（也就是说，固定的）。这也正是和我们视觉感受最一致的前景覆盖后景的效果。
+
+前文有提到混合模式的计算式所取的颜色值是不考虑透明度的，但实际我们知道在应用混合模式的同时设置透明度是可以改变效果的。这就是因为透明度会在这第二步合成里参与计算。
+
+###更多混合模式的计算原理###
+
+推荐阅读[Photoshop Blend Modes Explained][]。
 
 ##结语##
 
-一个有趣的事是，我们在用混合模式的时候，几乎都是去一个一个试，直到找到看起来还不错的效果。而如果对混合模式更理解一点的话，应该可以稍微减少一点我们找到那个“不错”的混合效果的时间。
+一个有趣的事情是，我们在用混合模式的时候，几乎都是会去一个一个试，直到找到看起来还不错的效果。而不是说，我能一眼知道应该用哪个混合模式。不过即便如此，了解一点混合模式的原理，也还是应该有助于我们更快地找到那个不错的混合模式的，大概。
 
-合成的主要意义是，保留原图。这样，可以在需要的时候还原。在Photoshop里一旦图层经过合并，除非用历史记录撤销，是不能再拆回原来的图层的。
+在我看来，网页的混合模式可以减少某些图像素材的编辑工作。另外，因为原图被保留了下来，所以可以在任何需要的时候还原，或者重新参与合成。
 
 [img_blending_modes_in_photoshop]: {{POSTS_IMG_PATH}}/201601/blending_modes_in_photoshop.png "web混合模式"
 [img_math_example]: {{POSTS_IMG_PATH}}/201601/math_example.png "正片叠底的计算过程"
+[img_stacking_context_to_group]: {{POSTS_IMG_PATH}}/201601/stacking_context_to_group.png "为图层分组"
+[img_mix_blend_mode_example_1]: {{POSTS_IMG_PATH}}/201601/mix_blend_mode_example_1.jpg "mix-blend-mode"
+[img_mix_blend_mode_example_2]: {{POSTS_IMG_PATH}}/201601/mix_blend_mode_example_2.jpg "mix-blend-mode + isolation"
 
-[层叠上下文]: https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context "The stacking context - Web 开发者指南 | MDN"
 [特定的顺序]: https://www.w3.org/TR/CSS21/zindex.html#painting-order "Elaborate description of Stacking Contexts - Painting order"
-[w3c的推荐规范]: https://www.w3.org/TR/compositing-1/ "Compositing and Blending Level 1"
-
+[w3c的推荐规范]: https://www.w3.org/TR/compositing-1/#blending "Compositing and Blending Level 1 - blending"
+[MDN的文档]: https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context "The stacking context - Web 开发者指南 | MDN"
+[Photoshop Blend Modes Explained]: photoblogstop.com/photoshop/photoshop-blend-modes-explained
+[Porter-Duff compositing]: https://www.w3.org/TR/compositing-1/#advancedcompositing "ompositing and Blending Level 1 - Porter-Duff compositing"
