@@ -233,5 +233,5 @@ w3c文档里提到合成（compositing）实际上分为两步，第一步是混
 [特定的顺序]: https://www.w3.org/TR/CSS21/zindex.html#painting-order "Elaborate description of Stacking Contexts - Painting order"
 [w3c的推荐规范]: https://www.w3.org/TR/compositing-1/#blending "Compositing and Blending Level 1 - blending"
 [MDN的文档]: https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context "The stacking context - Web 开发者指南 | MDN"
-[Photoshop Blend Modes Explained]: photoblogstop.com/photoshop/photoshop-blend-modes-explained
-[Porter-Duff compositing]: https://www.w3.org/TR/compositing-1/#advancedcompositing "ompositing and Blending Level 1 - Porter-Duff compositing"
+[Photoshop Blend Modes Explained]: http://photoblogstop.com/photoshop/photoshop-blend-modes-explained "Photoshop Blend Modes Explained"
+[Porter-Duff compositing]: https://www.w3.org/TR/compositing-1/#advancedcompositing "Compositing and Blending Level 1 - Porter-Duff compositing"
