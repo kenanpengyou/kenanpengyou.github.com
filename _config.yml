@@ -16,6 +16,8 @@ tagline: "acgtofe - 动漫与前端技术的综合博客"
 keywords: ["动漫", "web前端", "html/css", "javascript"]
 title_suffix: " - acgtofe"
 year: 2016
+theme:
+  name: "imaimo"
 author :
   name : Liang Zhu
   email : kenanpengyou@gmail.com
