@@ -196,6 +196,7 @@ code{font-size:15px;}
 .post_content p code,
 .post_content li code{margin:0 2px;color:#1d7382;}
 .post_content blockquote{margin:0;padding-left:10px;border-left:5px solid #e9887d;background:#fafafa;}
+.post_content figure{margin:0;}
 .post_content ul,
 .post_content ol{margin-bottom:1.5em;padding-left:30px;}
 .post_content li{list-style-image:url(../images/list_cube.gif);list-style-type:none;padding:5px 0;}
