@@ -133,10 +133,7 @@ var webpack = require('webpack'),
 
 var compiler = webpack(webpackDevConfig);
 
-// attach to the compiler & the server
 app.use(webpackDevMiddleware(compiler, {
-
-    // public path should be the same with webpack config
     publicPath: webpackDevConfig.output.publicPath,
     noInfo: true,
     stats: {
