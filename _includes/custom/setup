@@ -21,5 +21,8 @@
 {% if site.JB.ASSET_PATH %}
   {% assign ASSET_PATH = site.JB.ASSET_PATH %}
 {% else %}
+{% comment %}
+  {% capture ASSET_PATH %}{{ BASE_PATH }}/assets/themes/{{ page.theme.name }}{% endcapture %}
+{% endcomment %}
   {% capture ASSET_PATH %}{{ BASE_PATH }}/assets/themes/{{ page.theme.name }}{% endcapture %}
 {% endif %}  
