@@ -262,7 +262,7 @@ app.listen(3000, function(){
 [img_style_loader_issue]: {{POSTS_IMG_PATH}}/201602/style_loader_issue.png "style-loader的效果"
 [img_example_preview]: {{PURE_ASSET_PATH}}/used-images/projects/express-webpack-full-live-reload-example/preview.gif "示例效果"
 
-[BrowserSync，迅捷从免F5开始]: http://acgtofe.com/posts/2015/03/more-fluent-with-browsersync/ "BrowserSync，迅捷从免F5开始"
+[BrowserSync，迅捷从免F5开始]: http://acgtofe.com/posts/2015/03/more-fluent-with-browsersync "BrowserSync，迅捷从免F5开始"
 [webpack]: http://webpack.github.io/ "webpack module bundler"
 [Express]: http://expressjs.com/ "Express - Node.js web application framework"
 [Beginner’s guide to Webpack]: https://medium.com/@dabit3/beginner-s-guide-to-webpack-b1f1a3638460 "Beginner’s guide to Webpack — Medium"

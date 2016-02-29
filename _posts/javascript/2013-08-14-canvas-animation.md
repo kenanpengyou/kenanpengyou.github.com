@@ -178,4 +178,4 @@ canvas动画在网页上可以有非常棒的效果。如果想体验一下canva
 
 [requestAnimationFrame for Smart Animating]: http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/  "requestAnimationFrame for Smart Animating"
 [基于脚本的动画的计时控制]: http://msdn.microsoft.com/zh-cn/library/ie/hh920765%28v=vs.85%29.aspx  "基于脚本的动画的计时控制"
-[打砖块]: http://acgtofe.com/demo_pages/demos/brick-breaker/brick.html "打砖块"
+[打砖块]: http://acgtofe.com/demo_pages/demos/brick-breaker/brick "打砖块"

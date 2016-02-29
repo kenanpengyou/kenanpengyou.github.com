@@ -15,9 +15,9 @@
       <div class="unit_container">
           <div class="aside_title"><i class="icon_sprite icon_categories"></i><em>文章分类</em><span>Categories</span></div>
             <ul class="category_list clearfix">
-                {% for category in site.categories  %}
+                {% for category in site.categories %}
                 <li class="category_item"><a class="category_link" href="{{ BASE_PATH }}{{ site.JB.categories_path }}#{{ category | first }}-ref" title="">{{ category | first }}</a><span class="post_count">({{ category | last | size }})</span></li>
-                {% endfor  %}
+                {% endfor %}
             </ul>
         </div>
     </div>

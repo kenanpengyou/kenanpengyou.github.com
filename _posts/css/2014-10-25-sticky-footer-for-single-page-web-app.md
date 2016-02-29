@@ -155,4 +155,4 @@ description: "固定页脚是一个很有用的功能，保证页面内容较少
 [A Complete Guide to Flexbox]: http://css-tricks.com/snippets/css/a-guide-to-flexbox/  "A Complete Guide to Flexbox | CSS-Tricks"
 [Dive into Flexbox]: http://bocoup.com/weblog/dive-into-flexbox/ "Dive into Flexbox - Bocoup"
 [HTML5 CSS Sticky Footer]: http://ryanfait.com/html5-sticky-footer/ "HTML5 CSS Sticky Footer"
-[简单实现固定在页面底部的页脚]: http://acgtofe.com/posts/2013/03/sticky-footer/ "简单实现固定在页面底部的页脚 - acgtofe"
+[简单实现固定在页面底部的页脚]: http://acgtofe.com/posts/2013/03/sticky-footer "简单实现固定在页面底部的页脚 - acgtofe"

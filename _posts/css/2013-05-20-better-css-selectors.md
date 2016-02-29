@@ -110,7 +110,7 @@ css选择符将确定后面的属性定义要作用到哪些元素,因此存在�
 
 [img_key_selector_explain]: {{POSTS_IMG_PATH}}/201305/key_selector_explain.png "css关键选择符"
 
-[css优先级详细解析]: http://acgtofe.com/posts/2013/04/css-specificity-explain-in-detail/ "css优先级详细解析"
+[css优先级详细解析]: http://acgtofe.com/posts/2013/04/css-specificity-explain-in-detail "css优先级详细解析"
 [Writing Efficient CSS for use in the Mozilla UI]: http://www.mozilla.org/xpfe/goodcss.html "Writing Efficient CSS"
 [Stack Overflow上的相关讨论]: http://stackoverflow.com/questions/5797014/why-do-browsers-match-css-selectors-from-right-to-left "Why do browsers match CSS selectors from right to left?"
 [Use efficient CSS selectors]: https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors "Use efficient CSS selectors"

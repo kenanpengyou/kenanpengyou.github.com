@@ -22,4 +22,4 @@
   {% assign ASSET_PATH = site.JB.ASSET_PATH %}
 {% else %}
   {% capture ASSET_PATH %}{{ BASE_PATH }}/assets/themes/{{ site.theme.name }}{% endcapture %}
-{% endif %}  
+{% endif %}

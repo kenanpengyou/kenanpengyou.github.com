@@ -3,10 +3,11 @@
 permalink: /posts/:year/:month/:title
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-# highlighter: rouge
-highlighter: pygments
-markdown: rdiscount
+highlighter: rouge
+markdown: kramdown
 paginate: 5
+
+gems: [jekyll-paginate]
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
@@ -89,9 +90,9 @@ JB :
   # These paths are to the main pages Jekyll-Bootstrap ships with.
   # Some JB helpers refer to these paths; change them here if needed.
   #
-  archive_path: /index.html
-  categories_path : /categories.html
-  tags_path : /tags.html
+  archive_path: /index
+  categories_path : /categories
+  tags_path : /tags
   atom_path : /atom.xml
 
   # Setting for custom method In Jekyll-Bootstrap
