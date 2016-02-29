@@ -8,7 +8,7 @@ extraJS: ["angular.min.js", "angular-animate.min.js", "posts/201508/view-transit
 ---
 {% include JB/setup %}
 
-##视图，动画##
+## 视图，动画 ##
 
 单页应用（Single Page Web Application）往往有一个基本的要点，那就是把多个视图集成到一个网页内，然后去控制这些视图的显示和隐藏。此外，视图的切换动作几乎都会引入动画效果，以获得更平滑、流畅的浏览体验。
 
@@ -16,7 +16,7 @@ extraJS: ["angular.min.js", "angular-animate.min.js", "posts/201508/view-transit
 
 [Angular][]会是一个不错的选择。下面，本文将说明如何用Angular（v1.4.3）来完成制作。你也许会觉得这个过程相当简单。
 
-##切换DOM的ngSwitch##
+## 切换DOM的ngSwitch ##
 
 视图切换，其实就是切换DOM显示。Angular有一个[ngSwtich][]，从名字就可以看出，正是拿来做“切换”工作的。
 
@@ -56,7 +56,7 @@ extraJS: ["angular.min.js", "angular-animate.min.js", "posts/201508/view-transit
 
 这里的`background`是给每个视图带上背景，用作标识。 
 
-##引入动画的ngAnimate##
+## 引入动画的ngAnimate ##
 
 [ngAnimate][]是Angular的一个附属module，可以为Angular应用增加动画支持。在加入ngAnimate后，ngSwitch的切换过程所涉及的两个元素，会分别被Angular添加不同的class。其中，`ng-enter`代表进场，`ng-enter-active`代表进场动画终点，`ng-leave`代表退场，`ng-leave-active`代表退场动画终点。只需要借助这些class，我们就可以用css创建切换过程的动画（浏览器私有前缀已省略）：
 
@@ -109,7 +109,7 @@ extraJS: ["angular.min.js", "angular-animate.min.js", "posts/201508/view-transit
 
 有关更多的视图切换动画，推荐参考[A Collection of Page Transitions][]。
 
-##让一切工作起来##
+## 让一切工作起来 ##
 
 下面加入JavaScript完成功能。代码是（外层包装函数已省略）：
 
@@ -175,17 +175,17 @@ function viewController(){
 
 它包括4个视图，每个视图都定义了不同的进场和退场动画。
 
-##补充说明##
+## 补充说明 ##
 
-###ngSwitch的判定值是字符串###
+### ngSwitch的判定值是字符串 ###
 
 使用ngSwitch需要注意的是，最初在html内用`ng-switch-when`指定的值，只会被当做字符串进行识别。所以你也可以看到前文中的代码使用的是字符串的`"1"`。
 
-###ngSwitch会移除DOM###
+### ngSwitch会移除DOM ###
 
 ngSwtich切换DOM显示并不通过css的`display`属性实现，而是真正从DOM中添加和移除元素。因此，如果视图元素中有子Controller，使用`$scope.$emit()`可以发布事件到上层，如viewController的`$scope`，但反过来，viewController使用`$scope.$broadcast()`向下发布事件，则可能会因为DOM当前不存在而接收不到。
 
-###保障初始状态的ngCloak###
+### 保障初始状态的ngCloak ###
 
 JavaScript代码一般都会放在比较靠后的位置执行，在代码未运行完毕之前，可能会出现先看到未经JavaScript处理的html的情况（并带来一种闪烁的感觉）。比如本文例子中，ngSwitch中的多个视图初始都是显示的，只是在JavaScript代码运行后才隐藏非当前视图。
 
@@ -199,15 +199,15 @@ Angular提供了`ngCloak`来解决这个问题。在本文例子中，可以在`
 
 也就是说，先隐藏，然后Angular会在加载完成后再移除`ngCloak`标记。
 
-###浏览器兼容性###
+### 浏览器兼容性 ###
 
 考虑Angular(v1.4.x)本身以及css动画的兼容性，需要IE10+及其他现代浏览器。如果是移动端应用，那么在当前主流手机浏览器上都是可用的。
 
-###等下，还完全不会Angular...###
+### 等下，还完全不会Angular... ###
 
 本文假定你已经了解了最基本的Angular用法。如果想要从零开始，推荐参考[AngularJS for Absolute Beginners][]和[AngularJS TodoMVC Example][]。
 
-##结语##
+## 结语 ##
 
 说起来，我也赞同一个观点是，Angular的学习成本不低。但就本文的例子来看，要制作这样一个像模像样的单页应用，是不是还挺简单的呢？对Angular有基本的了解就可以了。
 

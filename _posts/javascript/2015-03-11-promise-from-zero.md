@@ -10,7 +10,7 @@ description: "各种各样的Promise库大概是怎样做出来的？本文将�
 
 非常庆幸，在[Promises/A wiki][]中位于库列表第一位的[Q][]，提供了它作为一个Promise库的[基本设计原理解析][]。本文将主要根据Q的这篇文章，探讨Promise的实现细节。
 
-##Promise核心说明##
+## Promise核心说明 ##
 
 尽管Promise已经有自己的规范，但目前的各类Promise库，在Promise的实现细节上是有差异的，部分API甚至在意义上完全不同。但Promise的核心内容，是相通的，它就是`then`方法。在相关术语中，`promise`指的就是一个有`then`方法，且该方法能触发特定行为的对象或函数。
 
@@ -20,7 +20,7 @@ Promise可以有不同的实现方式，因此Promise核心说明并不会讨论
 
 先阅读Promise核心说明的意思是：看，这就是需要写出来的结果，请参照这个结果想一想怎么用代码写出来吧。
 
-##起步：用这一种方式理解Promise##
+## 起步：用这一种方式理解Promise ##
 
 回想一下Promise解决的是什么问题？回调。例如，函数`doMission1()`代表第一件事情，现在，我们想要在这件事情完成后，再做下一件事情`doMission2()`，应该怎么做呢？
 
@@ -62,9 +62,9 @@ function doMission1(){
 
 这就完成了转换。虽然并不是实际有用的转换，但到这里，其实已经触及了Promise最为重要的实现要点，即**Promise将返回值转换为带`then`方法的对象**。
 
-##进阶：Q的设计路程##
+## 进阶：Q的设计路程 ##
 
-###从defer开始###
+### 从defer开始 ###
 
 `design/q0.js`是Q初步成型的第一步。它创建了一个名为`defer`的工具函数，用于创建Promise：
 
@@ -126,7 +126,7 @@ resolve: function (_value) {
 
 对第二次及更多的调用，可以这样抛出一个错误，也可以直接忽略掉。
 
-###分离defer和promise###
+### 分离defer和promise ###
 
 在前面的实现中，`defer`生成的对象同时拥有`then`方法和`resolve`方法。按照定义，promise关心的是`then`方法，至于触发promise改变状态的`resolve`，是另一回事。所以，Q接下来将拥有`then`方法的promise，和拥有`resolve`的defer分离开来，各自独立使用。这样就好像划清了各自的职责，各自只留一定的权限，这会使代码逻辑更明晰，易于调整。请看`design/q3.js`：（`q2`在此跳过）
 
@@ -165,7 +165,7 @@ var defer = function () {
 
 前面还有一个`isPromise()`函数，它通过是否有`then`方法来判断对象是否是promise（duck-typing的判断方法）。为了正确使用和处理分离开的promise，会像这样需要将promise和其他值区分开来。
 
-###实现promise的级联###
+### 实现promise的级联 ###
 
 接下来会是相当重要的一步。到前面到`q3`为止，所实现的promise都是不能级联的。但你所熟知的promise应该支持这样的语法：
 
@@ -247,7 +247,7 @@ var defer = function () {
 
 `then`方法有了较多变动，会先新生成一个defer，并在结尾处返回这个defer的promise。请注意，`callback`不再是直接取用传递给`then`的那个，而是在此基础之上增加一层，并把新生成的defer的`resolve`方法放置在此。此处可以理解为，`then`方法将返回一个新生成的promise，因此需要把promise的resolve也预留好，在旧的promise的resolve运行后，新的promise的resolve也会随之运行。这样才能像管道一样，让事件按照`then`连接的内容，一层一层传递下去。
 
-###加入错误处理###
+### 加入错误处理 ###
 
 promise的`then`方法应该可以包含两个参数，分别是肯定和否定状态的处理函数（`onFulfilled`与`onRejected`）。前面我们实现的promise还只能转变为肯定状态，所以，接下来应该加入否定状态部分。
 
@@ -332,7 +332,7 @@ defer1.resolve(10);
 
 可以看出，每一个传递给`then`方法的返回值是很重要的，它将决定下一个`then`方法的调用结果。而如果像上面这样返回工具函数`reject`生成的对象，就会触发错误处理。
 
-###融入异步###
+### 融入异步 ###
 
 终于到了最后的`design/q7.js`。直到前面的`q6`，还存在一个问题，就是`then`方法运行的时候，可能是同步的，也可能是异步的，这取决于传递给`then`的函数（例如直接返回一个值，就是同步，返回一个其他的promise，就可以是异步）。这种不确定性可能带来潜在的问题。因此，Q的后面这一步，是确保将所有`then`转变为异步。
 
@@ -404,7 +404,7 @@ var defer = function () {
 
 到此，Q提供的Promise设计原理`q0`~`q7`，全部结束。
 
-##结语##
+## 结语 ##
 
 即便本文已经是这么长的篇幅，但所讲述的也只到基础的Promise。大部分Promise库会有更多的API来应对更多和Promise有关的需求，例如`all()`、`spread()`，不过，读到这里，你已经了解了实现Promise的核心理念，这一定对你今后应用Promise有所帮助。
 

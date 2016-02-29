@@ -6,7 +6,7 @@ description: "Gulp很容易上手，但理解起来需要一点时间。Stream�
 ---
 {% include JB/setup %}
 
-##来自Gulp的难题##
+## 来自Gulp的难题 ##
 
 描述Gulp的项目构建过程的代码，并不总是简单易懂的。
 
@@ -47,7 +47,7 @@ gulp.task('javascript', function () {
 
 要回答这些问题，就需要对Gulp做更深入的了解，这可以分成几个要素。
 
-##要素之一：Stream##
+## 要素之一：Stream ##
 
 你可能也在最初开始使用Gulp的时候就听说过：Gulp是一个有关**Stream**（**数据流**）的构建系统。这句话的意思是，**Gulp本身使用了Node的Stream**。
 
@@ -55,7 +55,7 @@ Stream如其名字所示的“流”那样，就像是工厂的流水线。你�
 
 Stream在Node中的应用十分广泛，几乎所有Node程序都在某种程度上用到了Stream。
 
-###管道###
+### 管道 ###
 
 Stream有一个很基本的操作叫做**管道**（**pipe**）。Stream是水流，而管道可以从一个流的输出口，接到另一个流的输入口，从而控制流向。如果用前面的流水线工序来说的话，就是连接工序的传输带了。
 
@@ -73,23 +73,23 @@ src.pipe(dst)
 a.pipe(b).pipe(c).pipe(d)
 {% endhighlight %}
 
-###内存操作###
+### 内存操作 ###
 
 Stream的整个操作过程，都在内存中进行。因此，相比Grunt，使用Stream的Gulp进行多步操作并不需要创建中间文件，可以省去额外的`src`和`dest`。
 
-###事件###
+### 事件 ###
 
 Node的Stream都是Node事件对象EventEmitter的实例，它们可以通过`.on()`添加事件侦听。
 
 你可以查看[EventEmitter的API文档][]。
 
-###类型###
+### 类型 ###
 
 在现在的Node里，Stream被分为4类，分别是**Readable**（**只读**）、**Writable**（**只写**）、**Duplex**（**双向**）、** Transform**（**转换**）。其中Duplex就是指可读可写，而Transform也是Duplex，只不过输出是由输入计算得到的，因此算作Duplex的特例。
 
 Readable Stream和Writable Stream分别有不同的API及事件（例如`readable.read()`和`writable.write()`），Duplex Stream和Transform Stream因为是可读可写，因此拥有前两者的全部特性。
 
-###例子###
+### 例子 ###
 
 虽然Node中可以通过`require("stream")`引用Stream，但比较少会需要这样直接使用。大部分情况下，我们用的是Stream Consumers，也就是具有Stream特性的各种子类。
 
@@ -110,7 +110,7 @@ r.pipe(w).on("finish", function(){
 
 更多有关Stream的介绍，推荐阅读[Stream Handbook][]和[Stream API][]。
 
-##要素之二：Vinyl文件系统##
+## 要素之二：Vinyl文件系统 ##
 
 虽然Gulp使用的是Stream，但却不是普通的Node Stream，实际上，Gulp（以及Gulp插件）用的应该叫做**Vinyl File Object Stream**。
 
@@ -129,7 +129,7 @@ var coffeeFile = new File({
 
 从这段代码可以看出，Vinyl是Object，`path`和`contents`也正是这个Object的属性。
 
-###Vinyl的意义###
+### Vinyl的意义 ###
 
 Gulp为什么不使用普通的Node Stream呢？请看这段代码：
 
@@ -144,7 +144,7 @@ gulp.task("css", function(){
 
 普通的Node Stream只传输String或Buffer类型，也就是只关注“内容”。但Gulp不只用到了文件的内容，而且还用到了这个文件的相关信息（比如路径）。因此，Gulp的Stream是Object风格的，也就是Vinyl File Object了。到这里，你也知道了为什么有`contents`、`path`这样的多个属性了。
 
-###vinyl-fs###
+### vinyl-fs ###
 
 Gulp并没有直接使用vinyl，而是用了一个叫做`vinyl-fs`的模块（和`vinyl`一样，都是npm）。[vinyl-fs][]相当于vinyl的文件系统适配器，它提供三个方法：`.src()`、`.dest()`和`.watch()`，其中`.src()`将生成Vinyl File Object，而`.dest()`将使用Vinyl File Object，进行写入操作。
 
@@ -160,7 +160,7 @@ Gulp.prototype.dest = vfs.dest;
 
 也就是说，`gulp.src()`和`gulp.dest()`直接来源于vinyl-fs。
 
-###类型###
+### 类型 ###
 
 Vinyl File Object的**contents可以有三种类型**：**Stream**、**Buffer**（二进制数据）、**Null**（就是JavaScript里的`null`）。需要注意的是，**各类Gulp插件虽然操作的都是Vinyl File Object，但可能会要求不同的类型**。
 
@@ -178,11 +178,11 @@ gulp.src("*.js", {buffer: false})
 
 在Gulp的插件编写指南中，也可以找到[Using buffers][]及[Dealing with streams][]这样两种类型的参考。
 
-##Stream转换##
+## Stream转换 ##
 
 为了让Gulp可以更多地利用当前Node生态体系的Stream，出现了许多Stream转换模块。下面介绍一些比较常用的。
 
-###vinyl-source-stream###
+### vinyl-source-stream ###
 
 [vinyl-source-stream][]可以把普通的Node Stream转换为Vinyl File Object Stream。这样，相当于就可以把普通Node Stream连接到Gulp体系内。具体用法是：
 
@@ -201,13 +201,13 @@ nodeStream
 
 vinyl-source-stream中的stream，指的是生成的Vinyl File Object，其contents类型是Stream。类似的，还有[vinyl-source-buffer][]，它的作用相同，只是生成的contents类型是Buffer。
 
-###vinyl-buffer###
+### vinyl-buffer ###
 
 [vinyl-buffer][]接收Vinyl File Object作为输入，然后判断其contents类型，如果是Stream就转换为Buffer。
 
 很多常用的Gulp插件如gulp-sourcemaps、gulp-uglify，都只支持Buffer类型，因此vinyl-buffer可以在需要的时候派上用场。
 
-##Gulp错误处理##
+## Gulp错误处理 ##
 
 Gulp有一个比较令人头疼的问题是，如果管道中有任意一个插件运行失败，整个Gulp进程就会挂掉。尤其在使用`gulp.watch()`做即时更新的时候，仅仅是临时更改了代码产生了语法错误，就可能使得watch挂掉，又需要到控制台里开启一遍。
 
@@ -231,7 +231,7 @@ gulp.task("css", function() {
 
 据说Gulp下一版本，Gulp 4，将大幅改进Gulp的错误处理功能，敬请期待。
 
-##解答##
+## 解答 ##
 
 现在，来回答本文开头的问题吧。
 
@@ -243,7 +243,7 @@ gulp.task("css", function() {
 
 添加在中间的`.on('error', gutil.log)`有什么作用？错误处理，以便调试问题。
 
-##结语##
+## 结语 ##
 
 再次确认，Gulp是一个有关Stream的构建系统。Gulp对其插件有非常严格的要求（看看插件指南就可以知道），认为插件必须专注于单一事务。这也许算是Gulp对Stream理念的推崇。
 

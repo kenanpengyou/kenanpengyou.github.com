@@ -12,7 +12,7 @@ description: "Grunt是适用于前端开发的自动化工具，很有用，不�
 
 就一个前端的项目而言，先来看看开发版与发布版的大致差异。
 
-##开发版与发布版##
+## 开发版与发布版 ##
 
 从直观的感受简单说的话，css的差异是：
 
@@ -26,7 +26,7 @@ javascript的差异是：
 
 *Grunt*是一个由node编写的自动化工具。对于我这样从事前端开发的人来说，比起其他的后端语言，Grunt这种使用javascript的工具会显得更亲切，更适合。
 
-##Grunt安装初始##
+## Grunt安装初始 ##
 
 我自己用的电脑是windows，所以说的是windows下的安装（各位看到的linux/mac安装教程还少么 (｡・д・)ﾉ ）。
 
@@ -44,7 +44,7 @@ Grunt直接通过[npm][]安装。如果不知道npm是什么，可点击[维基�
 
 使用Grunt必须要配置两个文件。一个是`package.json`，另一个是`Gruntfile.js`（准确地说，还可以是`Gruntfile.coffee`，但本文不介绍这个）。
 
-##文件之一：package.json##
+## 文件之一：package.json ##
 
 npm对工作目录有一个要求。这个要求是：根目录位置处有一个`package.json`文件。这个文件定义了工作目录对应的一些项目信息（名字，描述），以及包（就是npm模块）依赖关系。它可以很简单，如下：
 
@@ -93,7 +93,7 @@ Grunt的实际工作，必须要结合各类*Grunt插件*（*Grunt Plugins*）�
 
 同样，建议写上`--save-dev`，以记录到`package.json`文件中。插件的源文件也会存放到`node_modules`目录中。
 
-##文件之二：Gruntfile.js##
+## 文件之二：Gruntfile.js ##
 
 `Gruntfile.js`相当于Grunt的配置文件，也必须位于根目录。这个文件建议手工创建（模板也可以创建，但模板的使用并不简单，所以还是复制起来更容易）。我自己的目录需要做的自动化工作分别是：css代码压缩，图片优化，js代码压缩。我选用了3个对应的插件来完成，分别是`grunt-contrib-cssmin`，`grunt-contrib-imagemin`，`grunt-contrib-uglify`。最后我的`Gruntfile.js`的内容是：（为方便说明，精简了细节部分）
 
@@ -157,7 +157,7 @@ grunt.registerTask('custom', ['cssmin', 'imagemin']);
 
     grunt custom
 
-##Grunt插件配置##
+## Grunt插件配置 ##
 
 下面来看比较复杂的`grunt.initConfig();`。这个函数调用的时候使用的Object类别的参数，即包含了配置的全部信息。
 
@@ -190,7 +190,7 @@ uglify: {
 
 则只会运行`uglify`任务的名称为`foo`的任务目标。显然，如果不用`:`指定目标，则会依次运行该任务中的所有任务目标。
 
-##Grunt使用##
+## Grunt使用 ##
 
 在配置好之后，就可以运行Grunt。很简单，在工作目录位置打开命令提示符，然后输入：
 
@@ -202,7 +202,7 @@ uglify: {
 
 这个过程十分迅速。任何时候需要的时候，执行一遍，就可以得到更新后的发布版。所以，真的是很省时省心。
 
-##结语##
+## 结语 ##
 
 Grunt很像是一个工具平台，在看它的插件列表的时候，我发现了一些以前熟悉的东西，比如requireJS，compass，livereload。而原本这些工具，比如compass是ruby语言编写的。但在Grunt中，它就是node，所以，可以理解为，grunt整合了一系列的工具的node实现版。不过，无论怎样，它们都是为开发工作服务，让开发过程更轻松。
 

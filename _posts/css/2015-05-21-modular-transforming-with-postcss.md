@@ -10,7 +10,7 @@ description: "可替代css预编译器的PostCSS，有兴趣尝试一下吗？"
 
 “你说的我都懂，那为什么要用它？”
 
-##套装与单件##
+## 套装与单件 ##
 
 如果Sass等预编译器是新定义了一种模板语言，然后将其转化为css的话，[PostCSS][]则是更纯粹地对css本身做转换。
 
@@ -22,7 +22,7 @@ description: "可替代css预编译器的PostCSS，有兴趣尝试一下吗？"
 
 这就是PostCSS的**模块化**（**modular**）风格。它作为一个css转换工具，自身很小，其所有的转换功能都是插件，因此可以个性化配置。
 
-##PostCSS的简要原理##
+## PostCSS的简要原理 ##
 
 PostCSS自身只包括css分析器，css节点树API，source map生成器以及css节点树拼接器。
 
@@ -32,11 +32,11 @@ css的组成单元是一条一条的样式规则（rule），每一条样式规�
 
 比较有意思的是，PostCSS的插件其实都是JavaScript函数，它们使用PostCSS的节点树API，对css节点树进行不同的转换。
 
-##插件预览##
+## 插件预览 ##
 
 所有插件都可以在[PostCSS的主页][]中查询到，这里只选取一小部分示意一下。
 
-###Autoprefixer###
+### Autoprefixer ###
 
 PostCSS最有名的插件是[Autoprefixer][]。如名所示，可以自动为你添加浏览器私有前缀。它的添加值会参考[Can I Use][]及你设定的浏览器支持范围，因此相当可靠。下面是一个示例（以我设定的浏览器支持范围）：
 
@@ -57,7 +57,7 @@ PostCSS最有名的插件是[Autoprefixer][]。如名所示，可以自动为你
 }
 {% endhighlight %}
 
-###postcss-nested&postcss-mixins###
+### postcss-nested&postcss-mixins ###
 
 在刚开始使用PostCSS时，我就想到要用PostCSS实现我在Sass中最常用的特性。所以，我找到了`postcss-nested`和`postcss-mixins`。将它们结合起来后，就可以做到这样：
 
@@ -92,7 +92,7 @@ PostCSS最有名的插件是[Autoprefixer][]。如名所示，可以自动为你
 
 到这里，你是否已经有了“预编译器可以做到的它也可以做到”的感觉呢？
 
-##如何使用PostCSS##
+## 如何使用PostCSS ##
 
 我个人推荐结合[Gulp][]使用，本文在此只介绍[gulp-postcss][]的用法。
 
@@ -127,7 +127,7 @@ gulp.task("postcss", function(){
 
 在上面这段代码中，`processors`是一个数组，定义了用到的PostCSS插件。PostCSS会按照定义顺序依次执行插件，因此，在结合多个插件使用时，请注意它们的位置。
 
-###自定义转换###
+### 自定义转换 ###
 
 此外，你可以很容易地创建你自己的转换（还记得前面说过PostCSS的插件都是JavaScript函数吧？）。例如，下面是一个自定义的转换方法，它将css代码中的带有`rem`单位的值，更改为`px`的值。
 
@@ -145,7 +145,7 @@ var custom = function(css, opts){
 
 以上只是一个简单的转换，如果要正式做一个插件，请参考[PostCSS插件指南][]。
 
-##性能##
+## 性能 ##
 
 PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass原本是Ruby编写的，但后来出了C++的引擎，也就是libsass，它更快）还要快3倍。这里的具体数字我觉得不用多关心，可以感受到“PostCSS的运行速度很快”就足够了。
 
@@ -153,15 +153,15 @@ PostCSS宣称，由JavaScript编写的PostCSS比C++编写的[libsass][]（Sass�
 
 ![Run PostCSS with Gulp][img_postcss_console]
 
-##做到更多##
+## 做到更多 ##
 
 基于PostCSS，可以做到许多现有的css预编译器做不到的事。例如，插件系列[cssnext][]可以让你使用CSS4+的语法（增加了变量等许多特性），它会帮你转化为目前可用的CSS3。
 
-##一点问题##
+## 一点问题 ##
 
 PostCSS有一个问题，那就是它是零散的，所以我无法找到一个编辑器能正确地解析并高亮准备使用PostCSS的css代码。例如在WebStorm中我把它当做普通的css文件，结果就会收到很多红色的错误提示。
 
-##所以，css预编译器过时了吗？##
+## 所以，css预编译器过时了吗？ ##
 
 当然不会。就像其他流行的框架和工具那样，css预编译器是已经验证过的可用工具，我们完全可以根据需要选用。
 
@@ -171,7 +171,7 @@ PostCSS的特点则是模块化。从长远来看，PostCSS可以做到更多类
 
 此外，css预编译器和PostCSS可以协同使用。有一个流行的用法就是Sass编译后再接PostCSS的`Autoprefixer`（毕竟这是PostCSS的招牌插件）。
 
-##结语##
+## 结语 ##
 
 PostCSS的风格可以说是在打造一个改变css开发方式的生态系统。所以如果说到未来，还是挺期待的。
 

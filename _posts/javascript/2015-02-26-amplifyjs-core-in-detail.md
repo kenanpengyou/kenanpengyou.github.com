@@ -6,7 +6,7 @@ description: "AmplifyJS是一个非常简单的JavaScript库，来读一读它�
 ---
 {% include JB/setup %}
 
-##事件分发的作用##
+## 事件分发的作用 ##
 
 在为页面添加各类交互功能时，我们熟知的最简单的做法就是为页面元素绑定事件，然后在事件处理函数中，做我们想要做的动作。就像这样的代码：
 
@@ -81,7 +81,7 @@ amplify.subscribe( "aya:clicked", doMission2);
 
 Nice，终于是时候介绍这个了。
 
-##AmplifyJS##
+## AmplifyJS ##
 
 事件分发是需要一定的方法来实现的。实现事件分发的设计模式之一，就是**发布/订阅(Publish/Subscribe)**。
 
@@ -91,7 +91,7 @@ Nice，终于是时候介绍这个了。
 
 `amplify.core`是发布/订阅设计模式的一个简洁的、清晰的实现，加上注释一共100多行。读完amplify的源码，就可以比较好地理解如何去实现一个发布/订阅的设计模式。
 
-###代码全貌###
+### 代码全貌 ###
 
 `amplify.core`的源码整体结构如下：
 
@@ -120,7 +120,7 @@ var amplify = global.amplify = {
     
 可以看到，amplify定义了一个名为`amplify`的全局变量（作为`global`的属性），它有3个方法`publish`、`subscribe`、`unsubscribe`。此外，`subscriptions`作为一个局部变量，它将保存发布/订阅模式涉及的所有自定义事件名及其关联函数。
 
-###publish###
+### publish ###
 
 `publish`即发布，它要求指定一个`topic`，也就是自定义事件名（或者就叫做话题），调用后，所有关联到某个`topic`的函数，都将被依次调用：
 
@@ -160,7 +160,7 @@ publish: function( topic ) {
 
 `[3]`，`topicSubscriptions`作为一个数组，取得某一个`topic`下的所有关联元素，其中每一个元素都包括`callback`及`context`两部分。然后，遍历元素，调用每一个关联元素的`callback`，同时带入元素的`context`和前面的额外参数`args`。如果任意一个关联元素的回调函数返回`false`，则停止运行其他的并返回`false`。
 
-###subscribe###
+### subscribe ###
 
 订阅，如这个词自己的含义那样（就像订本杂志什么的），是建立`topic`和`callback`的关联的步骤。比较特别的是，amplify在这里还加入了`priority`（优先级）的概念，优先级的值越小，优先级越高，默认是`10`。优先级高的`callback`，将会在`publish`的时候，被先调用。这个顺序的原理可以从前面的`publish`的源码中看到，其实就是预先按照优先级从高到低依次排列好了某一`topic`的所有关联元素。
 
@@ -236,7 +236,7 @@ amplify.subscribe(
 
 `[5]`，如果到这个位置，元素还没有被添加，那么执行添加，切可以确定元素应该位于数组的最前面（或者是第一个元素）。
 
-###unsubscribe###
+### unsubscribe ###
 
 虽然发布和订阅是最主要的，但也会有需要退订的时候（杂志不想看了果断退！）。所以，还会需要一个`unsubscribe`。
 
@@ -274,7 +274,7 @@ unsubscribe: function( topic, context, callback ) {
 
 读过前面的源码后，这部分看起来就很容易理解了。根据指定的`topic`遍历关联元素，找到`callback`一致的，然后删除它。由于使用的是`splice`方法，会直接修改原始数组，因此需要手工对`i`和`length`再做一次调整。
 
-###Amplify使用示例###
+### Amplify使用示例 ###
 
 官方提供的其中一个使用示例是：
 
@@ -290,11 +290,11 @@ amplify.publish( "dataexample", { foo: "bar" } );
     
 结合前面的源码部分，是否对发布/订阅这一设计模式有了更明确的体会呢？
 
-##补充说明##
+## 补充说明 ##
 
 你可能也注意到了，AmplifyJS所实现的典型的发布/订阅是**同步的（synchronous）**。也就是说，在运行`amplify.publish(topic)`的时候，是会没有任何延迟地把某一个`topic`附带的所有回调，全部都运行一遍。
 
-##结语##
+## 结语 ##
 
 Pub/Sub是一个比较容易理解的设计模式，但非常有用，可以应对大型应用的复杂逻辑。本文简析的AmplifyJS是我觉得写得比较有章法而且简明切题（针对单一功能）的JavaScript库，所以在此分享给大家。
 

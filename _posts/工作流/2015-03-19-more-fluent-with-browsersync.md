@@ -10,7 +10,7 @@ description: "BrowserSync是一个同步浏览器测试工具。这里的“同�
 
 想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的`F5`刷新。
 
-##自动刷新##
+## 自动刷新 ##
 
 “自动刷新”并不是新的概念，但对关注“可见”的预览效果的前端开发者来说，它非常好用，可以节约很多时间。
 
@@ -18,7 +18,7 @@ description: "BrowserSync是一个同步浏览器测试工具。这里的“同�
 
 不过，现在我要介绍的是[BrowserSync][]。你会在接下来的内容里看到，它是一个更新、更方便的开发工具。
 
-##BrowserSync##
+## BrowserSync ##
 
 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件（见[这页][]），但IE，或者我手机上的浏览器，就不能这样了。这时候只能手工向页面里添加一段`<script>`代码（其实插件也是做了这件事），而且还要记得结束后再手工移除。
 
@@ -26,7 +26,7 @@ BrowserSync的一般用法则不需要浏览器插件，也不用手工添加代
 
 BrowserSync是怎么做到的？请看它的安装及使用。
 
-###安装及使用###
+### 安装及使用 ###
 
 安装[Node][]后，通过[npm][]安装BrowserSync：
 
@@ -56,7 +56,7 @@ BrowserSync会提供一个新地址（如未被占用的话，`http://localhost:
 
 显然，这感觉更加快捷。如果你正在开发的是一个单页应用（[SPA][]），刷新整页会回到初始视图，而你又需要修改后面的某一个视图时，这一功能尤其有用。
 
-###文件匹配###
+### 文件匹配 ###
 
 从BrowserSync的命令来看，很重要的一点就是通过`--files`指定需要监听的文件。有关这里的文件匹配模式（称为`glob`）的详情，请参考[isaacs's minimatch][]。
 
@@ -66,7 +66,7 @@ BrowserSync会提供一个新地址（如未被占用的话，`http://localhost:
 
 此时，BrowserSync仍然会正确地判断文件变化是否是css。
 
-###加入到Gulp使用###
+### 加入到Gulp使用 ###
 
 [Gulp][]是现在流行的自动化工具，但BrowserSync并没有Gulp插件版，因为并不需要。BrowserSync有自己独立的API，将它注册为gulp的一个task即可。下面是一段`gulpfile.js`的示例：
 
@@ -88,7 +88,7 @@ gulp.task('default', ["browser-sync"]);
 
 这时候运行`gulp`将等同于前文的`browser-sync start --server  --files "**"`。更多的用法示例请查看[gulp-browser-sync][]。
 
-###完整选项###
+### 完整选项 ###
 
 到此为止，介绍的都是BrowserSync的基本用法。在控制台里尝试只输入：
 
@@ -106,7 +106,7 @@ gulp.task('default', ["browser-sync"]);
 
 就将以`bs-config.js`的完整配置信息运行BrowserSync。
 
-###不只是自动刷新###
+### 不只是自动刷新 ###
 
 BrowserSync并不只是一个自动刷新工具，它还有许多其他功能。默认配置下，BrowserSync会在多个浏览器中同步滚动条位置，表单行为和点击事件。例如，表单行为的情形像这样：
 
@@ -114,7 +114,7 @@ BrowserSync并不只是一个自动刷新工具，它还有许多其他功能。
 
 我觉得这是很酷的功能！想象一下桌上摆很多个不同屏幕尺寸的手机来测试的情景，你操作一个，就会带动其他的一起！当然，这些功能还可以在不需要的时候关闭。
 
-###UI界面及其他###
+### UI界面及其他 ###
 
 下面是一个BrowserSync的控制台输出示例：
 
@@ -126,7 +126,7 @@ BrowserSync并不只是一个自动刷新工具，它还有许多其他功能。
 
 ![weinre in browsersync UI][img_browsersync_remote_debug]
 
-##BrowserSync目前已知的一点问题##
+## BrowserSync目前已知的一点问题 ##
 
 前文提到，如果发生变化的文件是css，BrowserSync会以无刷新方式来更新，这是一个很棒的效果。如果使用scss、less等预编译器，将监听设置为编译后的css文件即可。
 
@@ -136,7 +136,7 @@ BrowserSync并不只是一个自动刷新工具，它还有许多其他功能。
 
 也期待BrowserSync可以在未来解决这个问题。
 
-##结语##
+## 结语 ##
 
 想要在开发中更流畅，更快捷？请尝试BrowserSync！节约一点时间，你也许就可以做到更多。
 

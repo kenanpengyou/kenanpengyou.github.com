@@ -13,11 +13,11 @@ extraJS: ["posts/201307/javascript-for-beginners.js"]
 
 javascript所包含的知识和内容是非常多的，即使只介绍基础部分，也远非一篇文章的篇幅可以做到的。因此，本文会较多地从轮廓的角度来描述知识点，但也会针对一部分内容做细节说明，希望对准备学习，或正在学习javascript的你有所帮助。
 
-##javascript是什么##
+## javascript是什么 ##
 
 *javascript是一门程序设计语言*。此外，在很多的地方，你都可以看到有描述称javascript是*灵活的*（*flexible*），这种灵活体现在javascript的语法和结构上（后文会有说明）。还有一个有趣的点是你可以看到javascript包含了java一词，但事实是它们之间几乎没有什么关系。
 
-##javascript可以做什么##
+## javascript可以做什么 ##
 
 在过去，javascript被认定为是一种由浏览器解释运行的客户端语言，因此存在一些固有限制，如javascript不能写服务器机器上的文件，某一网页中的javascript不能从来自另一个服务器的已经打开的网页中读取信息（很显然，这是为了用户安全）。如今，浏览器已经不是解释运行javascript的唯一环境，而且新的浏览器也在保证用户安全的基础上，考虑允许javascript实现更多的功能。在现在的web网页开发中，javascript可以实现的，可以说几乎包含了你可以想到的任何事情。
 
@@ -25,7 +25,7 @@ javascript作为一门独立的程序设计语言，也已被应用到了更多�
 
 ![CommonJS][img_CommonJS_Logo]
 
-##如何使用javascript##
+## 如何使用javascript ##
 
 在web网页开发中，javascript的引入是使用`<script>`标签，如果是在html中直接写，则是：
 
@@ -45,13 +45,13 @@ javascript作为一门独立的程序设计语言，也已被应用到了更多�
 
 `<script>`是把代码加载和执行合并在一起的，每一段`<script>`都会在加载完成后立即执行（严格的说，是在不写`async`和`defer`属性的情况下）。
 
-##javascript中可以介绍的语法##
+## javascript中可以介绍的语法 ##
 
-###区分大小写###
+### 区分大小写 ###
 
 比如`yuki`和`Yuki`是两个不同的变量。
 
-###松散类型的变量###
+### 松散类型的变量 ###
 
 变量的声明是javascript代码中最常见的，使用关键字`var`。javascript尤其特别的是，它的变量是*松散类型*的。也就是说，任一声明的变量都可以存储任何类型的数据。这也一定程度上体现了javascript的高自由度。
 
@@ -83,7 +83,7 @@ var typeA = undefined, //Undefined类型 这里写成 var typeA; 也是一样的
 
 函数是特殊的Object，通过关键字`function`声明。它比Object多的一个功能是可以存储任意数量的语句，并且可以通过在函数名后加`()`的形式调用，从而执行自身所存储的语句（而且可以传递任意数量的参数）。
 
-###理解Object###
+### 理解Object ###
 
 *Object是一组数据和功能的集合*。一个简单的Object的示例：
 
@@ -99,7 +99,7 @@ myObject.sayHello(); // "Hello! My name is yuki"
 
 这里`name`是`myObject`的一个属性，而`sayHello`是它的一个方法。可以看到，访问属性，或者调用方法，都是通过点语法`.`来实现的。这种使用方法你一定非常熟悉，jQuery就是全局创建了一个名为`jQuery`（如果不冲突，还有别名`$`）的Object，然后把所有的方法都定义在了这个Object中。
 
-###对象字面量###
+### 对象字面量 ###
 
 Object的定义还有一种方式，称为对象字面量表示法，它是定义Object的一种简写形式。比如前面的`myObject`，用对象字面量表示法来写的话，是：
 
@@ -133,7 +133,7 @@ var myObject = {
 
 虽然具有相同的语法形式，但JSON并不从属于javascript。关于JSON的更多信息，你可以阅读官方的[JSON介绍][]。
 
-##如何写javascript来实现功能##
+## 如何写javascript来实现功能 ##
 
 在学习javascript中，我们更关注的是如何实现一些想要的功能。一般来说，需要实现的功能都是*事件驱动*（*Event Driven*）的。在初期，这种功能实现会有一个常用的流程写法。jQuery设计的语法非常贴合这个流程。请看下面这个示例：
 
@@ -167,11 +167,11 @@ box.onclick = function(event) {
 
 你可能会觉得原生javascript也并没有多复杂。这是因为这个示例的功能非常简单，而且没有触及存在浏览器兼容性差异的部分。jQuery提供的是简化的、方便的高层次接口，而为了做到这一点，jQuery实际在我们视线之外的区域做了很多复杂的工作，帮助处理原生javascript的浏览器兼容和功能不足等问题。因此，使用jQuery这类javascript库可以让我们的精力更好地集中在程序实现逻辑上。
 
-##完整的javascript实现的其他组成部分##
+## 完整的javascript实现的其他组成部分 ##
 
 前面所提到语法和实现属于javascript核心（称为ECMAScript，是一种语言标准）。除此以外，完整的javascript还包括另外两部分：*浏览器对象模型*（*BOM*）和*文档对象模型*（*DOM*）。
 
-###BOM###
+### BOM ###
 
 *BOM*（*Browser Object Model*）提供了很多Object对象，用于访问浏览器的功能。其中核心对象是`window`，javascript中的一些全局方法，如`setTimeout()`、`alert()`等，都是定义在`window`对象上。
 
@@ -185,7 +185,7 @@ setTimeout(function() {
 
 其功能是1s后跳转到其他网页。
 
-###DOM###
+### DOM ###
 
 *DOM*（*Document Object Model*）已是W3C的一个推荐标准，为基本的文档结构和查询提供的接口，它本质上是独立于javascript的，不过，在javascript中可以而且经常需要使用它。
 
@@ -202,7 +202,7 @@ DOM很容易理解，它描述的就是任何HTML或XML文档中的由各个节�
 
 ![dom树形结构][img_dom_tree]
 
-##javascript调试##
+## javascript调试 ##
 
 javascript调试最常用的是全局方法`console.log()`，可以用它输出想要跟踪查看的变量，或者单纯地输出一些字符串说明调试语句所在的代码段有没有被执行到。
 
@@ -210,7 +210,7 @@ javascript调试最常用的是全局方法`console.log()`，可以用它输出�
 
 ![javascript错误信息][img_javascript_debug_in_firebug]
 
-##Ajax##
+## Ajax ##
 
 *Ajax*（*Asynchronous JavaScript and XML*）可以说是真正让javascript流行起来的原因。Ajax的技术核心是XMLHttpRequest对象，它使得javascript可以在任何时候和服务器进行通讯而不必刷新整个页面。
 
@@ -241,7 +241,7 @@ myRequest.send();
 
 这个简单的Ajax实例是为了说明，Ajax虽然概念看上去比较复杂，但理解起来是不难的。
 
-##进阶的javascript##
+## 进阶的javascript ##
 
 要成为更专业的前端开发者，则需要对javascript有更深刻的认识和理解。javascript虽然能实现各种各样的功能，但只是初级的写法是难以应付更为复杂庞大的web应用的。很多直接按过程编写下来的代码（一般也称为硬编码 hard coded），会因为对情况的限定和依赖较强（高耦合），无法被复用。所以，在javascript的进阶学习阶段，需要考虑的就是编写可维护的javascript。看一下这段代码：
 
@@ -265,7 +265,7 @@ var instance1 = new SubType("AIR", 17);
 
 对javascript有一定的功能实现的经验后，就应该学习*javascript设计模式*。设计模式是针对程序设计语言中的各类问题的解决方案，可以帮助你了解专业的javascript代码是如何规划和设计的。如果你希望读懂jQuery这类javascript库的源码，就一定要懂得设计模式。
 
-##结语##
+## 结语 ##
 
 看到这里，你可能会觉得这篇文章好像什么也没说。事实上，我在整理这些信息的时候，就确切的感到，javascript的知识真的是很多的，本文只是在尝试以一个全局的视野来描述这门程序设计语言。我也是javascript的学习者之一，所以这些也是我目前对javascript的理解。
 

@@ -10,7 +10,7 @@ description: "如今，强大的Webpack可以说改变了前端开发的工作�
 
 现在，[webpack][webpack]可以说是最流行的模块加载器（module bundler）。一方面，它为前端静态资源的组织和管理提供了相对较完善的解决方案，另一方面，它也很大程度上改变了前端开发的工作流程。在应用了webpack的开发流程中，想要继续“自动刷新”的爽快体验，就可能得额外做一些事情。
 
-## webpack与自动刷新 ##
+##  webpack与自动刷新  ##
 
 本文并不打算介绍webpack，如果你还不清楚它是什么，推荐阅读下面几篇入门文章：
 
@@ -20,7 +20,7 @@ description: "如今，强大的Webpack可以说改变了前端开发的工作�
 
 webpack要求静态资源在被真正拿来访问之前，都要先完成一次编译，即运行完成一次`webpack`命令。因此，自动刷新需要调整到适当的时间点。也就是说，修改了css等源码并保存后，应该先触发一次webpack编译，在编译完成后，再通知浏览器去刷新。
 
-##开发Express项目的问题##
+## 开发Express项目的问题 ##
 
 现在有这样的一个应用了webpack的[Express][Express]项目，目录结构如下：
 
@@ -38,7 +38,7 @@ webpack要求静态资源在被真正拿来访问之前，都要先完成一次�
 
 所以，我们要让开发过程愉快起来。
 
-##改进目标##
+## 改进目标 ##
 
 我们希望的Express&Webpack项目的开发过程是：
 
@@ -48,7 +48,7 @@ webpack要求静态资源在被真正拿来访问之前，都要先完成一次�
 
 经过多次尝试，我最终得到了一个实现了以上这些目标的项目配置。接下来，本文将说明这个配置是如何做出来的。
 
-##从webpack-dev-server开始##
+## 从webpack-dev-server开始 ##
 
 首先，webpack已经想到了开发流程中的自动刷新，这就是webpack-dev-server。它是一个静态资源服务器，只用于开发环境。
 
@@ -60,7 +60,7 @@ webpack要求静态资源在被真正拿来访问之前，都要先完成一次�
 
 webpack-dev-server的功能看上去就是我们需要的，但如何把它加入到包含后端服务器的Express项目里呢？
 
-##webpack-dev-middleware和webpack-hot-middleware##
+## webpack-dev-middleware和webpack-hot-middleware ##
 
 Express本质是一系列middleware的集合，因此，适合Express的webpack开发工具是[webpack-dev-middleware][webpack-dev-middleware]和[webpack-hot-middleware][webpack-hot-middleware]。
 
@@ -70,7 +70,7 @@ webpack-hot-middleware是一个结合webpack-dev-middleware使用的middleware�
 
 参考webpack-hot-middleware的[文档][webpack-hot-middleware]和[示例][webpack-hot-middleware示例]，我们把这2个middleware添加到Express中。
 
-###webpack配置文件部分###
+### webpack配置文件部分 ###
 
 首先，修改webpack的配置文件（为了方便查看，这里贴出了`webpack.config.js`的全部代码）：
 
@@ -121,7 +121,7 @@ module.exports = devConfig;
 
 这种`blob`的形式可能会使得css里的`url()`引用的图片失效，因此建议用带`http`的绝对地址（这也只有开发环境会用到）。有关这个问题的详情，你可以查看[github上的issue][github上的issue]。
 
-###Express启动文件部分###
+### Express启动文件部分 ###
 
 接下来是Express启动文件内添加以下代码：
 
@@ -162,7 +162,7 @@ if(module.hot) {
 
 接下来是`server`部分。
 
-##reload和supervisor##
+## reload和supervisor ##
 
 `server`部分的自动刷新，会面临一个问题：自动刷新的消息通知依靠的是浏览器和服务器之间的web socket连接，但在`server`部分修改代码的话，一般都要重启服务器来使变更生效（比如修改`routes`），这就会断开web socket连接。
 
@@ -174,7 +174,7 @@ if(module.hot) {
 
 下面将reload和supervisor引入到Express项目内。
 
-###监听文件以重启服务器###
+### 监听文件以重启服务器 ###
 
 通过以下代码安装`supervisor`（是的，必须`-g`）：
 
@@ -192,7 +192,7 @@ if(module.hot) {
 
 这里的`cross-env`也是一个npm组件，它可以处理windows和其他Unix系统在设置环境变量的写法上不一致的问题。
 
-###把会重启的服务器和浏览器关联起来###
+### 把会重启的服务器和浏览器关联起来 ###
 
 把Express启动文件最后的部分做这样的修改：
 
@@ -224,7 +224,7 @@ Express启动文件的最后一般是`app.listen()`。参照reload的说明，�
 
 到此，`server`也完成了。现在，修改项目内的任意源文件，按下`ctrl + s`，浏览器里的页面都会对应地做一次“适当”的刷新。
 
-##完整示例##
+## 完整示例 ##
 
 完整示例已经提交到github：[express-webpack-full-live-reload-example][express-webpack-full-live-reload-example]
 
@@ -232,7 +232,7 @@ Express启动文件的最后一般是`app.listen()`。参照reload的说明，�
 
 ![示例效果][img_example_preview]
 
-##附加的可选方案##
+## 附加的可选方案 ##
 
 前面说的`server`部分，分为views和routes，如果只修改views，那么服务器并不需要重启，直接刷新浏览器就可以了。
 
@@ -255,7 +255,7 @@ app.listen(3000, function(){
 
 然后，使用browsersync提供的新的访问地址就可以了。这样，修改views（html）的时候，由browsersync帮忙直接刷新，修改css和javascript的时候继续由webpack的middleware来执行编译和刷新。
 
-##结语##
+## 结语 ##
 
 有了webpack后，没有自动刷新怎么干活？
 

@@ -12,7 +12,7 @@ OOCSS、SMACSS及BEM都是有关css的方法论（准确地说，其中BEM应该
 
 css易于理解，但应用和维护并不简单。在各种开发情景下，css都可能成为一个问题点。因此，我们编写和组织css应认真、用心。
 
-##OOCSS##
+## OOCSS ##
 
 **[OOCSS][]**（**Object Oriented CSS**），字面意思是**面向对象的CSS**，是由Nicole Sullivan提出的css理论，其主要的两个原则是：
 
@@ -62,17 +62,17 @@ css易于理解，但应用和维护并不简单。在各种开发情景下，cs
 
 这样是如何体现OOCSS的两个原则的呢？
 
-###Separate structure and skin###
+### Separate structure and skin ###
 
 分离结构和主题是在于将一些视觉样式效果（例如`background`、`color`）作为单独的“主题”来应用。在上面的例子中的阴影效果，没有被直接写在`media`的样式规则内，而是被单独写在了一个名为`media-shadow`的class中。因此，它成为了可选择、可拆分的主题。如果不需要对应主题，什么也不要加，如果需要，加上对应的class，就是这样的思路。
 
-###Separate container and content###
+### Separate container and content ###
 
 分离容器和内容要求使页面元素不依赖于其所处位置。在上面的例子中，css的选择符都很短，无继承选择符（例如`.header .media { }`），所以，这个图文排列的元件，可以在任何地方使用，且会有一致的外观。
 
 如果需要在特定的地方让这个元件看起来不一样一些，继续为这个元件增加class，将“不一样的部分”作为可配置的选项。元件的外观仍不依赖其所处位置。
 
-###操作指南###
+### 操作指南 ###
 
 可以看出，OOCSS风格的css可以描述为两点：
 
@@ -81,7 +81,7 @@ css易于理解，但应用和维护并不简单。在各种开发情景下，cs
 
 OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体内容。
 
-##SMACSS##
+## SMACSS ##
 
 **[SMACSS][]**（**Scalable & Modular Architecture for CSS**），是由[Jonathan Snook][]提出的css理论。其主要原则有3条：
 
@@ -91,7 +91,7 @@ OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体�
 
 这些原则分别是什么意思呢？
 
-###Categorizing CSS Rules###
+### Categorizing CSS Rules ###
 
 这一点是SMACSS的核心。SMACSS认为css有5个类别，分别是：
 
@@ -125,7 +125,7 @@ OOCSS追求元件的复用，其class命名比较抽象，一般不体现具体�
 
 **Theme Rules**，**主题样式**，描述了页面主题外观，一般是指颜色、背景图。Theme Rules可以修改前面4个类别的样式，且应和前面4个类别分离开来（便于切换，也就是“换肤”）。SMACSS的Theme Rules不要求使用单独的class命名，也就是说，你可以在Module Rules中定义`.mod { }`然后在Theme Rules中也用`.mod { }`来定义需要修改的部分。
 
-###Naming Rules###
+### Naming Rules ###
 
 Naming Rules是说在想class等的命名时，考虑用命名体现样式对应的类别。
 
@@ -141,7 +141,7 @@ Base Rules不会用到class和ID，是以标签选择符为主的样式，例如
 
 命名规则不需要严格遵守，可以根据实际情况和自身喜好做其他的约定。记录自己的约定（写文档），然后遵守，就是可行的。
 
-###Minimizing the Depth of Applicability###
+### Minimizing the Depth of Applicability ###
 
 字面翻译是最小化适配深度。通过一个简单的描述来说明：
 
@@ -159,14 +159,14 @@ Base Rules不会用到class和ID，是以标签选择符为主的样式，例如
 
 看起来，这一点和OOCSS的分离容器和内容的原则非常相似。
 
-###主要目标###
+### 主要目标 ###
 
 SMACSS着力于实现两个主要目标：
 
 - 更语义化的html和css
 - 降低对特定html结构的依赖
 
-##BEM##
+## BEM ##
 
 **[BEM][]**，即**Block**，**Element**，**Modifier**，是由[Yandex][]（俄罗斯最著名的互联网企业）的开发团队提出的前端开发理论。BEM通过Block、Element、Modifier来描述页面。
 
@@ -206,7 +206,7 @@ SMACSS着力于实现两个主要目标：
 
 BEM是完整的前端开发理论，这里只是提到了它采用的css的class命名规则。可以看出，BEM的命名规则可以使代码更易于维护。
 
-##综合结论##
+## 综合结论 ##
 
 这些理论真的可以应用吗？
 
@@ -214,7 +214,7 @@ BEM是完整的前端开发理论，这里只是提到了它采用的css的class
 
 不直接编写css而是采用less、sass等预编译器，也同样需要合理的代码编写和组织方式，因为可以从编译后得到的css来分析，所以原则是相通的。
 
-##结语##
+## 结语 ##
 
 在整理写文本之前，我只初步了解过OOCSS，而对另外2个还没有印象...（嗯，其实很正常）
 

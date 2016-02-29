@@ -6,7 +6,7 @@ description: "听名字就觉得很有怡然自得的氛围的CoffeeScript，如
 ---
 {% include JB/setup %}
 
-##简单易懂的介绍##
+## 简单易懂的介绍 ##
 
 CoffeeScript是什么？
 
@@ -28,7 +28,7 @@ CoffeeScript是什么？
 
 也就是说，良好的面对CoffeeScript的心态是，“它只是JavaScript”！
 
-##更少代码##
+## 更少代码 ##
 
 CoffeeScript可以让你少写一点代码。请看下图：
 
@@ -38,7 +38,7 @@ CoffeeScript可以让你少写一点代码。请看下图：
 
 一般来说，CoffeeScript可以缩短大约1 / 3的代码长度。
 
-##语言特性增强##
+## 语言特性增强 ##
 
 CoffeeScript较JavaScript在语言特性上进行了改善。在CoffeeScript中，所有的变量声明都不再使用`var`关键字：
 
@@ -87,9 +87,9 @@ description = function() {
 };
 {% endhighlight %}
 
-##可能有用的一些说明##
+## 可能有用的一些说明 ##
 
-###隐式括号###
+### 隐式括号 ###
 
 在CoffeeScript中，允许用空格的形式来表示括号，这称为**隐式括号**。但是，隐式括号使用不当会带来一些问题，例如：
 
@@ -117,7 +117,7 @@ console.log(Math.floor(1.7), Math.ceil(1.7));
 
 此外，不带参数的函数调用，将不能省略括号。例如你想要`init();`语句，那么在CoffeeScript中你也需要写作`init()`。
 
-###语句都是表达式###
+### 语句都是表达式 ###
 
 **在CoffeeScript中，所有的语句都视为表达式**。请看这样的语句：
 
@@ -136,7 +136,7 @@ name = 1 === true ? "green tea" : "black tea";
 
 因此可以正常运行。类似的，其他种类的语句也可以这样使用，CoffeeScript都会很好地处理它们。
 
-##从CoffeeScript中学习JavaScript##
+## 从CoffeeScript中学习JavaScript ##
 
 CoffeeScript所做的很多语言特性增强，都来源于JavaScript的最佳实践。看一看编译后的JavaScript，就可以了解到CoffeeScript是如何实现的，这可能对学习JavaScript也有所帮助。例如，CoffeeScript可使用`?`在赋值之前检查变量是否存在：
 
@@ -173,7 +173,7 @@ rest = (function(_this) {
 
 可以看到CoffeeScript用了一个特定结构实现了函数绑定，这个写法也同样是有用的参考。
 
-##CoffeeScript调试的问题##
+## CoffeeScript调试的问题 ##
 
 你可能也想到了，如果需要调试，浏览器的错误提示是针对编译后的JavaScript而不是原CoffeeScript，因此调试分析会比较麻烦。这是事实，但我认为影响不大，有以下几点原因：
 
@@ -181,7 +181,7 @@ rest = (function(_this) {
 * CoffeeScript和JavaScript实现同一逻辑功能的结构差异较小，如果有错误，可以类比推断。
 * CoffeeScript支持Source Maps，可以在编译同时生成`.map`文件，帮助调试。
 
-##其他JavaScript的转译语言##
+## 其他JavaScript的转译语言 ##
 
 可以转译为JavaScript的语言一般称为**altJS**（**Alternative JavaScript**）。JavaScript语言本身有较多不方便、有缺陷的地方，且自由度过高，因人和JavaScript库的不同，代码风格可能会相差很大，难于维护。因此，使用altJS将是有效的解决方法之一。
 
@@ -189,7 +189,7 @@ rest = (function(_this) {
 
 ![altJS][img_altJS]
 
-##结语##
+## 结语 ##
 
 总的来说，CoffeeScript相比JavaScript，写起来代码会少一点，好用的语言特性要多一点，大概就像是在用一种更标准的形式使用JavaScript。
 

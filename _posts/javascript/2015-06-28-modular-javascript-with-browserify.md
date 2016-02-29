@@ -6,9 +6,9 @@ description: "前端开发模块化是一个很有意义的课题，在此之前
 ---
 {% include JB/setup %}
 
-##引言##
+## 引言 ##
 
-###1. manually###
+### 1. manually ###
 
 以前，我新开一个网页项目，然后想到要用jQuery，我会打开浏览器，然后找到jQuery的官方网站，点击那个醒目的“Download jQuery”按钮，下载到`.js`文件，然后把它丢在项目目录里。在需要用到它的地方，这样用`<script>`引入它：
 
@@ -16,7 +16,7 @@ description: "前端开发模块化是一个很有意义的课题，在此之前
 <script src="path/to/jquery.js"></script>
 {% endhighlight %}
 
-###2. Bower###
+### 2. Bower ###
 
 后来，我开始用[Bower][]这样的包管理工具。所以这个过程变成了：先打开命令行用`bower`安装jQuery。
 
@@ -28,7 +28,7 @@ description: "前端开发模块化是一个很有意义的课题，在此之前
 <script src="bower_components/jquery/dist/jquery.js"></script>
 {% endhighlight %}
 
-###3. npm&Browserify###
+### 3. npm&Browserify ###
 
 现在，我又有了新的选择，大概是这样：
 
@@ -60,7 +60,7 @@ var $ = require("jquery");
 
 等下，怎么比以前变复杂了？
 
-##CommonJS风格的模块及依赖管理##
+## CommonJS风格的模块及依赖管理 ##
 
 其实，在这个看起来更复杂的过程中，`require()`具有非凡的意义。
 
@@ -74,9 +74,9 @@ Browserify参照了Node中的模块系统，约定用`require()`来引入其他�
 
 像写Node那样去组织你的JavaScript，Browserify会让它们在浏览器里正常运行的。
 
-##安装及使用##
+## 安装及使用 ##
 
-###命令行形式###
+### 命令行形式 ###
 
 命令行形式是官方贴出来的用法，因为看起来最简单。
 
@@ -96,7 +96,7 @@ Browserify将递归分析你的代码中的`require()`，然后生成编译后�
 
 有关这个编译命令的配置参数，请参照[node-browserify#usage][]。如果你想要做比较精细的配置，命令行形式可能会不太方便。这种时候，推荐结合Gulp使用。
 
-###+ Gulp形式###
+### + Gulp形式 ###
 
 结合Gulp使用时，你的Browserify只安装在某个项目内：
 
@@ -140,7 +140,7 @@ gulp.task("browserify", function () {
 
 有关更多Browserify + Gulp的示例，请参考[Gulp Recipes][]。
 
-##特性及简要原理##
+## 特性及简要原理 ##
 
 使用Browserify来组织JavaScript，有什么要注意的地方吗？
 
@@ -182,7 +182,7 @@ console.log("Hello! " + name);
 
 请先忽略掉省略号里的部分。然后，它的结构就清晰多了。可以看到，整体是一个立即执行的函数（[IIFE][]），该函数接收了3个参数。其中第1个参数比较复杂，第2、3个参数在这里分别是`{}`和`[1]`。
 
-###模块map###
+### 模块map ###
 
 第1个参数是一个Object，它的每一个key都是数字，作为模块的id，每一个数字key对应的值是长度为2的数组。可以看出，前面的`main.js`中的代码，被`function(require, module, exports){}`这样的结构包装了起来，然后作为了key`1`数组里的第一个元素。类似的，`name.js`中的代码，也被包装，对应到key`2`。
 
@@ -190,25 +190,25 @@ console.log("Hello! " + name);
 
 因此，这第1个复杂的参数，携带了所有模块的源码及其依赖关系，所以叫做模块map。
 
-###包装###
+### 包装 ###
 
 前面提到，原有的文件中的代码，被包装了起来。为什么要这样包装呢？
 
 因为，浏览器原生环境中，并没有`require()`。所以，需要用代码去实现它（RequireJS和Sea.js也做了这件事）。这个包装函数提供的3个参数，`require`、`module`、`exports`，正是由Browserify实现了特定功能的3个关键字。
 
-###缓存###
+### 缓存 ###
 
 第2个参数几乎总是空的`{}`。它如果有的话，也是一个模块map，表示本次编译之前被加载进来的来自于其他地方的内容。现阶段，让我们忽略它吧。
 
-###入口模块###
+### 入口模块 ###
 
 第3个参数是一个数组，指定的是作为入口的模块id。前面的例子中，`main.js`是入口模块，它的id是1，所以这里的数组就是`[1]`。数组说明其实还可以有多个入口，比如运行多个测试用例的场景，但相对来说，多入口的情况还是比较少的。
 
-###实现功能###
+### 实现功能 ###
 
 还记得前面忽略掉的省略号里的代码吗？这部分代码将解析前面所说的3个参数，然后让一切运行起来。这段代码是一个函数，来自于browser-pack项目的[prelude.js][]。令人意外的是，它并不复杂，而且写有丰富的注释，很推荐你自行阅读。
 
-###所以，到底要注意什么？###
+### 所以，到底要注意什么？ ###
 
 到这里，你已经看过了Browserify是如何工作的。是时候回到前面的问题了。首先，**在每个文件内，不再需要自行包装**。
 
@@ -240,7 +240,7 @@ $("#alice").text("Hello!");
 
 然而，新的问题又来了，既然jQuery变成了这种局部变量的形式，那我们熟悉的各种jQuery插件要如何使用呢？
 
-##browserify-shim##
+## browserify-shim ##
 
 你一定熟悉这样的jQuery插件使用方式：
 
@@ -258,7 +258,7 @@ $("#alice").text("Hello!");
 
 下面，以jQuery插件[jquery.pep.js][]为例，请看browserify-shim的使用方法。
 
-###使用示例###
+### 使用示例 ###
 
 安装browserify-shim：
 
@@ -307,13 +307,13 @@ $(".move-box").pep();
 
 当然，对于已经处理了CommonJS兼容的库或插件（比如已经发布到npm），browserify-shim是不需要的。
 
-###其实还有的更多transform###
+### 其实还有的更多transform ###
 
 在前面browserify-shim的例子中，`"browserify": {"transform": [ "browserify-shim" ]}`其实是Browserify的配置。可以看出，browserify-shim只是Browserify的其中一种transform。在它之外，还有[很多的transform][]可用，分别应对不同的需求，使Browserify的体系更为完善。
 
 比如，还记得本文引言里的Bower吗？[debowerify][]可以让通过Bower安装的包也可以用`require()`引用。~~npm和bower同为包管理工具，Browserify表示你们都是我的翅膀。~~
 
-##一点提示##
+## 一点提示 ##
 
 Browserify是静态分析编译工具，因此不支持动态`require()`。例如，下面这样是不可以的：
 
@@ -322,11 +322,11 @@ var lang = "zh_cn";
 var i18n = require("./" + lang);
 {% endhighlight %}
 
-##文档资料##
+## 文档资料 ##
 
 有关Browserify更详细的说明文档，请看[browserify-handbook][]。
 
-##结语##
+## 结语 ##
 
 我觉得Browserify很有趣，它用了这样一个名字，让你觉得它好像只是一个Node的浏览器端转化工具。为此，它还完成了Node中大部分核心库的浏览器端实现。但实际上，它走到了更远的地方，并在JavaScript模块化开发这个重要的领域中，创立了一个全新的体系。
 
