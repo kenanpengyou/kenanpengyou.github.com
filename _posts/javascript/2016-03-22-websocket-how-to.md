@@ -36,6 +36,8 @@ Host: websocket.example.com
 Upgrade: websocket
 Connection: Upgrade
 Origin: http://example.com
+Sec-WebSocket-Key:Z8nv1nUaBRo6LlbeahtlpQ==
+Sec-WebSocket-Version:13
 ~~~
 
 支持WebSocket的服务器端在确认以上请求后，返回状态码为`101 Switching Protocols`的响应：
@@ -56,27 +58,118 @@ Upgrade: WebSocket
 应用WebSocket有这样几件事要做：
 
 - 选用[支持WebSocket的浏览器][支持WebSocket的浏览器]。
-- 网页内添加创建websocket的代码。
-- 服务器端添加通过websocket通信的代码。
+- 网页内添加创建WebSocket的代码。
+- 服务器端添加使用WebSocket通信的代码。
 
 ### 服务器端 ###
 
-以Node的服务器为例，我们使用[ws][ws]这个组件。
+以Node的服务器为例，我们使用[ws][ws]这个组件，这样搭建一个支持WebSocket的服务器端：
 
+~~~javascript
+var request = require("request");
+var dateFormat = require("dateformat");
+var WebSocket = require("ws"),
+    WebSocketServer = WebSocket.Server,
+    wss = new WebSocketServer({
+        port: 8080,
+        path: "/guest"
+    });
 
-WebSocket的URL格式是`ws://`与`wss://`
+// 收到来自客户端的连接请求后，开始给客户端推消息
+wss.on("connection", function(ws) {
+    ws.on("message", function(message) {
+        console.log("received: %s", message);
+    });
+    sendGuestInfo(ws);
+});
 
-The second, protocols, if present, is either a string or an array of strings. If it is a string, it is equivalent to an array consisting of just that string; if it is omitted, it is equivalent to the empty array. Each string in the array is a subprotocol name. The connection will only be established if the server reports that it has selected one of these subprotocols.
+function sendGuestInfo(ws) {
+    request("http://uinames.com/api?region=china",
+        function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var jsonObject = JSON.parse(body),
+                    guest = jsonObject.name + jsonObject.surname,
+                    guestInfo = {
+                        guest: guest,
+                        time: dateFormat(new Date(), "HH:MM:ss")
+                    };
 
-WebSocket包括协议及API，WebSocket协议由IETF（The Internet Engineering Task Force，互联网工程任务组）定为标准。WebSocket API则由W3C定为标准。
+                if (ws.readyState === WebSocket.OPEN) {
+
+                    // 发，送
+                    ws.send(JSON.stringify(guestInfo));
+
+                    // 用随机来“装”得更像不定时推送一些
+                    setTimeout(function() {
+                        sendGuestInfo(ws);
+                    }, (Math.random() * 5 + 3) * 1000);
+                }
+            }
+        });
+}
+~~~
+
+这个例子使用了姓名生成站点[uinames][uinames]的API服务，来生成`{guest: "人名", time: "15:26:01"}`这样的数据。函数`sendGuestInfo()`会不定时执行，并把包含姓名和时间的信息通过`send()`方法发送给客户端。
+
+这样，就可以说是服务器端自己在做一些事，然后在需要的时候可以直接通知客户端。
+
+### 客户端 ###
+
+客户端我们使用原生javascript来完成，只用于支持WebSocket的浏览器：
+
+~~~javascript
+var socket = new WebSocket("ws://localhost:8080/guest");
+
+socket.onopen = function(openEvent) {
+    console.log("WebSocket conntected.");
+};
+
+socket.onmessage = function(messageEvent) {
+    var data = messageEvent.data,
+        dataObject = JSON.parse(data);
+    console.log("Guest at " + dataObject.time + ": " + dataObject.guest);
+};
+
+socket.onerror = function(errorEvent) {
+    console.log("WebSocket error: ", errorEvent);
+};
+
+socket.onclose = function(closeEvent) {
+    console.log("WebSocket closed.");
+};
+~~~
+
+WebSocket的URL格式是`ws://`与`wss://`，因此需要注意下URL地址的写法，这也包括WebSocket服务器端的路径（如这里的`/guest`）等信息。因为是本地的示例所以这里是`localhost`。
+
+客户端代码的流程很简单：创建`WebSocket`对象，然后指定`onopen`、`onmessage`等事件的回调即可。其中`onmessage`是客户端与服务器端通过WebSocket通信的关键事件，想要在收到服务器通知后做点什么，写在`onmessage`事件的回调函数里就好了。
+
+### 效果及分析 ###
+
+通过`node server`（假定服务器端的文件名为`server.js`）启动WebSocket服务器后，用浏览器打开一个引入了前面客户端代码的html（直接文件路径`file:///`就可以），就可以得到这样的结果：
+
+![websocket的即时姓名][img_websocket_preview]
+
+联系前面客户端的代码可以想到，其实从创建`WebSocket`对象的语句开始，连接请求就会发送，并很快建立起WebSocket连接（不出错误的话），此后就可以收到来自服务器端的通知。如果此时客户端还想再告诉服务器点什么，就这样做：
+
+~~~javascript
+socket.send("Hello, server!");
+~~~
+
+服务器端就可以收到了：
+
+![服务器端已收到][img_server_recevied_via_websocket]
+
+当然，这也是因为前面服务器端的代码内同样设置了`message`事件的回调。现在看来，在这个例子中，无论是服务器端还是客户端，都用`send()`发送信息，都通过`message`事件设置回调，形式上可以说非常统一。
 
 ## 结语 ##
 
 
-[img_browserify_logo]: {{POSTS_IMG_PATH}}/201506/browserify_logo.png "Browserify"
+[img_websocket_preview]: {{POSTS_IMG_PATH}}/201603/websocket_preview.gif "websocket的即时姓名"
+[img_server_recevied_via_websocket]: {{POSTS_IMG_PATH}}/201603/server_recevied_via_websocket.png "服务器端已收到"
 
 [IETF]: https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E5%B7%A5%E7%A8%8B%E4%BB%BB%E5%8A%A1%E7%BB%84 "互联网工程任务组"
 [Protocol]: https://tools.ietf.org/html/rfc6455 "RFC 6455 - The WebSocket Protocol"
 [API]: https://www.w3.org/TR/websockets/ "The WebSocket API"
 [支持WebSocket的浏览器]: http://caniuse.com/#feat=websockets "Can I use - Web Sockets"
 [ws]: https://www.npmjs.com/package/ws "ws - npm"
+[uinames]: http://uinames.com/ "uinames.com: Randomly Generate Fake Names"
