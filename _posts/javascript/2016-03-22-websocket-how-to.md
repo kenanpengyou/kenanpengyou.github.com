@@ -36,22 +36,28 @@ Host: websocket.example.com
 Upgrade: websocket
 Connection: Upgrade
 Origin: http://example.com
-Sec-WebSocket-Key:Z8nv1nUaBRo6LlbeahtlpQ==
+Sec-WebSocket-Key:pAloKxsGSHtpIHrJdWLvzQ==
 Sec-WebSocket-Version:13
 ~~~
 
-支持WebSocket的服务器端在确认以上请求后，返回状态码为`101 Switching Protocols`的响应：
+其中HTTP头部字段`Upgrade: websocket`和`Connection: Upgrade`很重要，告诉服务器通信协议将发生改变，转为WebSocket协议。支持WebSocket的服务器端在确认以上请求后，应返回状态码为`101 Switching Protocols`的响应：
 
 ~~~http
 HTTP/1.1 101 Switching Protocols
-Date: Wed, 16 Mar 2016 10:07:34 GMT
+Upgrade: websocket
 Connection: Upgrade
-Upgrade: WebSocket
+Sec-WebSocket-Accept: nRu4KAPUPjjWYrnzxDVeqOxCvlM=
 ~~~
 
-这样握手确立了WebSocket连接后，服务器端就可以主动发信息给客户端了。此时的状态比较像服务器端和客户端接通了电话，无论是谁有什么信息想告诉对方，开口就好了。
+其中字段`Sec-WebSocket-Accept`是由服务器对前面客户端发送的`Sec-WebSocket-Key`进行确认和加密后的结果，相当于一次验证，以帮助客户端确信对方是真实可用的WebSocket服务器。
 
-此外，一旦建立了WebSocket连接，此后的通信就不再使用HTTP了，改为使用WebSocket独立的数据帧（这个帧是什么，怎么看，请看后文）。
+验证通过后，这个握手响应就确立了WebSocket连接，此后，服务器端就可以主动发信息给客户端了。此时的状态比较像服务器端和客户端接通了电话，无论是谁有什么信息想告诉对方，开口就好了。
+
+一旦建立了WebSocket连接，此后的通信就不再使用HTTP了，改为使用WebSocket独立的数据帧（这个帧有办法看到，见后文）。
+
+整个过程像这样：
+
+![Websocket协议建立过程][img_websocket_process]
 
 ## 简单的应用示例 ##
 
@@ -111,11 +117,11 @@ function sendGuestInfo(ws) {
 
 这个例子使用了姓名生成站点[uinames][uinames]的API服务，来生成`{guest: "人名", time: "15:26:01"}`这样的数据。函数`sendGuestInfo()`会不定时执行，并把包含姓名和时间的信息通过`send()`方法发送给客户端。
 
-这样，就可以说是服务器端自己在做一些事，然后在需要的时候可以直接通知客户端。
+这就像是服务器自己在做一些事，然后在需要的时候会通知客户端一些信息。
 
 ### 客户端 ###
 
-客户端我们使用原生javascript来完成，只用于支持WebSocket的浏览器：
+客户端我们使用原生javascript来完成（仅支持WebSocket的浏览器）：
 
 ~~~javascript
 var socket = new WebSocket("ws://localhost:8080/guest");
@@ -139,33 +145,44 @@ socket.onclose = function(closeEvent) {
 };
 ~~~
 
-WebSocket的URL格式是`ws://`与`wss://`，因此需要注意下URL地址的写法，这也包括WebSocket服务器端的路径（如这里的`/guest`）等信息。因为是本地的示例所以这里是`localhost`。
+WebSocket的URL格式是`ws://`与`wss://`。因此，需要注意下URL地址的写法，这也包括注意WebSocket服务器端的路径（如这里的`/guest`）等信息。因为是本地的示例所以这里是`localhost`。
 
 客户端代码的流程很简单：创建`WebSocket`对象，然后指定`onopen`、`onmessage`等事件的回调即可。其中`onmessage`是客户端与服务器端通过WebSocket通信的关键事件，想要在收到服务器通知后做点什么，写在`onmessage`事件的回调函数里就好了。
 
 ### 效果及分析 ###
 
-通过`node server`（假定服务器端的文件名为`server.js`）启动WebSocket服务器后，用浏览器打开一个引入了前面客户端代码的html（直接文件路径`file:///`就可以），就可以得到这样的结果：
+通过`node server`（假定服务器端的文件名为`server.js`）启动WebSocket服务器后，用浏览器打开一个引入了前面客户端代码的html（直接文件路径`file:///`就可以），就可以得到像这样的结果：
 
 ![websocket的即时姓名][img_websocket_preview]
 
-联系前面客户端的代码可以想到，其实从创建`WebSocket`对象的语句开始，连接请求就会发送，并很快建立起WebSocket连接（不出错误的话），此后就可以收到来自服务器端的通知。如果此时客户端还想再告诉服务器点什么，就这样做：
+联系前面客户端的代码可以想到，实际从创建`WebSocket`对象的语句开始，连接请求就会发送，并很快建立起WebSocket连接（不出错误的话），此后就可以收到来自服务器端的通知。如果此时客户端还想再告诉服务器点什么，这样做：
 
 ~~~javascript
 socket.send("Hello, server!");
 ~~~
 
-服务器端就可以收到了：
+服务器就可以收到：
 
 ![服务器端已收到][img_server_recevied_via_websocket]
 
-当然，这也是因为前面服务器端的代码内同样设置了`message`事件的回调。现在看来，在这个例子中，无论是服务器端还是客户端，都用`send()`发送信息，都通过`message`事件设置回调，形式上可以说非常统一。
+当然，这也是因为前面服务器端的代码内同样设置了`message`事件的回调。在这个客户端和服务器都是javascript的例子中，无论是服务器端还是客户端，都用`send()`发送信息，都通过`message`事件设置回调，形式上可以说非常一致。
+
+## 允许的数据类型 ##
+
+## 在Chrome开发工具中查看WebSocket数据帧 ##
+
+Chrome开发工具中选择Network，然后找到WebSocket的那个请求，里面可以选择Frames。在Frames里看到的，就是WebSocket的数据帧了：
+
+![查看WebSocket数据帧][img_chrome_websocket_frames]
+
+可以看到很像聊天记录，其中用浅绿色标注的是由客户端发送给服务器的部分。
 
 ## 结语 ##
 
-
+[img_websocket_process]: {{POSTS_IMG_PATH}}/201603/websocket_process.png "Websocket协议建立过程"
 [img_websocket_preview]: {{POSTS_IMG_PATH}}/201603/websocket_preview.gif "websocket的即时姓名"
 [img_server_recevied_via_websocket]: {{POSTS_IMG_PATH}}/201603/server_recevied_via_websocket.png "服务器端已收到"
+[img_chrome_websocket_frames]: {{POSTS_IMG_PATH}}/201603/chrome_websocket_frames.png "查看WebSocket数据帧"
 
 [IETF]: https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E5%B7%A5%E7%A8%8B%E4%BB%BB%E5%8A%A1%E7%BB%84 "互联网工程任务组"
 [Protocol]: https://tools.ietf.org/html/rfc6455 "RFC 6455 - The WebSocket Protocol"
