@@ -167,7 +167,15 @@ socket.send("Hello, server!");
 
 当然，这也是因为前面服务器端的代码内同样设置了`message`事件的回调。在这个客户端和服务器都是javascript的例子中，无论是服务器端还是客户端，都用`send()`发送信息，都通过`message`事件设置回调，形式上可以说非常一致。
 
+## 其他WebSocket服务器端 ##
+
+用PHP搭建的话，是这样：
+
+
+
 ## 允许的数据类型 ##
+
+Blob或ArrayBuffer。
 
 ## 在Chrome开发工具中查看WebSocket数据帧 ##
 
@@ -178,6 +186,8 @@ Chrome开发工具中选择Network，然后找到WebSocket的那个请求，里�
 可以看到很像聊天记录，其中用浅绿色标注的是由客户端发送给服务器的部分。
 
 ## 结语 ##
+
+
 
 [img_websocket_process]: {{POSTS_IMG_PATH}}/201603/websocket_process.png "Websocket协议建立过程"
 [img_websocket_preview]: {{POSTS_IMG_PATH}}/201603/websocket_preview.gif "websocket的即时姓名"
