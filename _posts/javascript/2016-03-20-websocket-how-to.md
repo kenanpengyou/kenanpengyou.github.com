@@ -2,7 +2,7 @@
 layout: post
 title: "WebSocket的简单介绍及应用"
 category: "javascript"
-description: "WebSocket "
+description: "只是HTTP协议的话，某些场景下浏览器和服务器的通信会比较难做，那么WebSocket这个新协议可以带来怎样的改进呢？"
 ---
 {% include JB/setup %}
 
@@ -115,7 +115,7 @@ function sendGuestInfo(ws) {
 }
 ~~~
 
-这个例子使用了姓名生成站点[uinames][uinames]的API服务，来生成`{guest: "人名", time: "15:26:01"}`这样的数据。函数`sendGuestInfo()`会不定时执行，并把包含姓名和时间的信息通过`send()`方法发送给客户端。
+这个例子使用了姓名生成站点[uinames][uinames]的API服务，来生成`{guest: "人名", time: "15:26:01"}`这样的数据。函数`sendGuestInfo()`会不定时执行，并把包含姓名和时间的信息通过`send()`方法发送给客户端。另外，注意`send()`方法需要以字符串形式来发送json数据。
 
 这就像是服务器自己在做一些事，然后在需要的时候会通知客户端一些信息。
 
@@ -167,15 +167,90 @@ socket.send("Hello, server!");
 
 当然，这也是因为前面服务器端的代码内同样设置了`message`事件的回调。在这个客户端和服务器都是javascript的例子中，无论是服务器端还是客户端，都用`send()`发送信息，都通过`message`事件设置回调，形式上可以说非常一致。
 
+## 其他可用的数据类型 ##
+
+WebSocket的`send()`可以发送的消息，除了前面用的字符串类型之外，还有两种可用，它们是[Blob][Blob]和[ArrayBuffer][ArrayBuffer]。
+
+它们都代表二进制数据，可用于原始文件数据的发送。比如，这是一个发送Blob类型数据以完成向服务器上传图片的例子：
+
+~~~javascript
+var fileEl = document.getElementById("image_upload");
+var file = fileEl.files[0];
+socket.send(file);
+~~~
+
+然后服务器端可以这样把文件保存下来：
+
+~~~javascript
+var fs = require("fs");
+
+wss.on("connection", function(ws) {
+    ws.on("message", function(message) {
+        fs.writeFile("upload.png", message, "binary", function(error) {
+            if (!error) {
+                console.log("File saved.");
+            }
+        });
+    });
+});
+~~~
+
+在客户端接收二进制数据时，需注意WebSocket对象有一个属性`binaryType`，初始值为`"blob"`。因此，如果接收的二进制数据是`ArrayBuffer`，应在接收之前这样做：
+
+~~~javascript
+socket.binaryType = "arraybuffer";
+~~~
+
 ## 其他WebSocket服务器端 ##
 
-用PHP搭建的话，是这样：
+其他语言来做WebSocket服务器是怎样的呢？下面是一个php的WebSocket服务器的例子（使用[Ratchet][Ratchet]）：
 
+~~~php
+<?php
+use Ratchet\ConnectionInterface;
+use Ratchet\MessageComponentInterface;
 
+require __DIR__ . '/vendor/autoload.php';
 
-## 允许的数据类型 ##
+class GuestServer implements MessageComponentInterface {
 
-Blob或ArrayBuffer。
+    public function onOpen(ConnectionInterface $conn) {
+        $conn->send('The server is listening to you now.');
+    }
+
+    public function onMessage(ConnectionInterface $conn, $msg) {
+        $conn->send($this->generateGuestInfo());
+    }
+
+    public function onClose(ConnectionInterface $conn) {
+    }
+
+    public function onError(ConnectionInterface $conn, \Exception $e) {
+        $conn->close();
+    }
+
+    private function generateGuestInfo() {
+        $jsonString = file_get_contents('http://uinames.com/api?region=china');
+        $jsonObject = json_decode($jsonString, true);
+        $guest = $jsonObject['name'] . $jsonObject['surname'];
+        $guestInfo = array(
+            'guest' => $guest,
+            'time' => date('H:i:s', time()),
+        );
+
+        return json_encode($guestInfo);
+    }
+}
+
+$app = new Ratchet\App('localhost', 8080);
+$app->route('/guest', new GuestServer(), array('*'));
+$app->run();
+?>
+~~~
+
+这个例子也同样是由服务器返回`{guest: "人名", time: "15:26:01"}`的json数据，不过由于php不像Node那样可以用`setTimeout()`很容易地实现异步定时任务，这里改为在客户端发送一次任意信息后，再去uinames取得信息并返回。
+
+也可以看到，php搭建的WebSocket服务器仍然是近似的，主要通过WebSocket的`open`、`message`等事件来实现功能。
 
 ## 在Chrome开发工具中查看WebSocket数据帧 ##
 
@@ -187,7 +262,9 @@ Chrome开发工具中选择Network，然后找到WebSocket的那个请求，里�
 
 ## 结语 ##
 
+总的来说，把服务器和客户端拉到了一个聊天窗口来办事，这确实是很棒的想法。
 
+即使只从形式上说，WebSocket的事件回调感觉也比定时任务用起来要更亲切一些。
 
 [img_websocket_process]: {{POSTS_IMG_PATH}}/201603/websocket_process.png "Websocket协议建立过程"
 [img_websocket_preview]: {{POSTS_IMG_PATH}}/201603/websocket_preview.gif "websocket的即时姓名"
@@ -200,3 +277,6 @@ Chrome开发工具中选择Network，然后找到WebSocket的那个请求，里�
 [支持WebSocket的浏览器]: http://caniuse.com/#feat=websockets "Can I use - Web Sockets"
 [ws]: https://www.npmjs.com/package/ws "ws - npm"
 [uinames]: http://uinames.com/ "uinames.com: Randomly Generate Fake Names"
+[Ratchet]: http://socketo.me/ "Ratchet - PHP WebSockets"
+[Blob]: https://developer.mozilla.org/zh-CN/docs/Web/API/Blob "Blob - Web API 接口 | MDN"
+[ArrayBuffer]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer "ArrayBuffer - JavaScript | MDN"
