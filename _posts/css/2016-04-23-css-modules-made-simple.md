@@ -91,10 +91,13 @@ css不是程序语言，但如果说要给它加一个作用域的概念的话�
 
 **CSS Module**的字面意义是css模块，但它并不是字面意思，而是特指一种组织css代码的技术手段。技术流的东西是不是听起来挺酷？
 
+创建一个CSS Module和新建一个普通css文件是一样的，只不过为class起名字时会更有底气，不用担心会影响其他的CSS Module。
 
 
 
+CSS Module的写法有一个要求，就是单class应该具备对应的元素所需的全部样式。它的意思是：
 
+这一点可能和普通css的写法风格不太一样，
 
 
 CSS modules是一套技术策略，它要求使用动态生成的选择符。
@@ -105,13 +108,33 @@ CSS modules是一套技术策略，它要求使用动态生成的选择符。
 
 ## 结语 ##
 
-所以，我们很少使用`.title`、`.header`这样模糊的class名。
+目的都是 maintainable css
+
+CSS Module仍然是在写css，很简单。
+
+development的时候  ._1rJwx92-gmbvaLiDdzgXiJ { … } 这种class名就太难调试，也不知道是哪里了。所以一般会带上原来的name，只是附带一个hash。比如
+.MyComponent__foo___1rJwx { … }
+
+They generate locally scoped class names that are easy to reason about, without introducing complex conventions.
+
 
 所以，我们在一个Bootstrap的项目里，很难再使用[Materialize][Materialize]等其他框架。
 
 A CSS Module is a CSS file in which all class names and animation names are scoped locally by default. 这也指CSS Module只对class名做处理。
 
-我们一直以来还做了哪些事呢？
+生产环境下可以用混淆的更小的class名。
+
+The benefits of global CSS — style re-use between components via utility classes, etc. — are still achievable with this model. The key difference is that, just like when we work in other technologies, we need to explicitly import the classes that we depend on. Our code can’t make many, if any, assumptions about the global environment.
+
+CSS Module开始看来是有一个重大问题，即原本css有一个好处是一部分样式可以反复在多个地方使用，但CSS Module这样好像就都隔离了。然而，并没有，CSS Module里的compose就是做这个用的。当然，需要声明依赖关系。
+
+Letting the build tool handle the generation of class names has some potentially huge implications.
+
+核心在于class名是生成的。
+
+缺陷：
+
+每次写css的时候给class起名字可真是一件费心的事。当class名被程序管理起来之后，可就真的可以做点别的了。一些原来是我们自己想到的优化，可以交给电脑的编译来做了，这大概是CSS Module提供的很有意思的思路吧。
 
 [img_blending_modes_in_photoshop]: {{POSTS_IMG_PATH}}/201601/blending_modes_in_photoshop.png "web混合模式"
 
