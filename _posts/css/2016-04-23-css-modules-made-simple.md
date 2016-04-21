@@ -6,6 +6,10 @@ description: "css modules的"
 ---
 {% include JB/setup %}
 
+不要误会，CSS Modules可不是在说“css模块化”这个好像在某些地方见过的词，它其实是特指一种近期才出现的技术手段。
+
+什么技术手段呢？请待后文解析。
+
 ## 层叠样式表 ##
 
 我们知道，css的全名叫做层叠样式表，这个“层叠”到底是什么意思呢？
@@ -47,9 +51,9 @@ var title = "silver";
 console.log(title); // silver
 ~~~
 
-利用javascript的函数作用域，两位同名的`title`选手也是可以友好相处的。
+利用javascript的函数作用域，两位同样名为`title`的选手可以友好相处。
 
-但回到了css里的样式规则，情况就完全不是这么回事了。
+但回到css里的样式规则，情况就完全不是这么回事了。
 
 css不是程序语言，但如果说要给它加一个作用域的概念的话，那就是：只有全局作用域。
 
@@ -59,7 +63,7 @@ css不是程序语言，但如果说要给它加一个作用域的概念的话�
 
 为减少相互影响，避免预料之外的样式覆盖，我们一直以来想过很多办法。
 
-比如你接手一个别人留下来的旧项目，接下来要新增一个标题元素的时候，你会有意识地不去使用`.title`这样模糊的class名，因为，它太容易重名了。最终，你用的名称可能是：
+比如你接手一个别人留下来的旧项目，接下来要新增一个标题元素的时候，你会有意识地不去使用`.title`这样模糊的class名，因为它太容易重名了。最终，你用的名称可能是：
 
 ~~~css
 .module-sp-title {
@@ -85,11 +89,11 @@ css不是程序语言，但如果说要给它加一个作用域的概念的话�
 
 类似的做法还有很多，但归结起来，都是在尝试**提供一种合理的命名约定**。而合理的命名约定，的确是组织css代码的有效策略。
 
-现在，我们有了新的可用策略，CSS Module就是其中之一。
+现在，我们有了新的可用策略，CSS Modules就是其中之一。
 
 ## 技术流的模块化 ##
 
-**CSS Module**的字面意义是css模块，但它并不是字面意思，而是特指一种组织css代码的技术手段。技术流的东西是不是听起来挺酷？
+**[CSS Modules][CSS Modules]**是一种技术流的新的组织css代码的策略，它将为css提供默认的局部作用域。
 
 创建一个CSS Module和新建一个普通css文件是一样的，只不过为class起名字时会更有底气，不用担心会影响其他的CSS Module。
 
@@ -140,3 +144,4 @@ Letting the build tool handle the generation of class names has some potentially
 
 [Materialize]: http://materializecss.com/ "Materialize"
 [SMACSS]: https://smacss.com/ "Home - Scalable and Modular Architecture for CSS"
+[CSS Modules]: https://github.com/css-modules/css-modules "CSS Modules"
