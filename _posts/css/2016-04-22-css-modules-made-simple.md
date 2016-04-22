@@ -2,7 +2,7 @@
 layout: post
 title: "简单易懂的CSS Modules"
 category: "css"
-description: "css modules的"
+description: "CSS Modules是一个新的编写可维护css代码的策略，有趣的是，它还是在让你写css，那它到底做了什么？请看本文给出解答。"
 ---
 {% include JB/setup %}
 
@@ -208,7 +208,7 @@ export default class ScopedSelectors extends Component {
 
 如果不使用React，还是那句话，只要有办法把变量风格的class名注入到html中，就可以用CSS Modules。原始的字符串拼接的写法显然很糟糕，但我们可以借助各种模板引擎和编译工具做一些改进。下面请看一个用[Jade][Jade]的参考示例。
 
-想象一下你有一个用普通css的页面，但你想在一小块区域使用CSS Modules（懒得费心想class名了，随便起也不会影响到其它地方）。这一块区域在一个容器元素里：
+想象一下你有一个用普通css的页面，但你想在一小块区域使用CSS Modules。这一块区域在一个容器元素里：
 
 ~~~html
 <div id="module_sp_container"></div>
@@ -281,51 +281,77 @@ CSS Modules团队成员认为`composes`是CSS Modules里最强大的功能：
 
 ## 其他可能有用的补充 ## 
 
-### 结合已有的普通css ###
+### 和已有的普通css共存 ###
 
-很多项目简单一点会引入
+很多项目会引入Bootstrap、[Materialize][Materialize]等框架，它们是普通的、全局的css。此外，你也可能自己会写一些普通css。如何共存呢？CSS Modules团队成员对此提到过：
 
+> a CSS Module should only import information relative to it
 
-会引入Bootstrap、Materialize等框架，
+意思是，建议把CSS Modules看做一种新的css，和原来的普通css区分开来。比如，`composes`的时候，不要从那些普通的css里去取。
 
+在css-loader里通过指定`test`、`include`、`exclude`来区分它们。保持CSS Modules的纯净，只有想要应用CSS Modules的css文件，才启用CSS Modules。
 
+### 只转换class和id ###
 
-保持css modules纯净。看做是在写一个新版本的css，跟原来的版本分开比较好。
+经过我自己的测试，CSS Modules只转换class和id，此外的标签选择符、伪类等都不会被转换。
 
-## 只转换class和id ##
+建议只使用class。
 
-经测试，CSS Modules只转换class和id，此外的标签、伪类都不会被转换。
+### 一个CSS Module的输出 ###
 
-### 适用的场景 ###
+简单用`console.log()`就可以查看CSS Module的输出：
 
-### 理解一个CSS Module的output ### 
+~~~javascript
+var styles = require("./main.css");
+console.log("styles = ", styles);
+~~~
 
+结果类似这样：
 
+~~~javascript
+{
+    "btn-sp":  "_2SCQ7Kuv31NIIiVU-Q2ubA _2r6eZFEKnJgc7GLy11yRmV",
+    title: "_1m-KkPQynpIso3ofWhMVuK"
+}
+~~~
 
+这可以帮助理解CSS Modules是怎样工作的。
 
+### 预编译器 ###
+
+sass等预编译器也可以用CSS Modules，对应的loader可能是这样：
+
+~~~javascript
+{
+    test: /\.scss$/,
+    loader: 'style!css?modules!resolve-url!sass?sourceMap'
+}
+~~~
+
+注意不要因为是sass就习惯性地用嵌套写法，CSS Modules并不适合使用包含选择符。
+
+### 建议的命名方式 ###
+
+CSS Modules会把`.title`转换为`styles.title`，由于后者是用在javascript中，因此驼峰命名会更适合。
+
+如果像我之前那样写`.btn-sp`，需要注意在javascript中写为`styles["btn-sp"]`。
+
+此外，你还可以为css-loader增加`camelCase`参数来实现自动转换：
+
+~~~javascript
+{
+    test: /\.css$/,
+    loader: 'style!css?modules&camelCase',
+}
+~~~
+
+这样即便你写`.btn-sp`，你也可以直接在javascript里用`styles.btnSp`。
 
 ## 结语 ##
 
-目的都是 maintainable css
+无论是一直以来我们认真遵循的命名约定，还是这个新的CSS Modules，目的都是一样的：可维护的css代码。我觉得就CSS Modules基本还是在写css这一点来说，它还是很友好的。
 
-CSS Module仍然是在写css，很简单。
-
-A CSS Module is a CSS file in which all class names and animation names are scoped locally by default. 这也指CSS Module只对class名做处理。
-
-Letting the build tool handle the generation of class names has some potentially huge implications.
-
-每次写css的时候给class起名字可真是一件费心的事。当class名被程序管理起来之后，可就真的可以做点别的了。一些原来是我们自己想到的优化，可以交给电脑的编译来做了，这大概是CSS Module提供的很有意思的思路吧。
-
-## 核心问题探讨： CSS Module一定要dynamic动态的html吗？ ##
-
-As for your two points, it is true that CSS Modules requires your markup to be dynamic so it can inject the compiled classnames, but that doesn't necessarily have to be JS, and certainly doesn't need to be at runtime. 
-
-Actually you need to inject the generated class names into your html, so I don't see any opportunity to use it without templating system.
-
-作者也说，现在似乎对React这类虚拟Dom非常合适，但其他传统工作流就不太行了，作者也在想办法中。一个常识：
-https://github.com/geelen/css-modules-injector
-
-CSS Module的价值所在：
+虽然本文为了严谨，结果写了相当长的篇幅，但希望你读过之后，还能觉得CSS Modules是简单易懂的。因为这样，我就达成我的目的：扣题，了。
 
 [img_css_modules_example]: {{POSTS_IMG_PATH}}/201604/css_modules_example.png "CSS Modules的示例"
 [img_css_modules_example_custom_name]: {{POSTS_IMG_PATH}}/201604/css_modules_example_custom_name.png "CSS Modules指定名字"
