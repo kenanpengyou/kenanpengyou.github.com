@@ -3,7 +3,6 @@
 * imaimo-style.css
 * The theme name is imaimo, a theme for Jekyll.
 * By Liang Zhu(kenanpengyou@yeah.net)
-* Date 2014-05-19
 */
 
 /*-------初始化 start-------*/
@@ -242,6 +241,9 @@ code{font-size:15px;}
 .sidebar .other_info_link{color:#333;}
 .sidebar .RSS_link{display:inline-block;margin-left:5px;vertical-align:middle;}
 .sidebar .icon_RSS{display:inline-block;width:18px;height:18px;background-position:0 -50px;cursor:pointer;}
+.sidebar .friend_site_line{padding-bottom:15px;}
+.sidebar .friend_site_link{margin-left:10px;}
+.sidebar .friend_site_link:first-child{margin-left:0;}
 .sidebar .project_line{padding-bottom:15px;}
 .sidebar .project_cover_img{background: #fff;}
 
