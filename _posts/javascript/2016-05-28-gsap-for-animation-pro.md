@@ -2,7 +2,7 @@
 layout: post
 title: "GSAP，专业的Web动画库"
 category: "javascript"
-description: "GSAP"
+description: "对于喜欢在Web里做动画的人而言，有没有什么强力的动画工具呢？在此推荐GSAP。"
 ---
 {% include JB/setup %}
 
@@ -79,7 +79,7 @@ TweenLite.to("#ball1", 2, {
 
 ![TweenLite的css动画][img_tweenlite_to]
 
-GSAP用`x`、`y`表示transform的`translateX`和`translateY`。`TweenLite.to(target, duration, vars)`的第一个参数`target`可以是选择符，因此这里就是选取id为`ball1`的元素，执行时常为2s的动画，从当前位置移动到`translateX(200px)`的位置。
+GSAP用`x`、`y`表示transform的`translateX`和`translateY`。`TweenLite.to(target, duration, vars)`的第一个参数`target`可以是选择符，因此这里就是选取id为`ball1`的元素，执行时长为2s的动画，从当前位置移动到`translateX(200px)`的位置。
 
 你可以在的第3个参数`vars`内添加任意css属性，它们都会被用作被选取元素的动画目标值。
 
@@ -99,9 +99,9 @@ TweenLite.to("#ball1", 2, {
 
 这里的动画将延迟2s运行，而且改为线性变化（默认为`Quad.easeOut`）。
 
-如果想要在动画开始，动画运行的每一帧，动画结束时分别执行对应的事件函数，使用`onStart`、`onUpdate`、`onComplete`。前文值动画的例子就是通过`onUpdate`把值的变化打印出来的。
+如果想要在动画开始，动画运行的每一帧，动画结束时分别执行对应的事件函数，使用`onStart`、`onUpdate`、`onComplete`。前文的值动画的例子就是通过`onUpdate`把值的变化打印出来的。
 
-GSAP有[专门的位置][专门的位置]可以查询缓动函数。更多的可用特定属性，请参考[官方文档][官方文档]，GSAP的文档挺完善的。
+GSAP有[专门的位置][专门的位置]可以查询缓动函数。更多的可用特定属性，请参考[官方文档][官方文档]。
 
 ### 相对值 ###
 
@@ -192,7 +192,7 @@ GSAP不依赖jQuery，但如果引入了jQuery，GSAP会使用jQuery的选择器
 
 ## TimelineLite的动画管理 ##
 
-好像`TweenLite` + `css plugin`就已经足够用了，这个TimeLine系列是做什么的呢？
+好像`TweenLite` + `css plugin`就已经足够用了，这个Timeline系列是做什么的呢？
 
 想象你是一个动画的导演，你要按剧本安排演员在一个CUT里依次上场和退场。在前文的例子里，我们只有一个演员（`#ball1`），但现在，我们要拍一个有20+演员的动画大片，要怎么办呢？
 
@@ -244,7 +244,7 @@ tl.add(TweenLite.from("#ball1", 1, {
 
 如果画一下这里的时间轴，是这样的：
 
-![TimelineLite图解顺序动画]
+![时间轴图示 - 顺序动画][img_timeline_graphic_sequence]
 
 ### 调整放置位置 ###
 
@@ -277,7 +277,7 @@ tl.from("#ball1", 1, {
 
 时间轴像这样：
 
-![TimelineLite图解调整动画]
+![时间轴图示 - 调整动画][img_timeline_graphic_adjust]
 
 ### 时间轴控制 ###
 
@@ -285,56 +285,84 @@ tl.from("#ball1", 1, {
 
 ~~~javascript
 
-// 暂停
-tl.pause();
+// 在1s时间进度位置暂停
+tl.pause(1);
 
-// 继续播放
-tl.resume();
-
-// 反转播放
-tl.reverse();
-
-// 跳转到1s进度处开始播放
-tl.seek(1);
+// ... （和前面tween一样）
 
 // 跳转到50%进度处
 tl.progess(0.5);
-
-// 重播
-tl.restart();
-
-// 变为三倍速
-tl.timeScale(3);
 
 ~~~
 
 ### 相同动画的简便方法 ###
 
-如果多个元素的动画是一样的，而且它们需要有规律地安排在时间轴的不同位置，那么非常适合用`staggerFrom()`、`staggerTo()`及`staggerFromTo()`。
+如果多个元素的动画是一样的，而且它们需要有规律地安排在时间轴的不同位置，那么非常适合用`staggerFrom()`、`staggerTo()`及`staggerFromTo()`。例如：
 
 ~~~javascript
-
+tl.staggerFrom(["#ball1", "#ball2", "#ball3", "#ball4", ], 1, {
+    scale: "-=0.5",
+    autoAlpha: 0
+}, 2);
 ~~~
 
-jQuery的`animate()`不能处理background-color，需要JQuery.Color插件。
+这样使用数组，就可以同时选中多个元素。
 
-GSAP除了DOM元素的属性之外，还可以为canvas objects等更多东西创建动画。
+效果是：
 
-autoAlpha同时处理visibility和opacity，很有用。可以让开始全透明的opacity: 0 的元素，不触发任何交互事件
+![间隔规律动画][timelinelite_staggerfrom]
 
-## canvas动画 ##
-
-## 文本动画 ##
-
-
+可以看到，每一个元素按照顺序依次执行动画，间隔2s。
 
 ## TimelineMax和TweenMax ##
 
+如果你觉得还需要一些动画和时间轴的更高级功能（如同一动画间隔重复），可以选择TimelineMax和TweenMax。它们并不需要更多的学习成本，如字面意思所示，TweenMax是TweenLite的升级版，拥有其全部特性，只是增加了一些额外的高级控制。它们的语法完全一致，你可以试试用全局搜索把所有TweenLite替换成TweenMax，不会有任何影响。TimelineMax和TimelineLite的关系也是如此。
+
 ## 补充信息 ##
+
+### 浏览器兼容性 ###
+
+可以到IE6（使用jQuery1.x的选择器）。
+
+另外，不要期望在不支持的浏览器上做3d transform动画。
+
+### 指定默认缓动 ###
+
+如果你大部分动画都使用同一种缓动函数，那么用`TweenLite.defaultEase`会很方便，比如修改为`Expo.easeOut`：
+
+~~~javascript
+TweenLite.defaultEase = Expo.easeOut;
+~~~
+
+### 动画结束后清空style属性 ### 
+
+默认情况下，执行过动画的元素会留下`style`的内联样式，如果你担心这可能造成额外影响，可以设定`clearProps`参数清空它：
+
+~~~javascript
+TweenLite.to("#ball1", 2, {
+    x: 200,
+    clearProps: "all",
+    autoAlpha: 0
+});
+~~~
+
+如果只需要清理个别样式，单独写出来即可，如`clearProps: "opacity"`。
+
+### autoAlpha的作用 ###
+
+前文反复用到的`autoAlpha`并不是css属性，而是GSAP给定的一个特殊属性。`autoAlpha`是`opacity`和`visibility`这2个css属性的结合。
+
+为什么要结合起来呢？一般来说，`opacity`为`0`的不可见元素，我们会认为它也是不可交互的（比如`onclick`不触发），因此附加`visibility: hidden`可以保证这一点。GSAP会正确处理动画过程中这2个css属性的变化。
+
+### 备忘单 ###
+
+GSAP有一份包含丰富参考代码的[备忘单][备忘单]（Cheat Sheet），可以帮助你节约时间。
 
 ## 结语 ##
 
-asdasdsad
+GSAP里的很多概念和API设计可以追溯到flash时代。虽然flash在今天已经很少被使用，但“flash动画”一词能够深入人心是有它的原因的。
+
+GSAP是专业动画库，在大部分情况下，它也具备更好的动画性能。如果你打算在网页里制作一个动画大片，那你现在应该知道什么可以帮助你了 :) 。
 
 [img_gsap_files]: {{POSTS_IMG_PATH}}/201605/gsap_files.png "GSAP的文件组成"
 [img_gsap_modules]: {{POSTS_IMG_PATH}}/201605/gsap_modules.png "GSAP的模块组成"
@@ -343,15 +371,13 @@ asdasdsad
 [img_tweenlite_to]: {{POSTS_IMG_PATH}}/201605/tweenlite_to.gif "TweenLite的css动画"
 [img_tweenlite_from]: {{POSTS_IMG_PATH}}/201605/tweenlite_from.gif "TweenLite.from()"
 [img_timelinelite_sequence]: {{POSTS_IMG_PATH}}/201605/timelinelite_sequence.gif "TimelineLite顺序动画"
+[img_timeline_graphic_sequence]: {{POSTS_IMG_PATH}}/201605/timeline_graphic_sequence.png "时间轴图示 - 顺序动画"
 [img_timelinelite_adjust]: {{POSTS_IMG_PATH}}/201605/timelinelite_adjust.gif "TimelineLite调整动画"
-
+[img_timeline_graphic_adjust]: {{POSTS_IMG_PATH}}/201605/timeline_graphic_adjust.png "时间轴图示 - 调整动画"
+[timelinelite_staggerfrom]:  {{POSTS_IMG_PATH}}/201605/timelinelite_staggerfrom.gif "间隔规律动画"
 
 [GSAP]: http://greensock.com/gsap "GreenSock | GSAP"
 [专门的位置]: http://greensock.com/ease-visualizer "GreenSock | Ease Visualizer"
 [官方文档]: http://greensock.com/docs/#/HTML5/GSAP/TweenLite/ "GreenSock | Docs - HTML5 GSAP TweenLite "
-
-
-
-
-
+[备忘单]: https://ihatetomatoes.net/greensock-cheat-sheet/ "GreenSock Cheat Sheet - GSAP code snippets"
 

@@ -123,3 +123,6 @@ DEPENDENCIES
   github-pages (= 78)
   json
   wdm (>= 0.1.0)
+
+BUNDLED WITH
+   1.11.2
