@@ -182,7 +182,7 @@ public class LiveActivity extends ReactActivity {
 
 `getUseDeveloperSupport()`是一个逻辑返回值，表示是否启用开发者模式。这里写`BuildConfig.DEBUG`就可以自动根据gradle构建的类型（debug或release）来决定。
 
-`getPackages`是模块列表，一般像上面代码这样就可以。如果你需要在JavaScript里调用原生Java模块，就要把它们添加到这里，具体可以参考[这篇文章][这篇文章2]。
+`getPackages()`是模块列表，一般像上面代码这样就可以。如果你需要在JavaScript里调用原生Java模块，就要把它们添加到这里，具体可以参考[这篇文章][这篇文章2]。
 
 ### 清单文件添加声明 ###
 
