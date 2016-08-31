@@ -1,4 +1,4 @@
-# This is the default format. 
+# This is the default format.
 # For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink: /posts/:year/:month/:title
 
@@ -8,7 +8,7 @@ paginate: 5
 
 gems: [jekyll-paginate]
 
-# Themes are encouraged to use these universal variables 
+# Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
 title : "acgtofe - 动漫与前端技术的综合博客"
@@ -16,13 +16,13 @@ tagline: "acgtofe - 动漫与前端技术的综合博客"
 keywords: ["动漫", "web前端", "html/css", "javascript"]
 title_suffix: " - acgtofe"
 year: 2016
-theme:
-  name: "imaimo"
+theme_custom:
+    name: "imaimo"
 author :
   name : Liang Zhu
   email : kenanpengyou@gmail.com
   github : kenanpengyou
-  twitter : 
+  twitter :
 
 # Jekyll RSS Feed
 name: "acgtofe"
@@ -32,13 +32,13 @@ url: http://acgtofe.com
 # Custom plugin
 # Liang Zhu(kenanpengyou@gmail.com)
 # 2013-04-13
-plugin: 
-  audiojs: 
+plugin:
+  audiojs:
     css: "audiojs-custom.css"
     js: "audio.min.js"
 
 # The production_url is only used when full-domain names are needed
-# such as sitemap.txt 
+# such as sitemap.txt
 # Most places will/should use BASE_PATH to make the urls
 #
 # If you have set a CNAME (pages.github.com) set your custom domain here.
@@ -57,11 +57,11 @@ JB :
   # however this value will be dynamically changed depending on your deployment situation.
   #
   # CNAME (http://yourcustomdomain.com)
-  #   DO NOT SET BASE_PATH 
+  #   DO NOT SET BASE_PATH
   #   (urls will be prefixed with "/" and work relatively)
   #
   # GitHub Pages (http://username.github.com)
-  #   DO NOT SET BASE_PATH 
+  #   DO NOT SET BASE_PATH
   #   (urls will be prefixed with "/" and work relatively)
   #
   # GitHub Project Pages (http://username.github.com/project-name)
@@ -80,7 +80,7 @@ JB :
   # ex: [BASE_PATH]/assets/themes/[THEME-NAME]
   #
   # Override this by defining an absolute path to assets here.
-  # ex: 
+  # ex:
   #   http://s3.amazonaws.com/yoursite/themes/watermelon
   #   /assets
   #
@@ -97,7 +97,7 @@ JB :
   # Setting for custom method In Jekyll-Bootstrap
   # Liang Zhu(kenanpengyou@gmail.com)
   # 2013-03-01
-  # 
+  #
   setup :
     provider : "custom"
 
@@ -131,17 +131,17 @@ JB :
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
   # Set 'provider' to false to turn analytics off globally.
-  #        
+  #
   analytics :
-    provider : google 
-    google : 
+    provider : google
+    google :
         tracking_id : 'UA-39260902-1'
     getclicky :
-      site_id : 
+      site_id :
     mixpanel :
         token : '_MIXPANEL_TOKEN_'
 
-  # Settings for sharing helper. 
+  # Settings for sharing helper.
   # Sharing is for things like tweet, plusone, like, reddit buttons etc.
   # Set 'provider' to the sharing provider you want to use.
   # Set 'provider' to false to turn sharing off globally.
@@ -149,14 +149,13 @@ JB :
   sharing :
     provider : false
 
-  # Settings for all other include helpers can be defined by creating 
+  # Settings for all other include helpers can be defined by creating
   # a hash with key named for the given helper. ex:
   #
   #   pages_list :
-  #     provider : "custom"   
+  #     provider : "custom"
   #
   # Setting any helper's provider to 'custom' will bypass the helper code
   # and include your custom code. Your custom file must be defined at:
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
-

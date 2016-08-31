@@ -7,7 +7,7 @@
    <link rel="dns-prefetch" href="//fonts.googleapis.com">
    <link rel="dns-prefetch" href="//www.google-analytics.com">
    <link rel="dns-prefetch" href="//v1.uyan.cc">
-  
+
    <title>{{ page.title }}{% if page.navflag != 'home' %}{{ site.title_suffix }}{% endif %}</title>
 
    {% if page.description %}
@@ -31,7 +31,7 @@
    <script src="{{ PURE_ASSET_PATH }}/js/essential/modernizr-2.7.1-custom.min.js"></script>
    <script src="{{ PURE_ASSET_PATH }}/js/essential/jquery-1.11.1.min.js"></script>
    <script src="{{ PURE_ASSET_PATH }}/js/essential/acgtofe.js"></script>
-   
+
 </head>
 <body>
 <div class="total_container">
@@ -44,7 +44,7 @@
                 <ul class="nav_list">
                     <li class="nav_item{% if page.navflag == 'home' %} nav_current{% endif %}"><a class="nav_link" href="{{ HOME_PATH }}" title="Home">Home<cite class="nav_line"></cite></a></li>
                     <li class="nav_item{% if page.navflag == 'demo pages' %} nav_current{% endif %}"><a class="nav_link" href="{{ BASE_PATH }}/demo_pages/" title="Demo pages">Demo pages<cite class="nav_line"></cite></a></li>
-                    <li class="nav_item{% if page.navflag == 'about' %} nav_current{% endif %}"><a class="nav_link" href="{{ BASE_PATH }}/about.html" title="About">About<cite class="nav_line"></cite></a></li>    
+                    <li class="nav_item{% if page.navflag == 'about' %} nav_current{% endif %}"><a class="nav_link" href="{{ BASE_PATH }}/about.html" title="About">About<cite class="nav_line"></cite></a></li>
                 </ul>
             </nav>
             <div class="site_top_img"><img class="top_img" src="{{ PURE_ASSET_PATH }}/used-images/wallpaper_top/wallpaper_top_snowball.jpg" alt="" /></div>
@@ -58,7 +58,7 @@
 <footer class="site_footer">
   <div class="footer_wrapper">
         <div class="footer_note">
-            <p class="theme_declare">The current theme is {{ site.theme.name }}.</p>
+            <p class="theme_declare">The current theme is {{ site.theme_custom.name }}.</p>
             <p class="copyright">&copy; {{ site.year }} <a href="{{ HOME_PATH }}" title="">{{ site.author.name }}</a>. Built with <a href="http://jekyllbootstrap.com/" title="Jekyll Bootstrap">Jekyll Bootstrap</a>.</p>
         </div>
     </div>
