@@ -2,7 +2,7 @@
 layout: post
 title: "Spring Boot简略入门手册"
 category: "工作流"
-description: "用Java Web Frameworks来搭建项目"
+description: "现在，Java Web Frameworks来搭建项目也可以比较快速了，Spring Boot就是一位杰出代表。"
 ---
 {% include JB/setup %}
 
@@ -185,6 +185,15 @@ spring:
 
 完整的配置参考请见官方的[Common application properties][Common application properties]。
 
+## 静态资源 ##
+
+css、js及图片属于静态资源。在`resources`目录下的以下几个位置的静态资源文件，都将在启动服务后可以被直接访问：
+
+* `static`
+* `public`
+* `resources`
+* `META-INF/resources`
+
 ## 数据传递与thymeleaf基础用法 ##
 
 如何把数据从controller传递到view呢？请看下面的例子。
@@ -360,9 +369,9 @@ compile 'org.webjars:bootstrap:3.3.7'
 
 ## 和Spring MVC有关的用法笔记 ##
 
-Spring Boot的Web用的就是Spring MVC，因此Spring MVC的用法也可以用在Spring Boot项目里。下面是一些常用功能。
+Spring Boot的Web用的就是Spring MVC，因此Spring MVC的知识点在Spring Boot项目里是通用的。下面是一些常用功能。
 
-### 不返回视图的controller ###
+### 返回一般数据的controller ###
 
 ~~~java
 @RestController
@@ -381,30 +390,108 @@ public class HelloController {
 }
 ~~~
 
-除了返回视图，某些地址可能需要单纯返回数据。`@RestController`不同于`@Controller`，它标记的类的所有方法，将只返回
+除了返回视图，某些controller可能是用来返回一般数据（例如json格式数据），比较像API。`@RestController`标记的类就是一个API风格的controller，其内部所有指定了访问地址的方法，都将返回一般数据。一般来说，Ajax请求很适合和这样的controller搭配。
 
-### controller获取参数 ###
+如果在返回视图的`@Controller`标记的类里也希望某单个方法返回一般数据，在这个方法前一行单独添加注解`@ResponseBody`即可。
 
-路径参数。  一般Url里的get参数或post过来的参数。
+`@RequestMapping`的`value`指定路径，`method`指定HTTP访问方法。
+
+### controller中获取请求参数 ###
+
+`@RequestMapping`可以在路径里设置参数，然后在方法中被取到：
 
 ~~~java
-String guestLoginAction(HttpSession session, HttpServletRequest request) throws Exception {
-    session.setAttribute("isLogin", true);
-    int confirmFlag = request.getParameter("guestConfirm") == null ? 0 : 1;
-    GuestUser guestUser = new GuestUser();
-    guestUser.setUsername(request.getParameter("guestName"));
-    guestUser.setPhoneNum(request.getParameter("guestMobile"));
+@RestController
+@RequestMapping("/hello")
+public class HelloController {
+
+    @RequestMapping(value="/{id}/{name}", method=RequestMethod.GET)
+    public void getMethod(@PathVariable int id, @PathVariable String name) {
+        System.out.println("id=" + id + ", name=" + name);
+    }
 }
 ~~~
 
-ajax发送的json结构数据如何获取？
+这样`@PathVariable`搭配`{...}`，就从路径分别获取了`id`和`name`两个变量值。
 
-###  ###
+此外， 一次请求的GET参数（位于URL的`?`后的内容）或POST参数（作为请求的Request Body），都可以用`request.getParameter()`取到：
 
-## DevTool的自动刷新 ##
+~~~java
+@RestController
+@RequestMapping("/hello")
+public class HelloController {
+
+    @RequestMapping(method=RequestMethod.POST)
+    public void getMethod(HttpServletRequest request) {
+        System.out.println("userName=" + request.getParameter("userName"));
+    }
+}
+~~~
+
+如果用Ajax向controller发送json字符串数据，controller这边获取起来要麻烦一些，大致像下面这样。
+
+例如，Ajax发送的内容是（注意需要指定内容格式为json）：
+
+~~~javascript
+var person = {
+    name: "Rin",
+    age: 17
+},
+promise = $.ajax{
+    url: "/hello/submit",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(person)
+};
+~~~
+
+然后接收的这边需要先准备好一个同样结构的类，如`Person.java`：
+
+~~~java
+public class Person {
+  private String name;
+  private int age;
+  // getters & setters ...
+}
+~~~
+
+然后controller里用带`@RequestBody`标记的参数就可以获取到：
+
+~~~java
+@RestController
+@RequestMapping("/hello")
+public class HelloController {
+
+    @RequestMapping(value="/submit", method=RequestMethod.POST)
+    public void submit(@RequestBody Person person) {
+        System.out.println("person.name=" + person.getName());
+    }
+}
+~~~
+
+如果json数据结构和数据类不能完全匹配，controller将返回415错误（不支持的媒体类型）。
+
+## DevTools的自动刷新 ##
+
+很久之前提到的依赖包`DevTools`终于派上用场了。DevTools提供了自动刷新功能，可以让开发更快捷。下面是结合IntelliJ IDEA的使用流程：
+
+在应用配置文件内设置`spring.devtools.livereload.enabled`的值为`true`：
+
+~~~properties
+spring.devtools.livereload.enabled = true
+~~~
+
+接下来，为浏览器安装[LiveReload插件][LiveReload插件]，比如Chrome的情况：
+
+![Chrome的LiveReload插件][img_chrome_livereload]
+
+然后运行项目，并在浏览器中确认LiveReload插件为运行状态（单击一下即可在运行状态与停止状态之间切换）。
+
+修改任意文件后，按`ctrl` + `F9`执行`Make Project`，浏览器就会在编译完成后自动刷新。
 
 ## 结语 ##
 
+一路写下来，发现篇幅意外地长，不过这也总算是有一点“手册”的味道。如果你有考虑过Java语言来快速开发Web应用，相信本文和Spring Boot都会对你有所帮助。
 
 [img_spring_boot_logo]: {{POSTS_IMG_PATH}}/201608/spring_boot_logo.png "Spring Boot"
 [img_spring_initializer_info]: {{POSTS_IMG_PATH}}/201608/spring_initializer_info.png "Spring Initializer"
@@ -417,6 +504,7 @@ ajax发送的json结构数据如何获取？
 [img_gradle_refresh_hint]: {{POSTS_IMG_PATH}}/201608/gradle_refresh_hint.png "Gradle刷新"
 [img_layout_result]: {{POSTS_IMG_PATH}}/201608/layout_result.png "布局视图的应用"
 [img_access_data_result]: {{POSTS_IMG_PATH}}/201608/access_data_result.png "传递数据"
+[img_chrome_livereload]: {{POSTS_IMG_PATH}}/201608/chrome_livereload.png "Chrome的LiveReload插件"
 
 [Spring Boot]: http://projects.spring.io/spring-boot/ "Spring Boot"
 [Maven]: https://maven.apache.org/ "Maven"
@@ -431,3 +519,4 @@ ajax发送的json结构数据如何获取？
 [WebJars]: http://www.webjars.org/ "WebJars - Web Libraries in Jars"
 [Using Thymeleaf]: http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html "Tutorial: Using Thymeleaf"
 [thymeleaf-layout-dialect-doc]: https://ultraq.github.io/thymeleaf-layout-dialect/ "Introduction · Thymeleaf Layout Dialect"
+[LiveReload插件]: http://livereload.com/extensions/ "LiveReload插件"
