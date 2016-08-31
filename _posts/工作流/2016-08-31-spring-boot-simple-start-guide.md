@@ -40,7 +40,7 @@ Java项目需要搭配适当的IDE来开发，本文使用IntelliJ IDEA。
 
 ![Spring Initializer][img_spring_initializer_info]
 
-一方面选择`Gradle Project`，另一方面在`Dependencies`位置输入并选择所需的依赖模块。这里选择`Web`和`Thymeleaf`就足够搭建一个简单的Web项目。其中，[Thymeleaf][]是Spring Boot常用的模板引擎，后文将介绍它的用法。附加的`DevTools`如名所示，是Spring Boot的开发工具，它可以提供自动刷新等有用功能。
+一方面选择`Gradle Project`，另一方面在`Dependencies`位置输入并选择所需的依赖模块。这里选择`Web`和`Thymeleaf`就足够搭建一个简单的Web项目。其中，[Thymeleaf][]是Spring Boot常用的模板引擎。附加的`DevTools`如名所示，是Spring Boot的开发工具，它可以提供自动刷新等有用功能。
 
 事实上，Spring Boot的`Thymeleaf`依赖包已经包含了`Web`，因此准确地说，只用`Thymeleaf`即可。
 
@@ -60,13 +60,13 @@ Java项目需要搭配适当的IDE来开发，本文使用IntelliJ IDEA。
 
 ### 目录结构规划 ###
 
-现在可以开始在项目里写东西了。参考官方的[Code Structure][Code Structure]建议，项目目录可以是这样：
+现在可以开始在项目里写东西了。参考官方的[Code Structure][Code Structure]建议，项目目录可以是这样（由初始目录演变得到）：
 
 ![目录结构][img_code_structure]
 
-其中主应用类（这里是`SpringBootAcgtofeApplication.java`）建议放在图示位置，以符合Spring Boot的默认结构要求，免除额外的配置需要（简单最好了）。
+其中主应用类（这里是`SpringBootAcgtofeApplication.java`）建议放在图示位置，以符合Spring Boot的默认结构要求，免除额外的配置需要。
 
-### view ###
+### 视图view ###
 
 创建一个简单的视图文件`welcome.html`：
 
@@ -83,9 +83,9 @@ Welcome to acgtofe!
 </html>
 ~~~
 
-放置于`resources/templates/welcome`目录下。
+放置于`templates/welcome`目录下。
 
-### controller ###
+### 控制器controller ###
 
 参照前文的目录结构创建`WelcomeController.java`，它的代码也很简单：
 
@@ -104,7 +104,7 @@ public class WelcomeController {
 
 `@Controller`标识这是一个controller类。`@RequestMapping`用于指定访问路径，也就是路由。
 
-上面`index()`方法返回一个字符串，意思就是返回路径`templates/welcome/welcome.html`的那个视图。
+`index()`方法返回一个字符串`welcome/welcome`，意思是返回路径`templates/welcome/welcome.html`的那个视图。
 
 不需要再做其他任何配置，基于Spring Boot的简单Web项目到此就可以运行了。
 
@@ -112,11 +112,11 @@ public class WelcomeController {
 
 在IntelliJ IDEA里选择`Run`→`Edit Configurations`。
 
+在弹出的对话框里点击左上的`+`选择`Spring Boot`。然后，在右边的`Main class`一栏点击`...`按钮选择主应用类：
+
 ![运行配置][img_idea_run_config]
 
-如上图，在弹出的对话框里点击左上的`+`选择`Spring Boot`。然后，在右边的`Main class`一栏点击`...`按钮选择主应用类。最后，点击`OK`结束运行配置。
-
-选择`Run`→`Run`（或`Debug`）运行应用。此时控制台里可以看到Spring Boot的banner：
+点击`OK`保存运行配置，最后选择`Run`→`Run`（或`Debug`）运行应用。此时控制台里可以看到Spring Boot的banner：
 
 ![默认banner][img_spring_boot_banner]
 
@@ -124,14 +124,282 @@ public class WelcomeController {
 
 ![浏览器访问结果][img_browser_result]
 
-到此，一个简单的Web项目就完成了。
+到此，一个简单的Web项目就完成了。接下来，我们看看如何让这个Web项目更丰富，更符合实际项目的需要。
 
-挺简单的，但你可能也感觉有好多的东西都还没有说。接下来，我们看看如何让这个Web项目更丰富，更符合实际项目的需要。
+## 改变默认配置 ##
 
-## 视图布局 ##
-## 不严格的 ##
+在前面的流程中，尽可能使用了Spring Boot的默认配置，因此非常简单。如果要改变Spring Boot项目的配置，就可以修改初始提供的位于`resources`下的`application.properties`。
 
-nekohtml
+这个文件的内容初始是空的，表示全部使用Spring Boot的默认值。简单按照`.properties`的内容格式来添加内容就可以了。下面是一些常用的例子。
+
+### 端口号 ###
+
+这段代码将更改服务器启动的端口为`8001`（默认`8080`）：
+
+~~~properties
+server.port = 8001
+~~~
+
+### 非严格的thymeleaf格式 ###
+
+你可能会发现在默认配置下，thymeleaf对`.html`的内容要求很严格，比如`<meta charset="UTF-8" />`，如果少最后的标签封闭符号`/`，就会报错而转到错误页。也比如你在使用[Vue.js][Vue.js]这样的库，然后有`<div v-cloak></div>`这样的html代码，也会被thymeleaf认为不符合要求而抛出错误。
+
+因此，建议增加下面这段：
+
+~~~properties
+spring.thymeleaf.mode = LEGACYHTML5
+~~~
+
+`spring.thymeleaf.mode`的默认值是`HTML5`，其实是一个很严格的检查，改为`LEGACYHTML5`可以得到一个可能更友好亲切的格式要求。
+
+需要注意的是，`LEGACYHTML5`需要搭配一个额外的库[NekoHTML][NekoHTML]才可用。到项目根目录的`build.gradle`文件里这样添加它到`dependencies`：
+
+~~~groovy
+compile('net.sourceforge.nekohtml:nekohtml:1.9.22')
+~~~
+
+然后运行一次Gradle刷新（有任何Gradle改动，都应该这样运行一次）：
+
+![Gradle刷新][img_gradle_refresh_hint]
+
+最后重启项目就可以感受到不那么严格的thymeleaf了。
+
+### YAML格式的配置 ###
+
+相比`.properties`格式，可能YAML格式看起来条理更清晰，也更有层次感。Spring Boot本身就支持YAML格式的应用配置文件，因此，你可以创建文件`application.yml`。
+
+前面刚提到的两项配置，写成YAML是：
+
+~~~yaml
+server:
+    port: 8001
+
+spring:
+    thymeleaf:
+        mode: LEGACYHTML5
+~~~
+
+应用配置文件`application.[yml|properties]`除了初始位置，新建目录`resources/config`来放置也比较常见。
+
+### 配置参考 ###
+
+完整的配置参考请见官方的[Common application properties][Common application properties]。
+
+## 数据传递与thymeleaf基础用法 ##
+
+如何把数据从controller传递到view呢？请看下面的例子。
+
+<div class="code_before_note">model/Hoge.java</div>
+
+~~~java
+public class Hoge {
+
+    public int id;
+    public String value;
+
+}
+~~~
+
+<div class="code_before_note">controller/WelcomeController.java</div>
+~~~java
+@Controller
+@RequestMapping("/welcome")
+public class WelcomeController {
+
+    @RequestMapping("")
+    String index(Model model){
+        Hoge hoge = new Hoge();
+        hoge.id = 10;
+        hoge.value = "hoge";
+
+        model.addAttribute("myData", hoge);
+        
+        return "welcome/welcome";
+    }
+
+}
+~~~
+
+<div class="code_before_note">templates/welcome/welcome.html</div>
+~~~html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>spring boot for acgtofe</title>
+</head>
+<body>
+<p>id: <span th:text="${myData.id}">mock id</span></p>
+<p>value: <span th:text="${myData.value}">mock value</span></p>
+</body>
+</html>
+~~~
+
+这样可以得到：
+
+![布局视图的应用][img_access_data_result]
+
+在视图文件中使用thymeleaf，首先用`xmlns:th`为thymeleaf定义好名空间，然后以`th:`名空间的自定属性，来使用thymeleaf的功能。
+
+在这个例子中，`th:text`属性表示标签内部的文本，它会输出指定的值，替换掉原来的静态文本。而`${...}`的表达式，可以用于指定`th:text`的值，以获取controller传递过来的数据（通过`model`）。
+
+### 插值技巧 ###
+
+在前面的例子中，我们好像为了让thymeleaf输出数据，额外增加了`<span>`标签。这个标签不是必须的，因此我们可能不想要它。
+
+thymeleaf有一个非常有用的属性设置`th:remove='tag'`。比如现在有一个数据变量`name`的值是`Rin`，那么这段：
+
+~~~html
+<p>Hello, <span th:remove="tag" th:text="${name}">Alice</span>!</p>
+~~~
+
+将输出为：
+
+~~~html
+<p>Hello, Rin!</p>
+~~~
+
+是不是干净了许多？
+
+详细的thymeleaf模板引擎的用法，请参考[Using Thymeleaf][Using Thymeleaf]。
+
+## thymeleaf视图布局 ##
+
+搭建一个Web站点常会面临这样一个问题：**有很多不同的页会有一些结构或内容是相同的，如何合理地管理它们以方便维护**？
+
+[Thymeleaf Layout Dialect][Thymeleaf Layout Dialect]可以帮助我们应对这个问题。`spring-boot-starter-thymeleaf`依赖包已经包含了它，可以直接使用。
+
+现在，我们有一系列视图，它们都有页眉（header），页脚（footer），及公共的css（`common.css`）和js（`common.js`），而且网页标题有相同的后缀。那么，可以新建一个布局视图`layout/default.html`：
+
+~~~html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">acgtofe</title>
+    <link rel="stylesheet"
+          href="../../static/css/common/common.css"
+          th:href="@{/css/common/common.css}" />
+</head>
+<body>
+
+<header>public header</header>
+
+<section layout:fragment="content">page main content</section>
+
+<footer>public footer</footer>
+
+<script src="../../static/js/common/common.js"
+        th:src="@{/js/common/common.js}"></script>
+
+</body>
+</html>
+~~~
+
+可以看到，共用元素，包括`<head>`内的`<meta>`、`<title>`等信息，都写在了这个布局视图内。
+
+然后修改之前的视图`welcome/welcome.html`如下：
+
+~~~html
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+
+<head>
+    <title>welcome</title>
+    <link rel="stylesheet"
+          href="../../static/css/welcome/welcome.css"
+          th:href="@{/css/welcome/welcome.css}" />
+</head>
+<body>
+
+<section layout:fragment="content">Welcome to acgtofe!</section>
+
+</body>
+</html>
+~~~
+
+其中`layout:decorator="layout/default"`是一个关键的属性标记，它的意思是按照**继承**的风格，取`layout/default.html`视图作为布局使用。
+
+启动应用并访问，可以看到结果是这样：
+
+![布局视图的应用][img_layout_result]
+
+`thymeleaf-layout-dialect`默认会像这样为`<head>`里的内容进行合并，而`<body>`里的内容会按`layout:fragment`分别进行覆盖。
+
+属性`layout:title-pattern`用于指定布局视图的标题如何与页面视图的标题拼合在一起，这个例子也是用它实现了网页标题的共同后缀。
+
+你可以查看`thymeleaf-layout-dialect`的[官方文档][thymeleaf-layout-dialect-doc]了解更多的使用方法。
+
+## 前端库集成 ##
+
+如果想要为项目添加jQuery、Bootstrap这样的前端库，可以使用[WebJars][WebJars]。
+
+例如，在`build.gradle`里添加这样的依赖：
+
+~~~groovy
+compile 'org.webjars:jquery:3.1.0'
+compile 'org.webjars:bootstrap:3.3.7'
+~~~
+
+运行Gradle刷新，然后就可以这样在视图文件里加入它们：
+
+~~~html
+<link rel="stylesheet"
+      href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.0/jquery.min.js"
+        th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+~~~
+
+结合前面的布局视图，就可以让这些库在任何地方都可用。
+
+## 和Spring MVC有关的用法笔记 ##
+
+Spring Boot的Web用的就是Spring MVC，因此Spring MVC的用法也可以用在Spring Boot项目里。下面是一些常用功能。
+
+### 不返回视图的controller ###
+
+~~~java
+@RestController
+@RequestMapping("/hello")
+public class HelloController {
+
+    @RequestMapping(method=RequestMethod.GET)
+    public String getMethod() {
+        return "get";
+    }
+
+    @RequestMapping(value="/hey", method=RequestMethod.POST)
+    public String postMethod2() {
+        return "hey post";
+    }
+}
+~~~
+
+除了返回视图，某些地址可能需要单纯返回数据。`@RestController`不同于`@Controller`，它标记的类的所有方法，将只返回
+
+### controller获取参数 ###
+
+路径参数。  一般Url里的get参数或post过来的参数。
+
+~~~java
+String guestLoginAction(HttpSession session, HttpServletRequest request) throws Exception {
+    session.setAttribute("isLogin", true);
+    int confirmFlag = request.getParameter("guestConfirm") == null ? 0 : 1;
+    GuestUser guestUser = new GuestUser();
+    guestUser.setUsername(request.getParameter("guestName"));
+    guestUser.setPhoneNum(request.getParameter("guestMobile"));
+}
+~~~
+
+ajax发送的json结构数据如何获取？
+
+###  ###
 
 ## DevTool的自动刷新 ##
 
@@ -146,6 +414,9 @@ nekohtml
 [img_idea_run_config]: {{POSTS_IMG_PATH}}/201608/idea_run_config.png "运行配置"
 [img_spring_boot_banner]: {{POSTS_IMG_PATH}}/201608/spring_boot_banner.png "默认banner"
 [img_browser_result]: {{POSTS_IMG_PATH}}/201608/browser_result.png "浏览器访问结果"
+[img_gradle_refresh_hint]: {{POSTS_IMG_PATH}}/201608/gradle_refresh_hint.png "Gradle刷新"
+[img_layout_result]: {{POSTS_IMG_PATH}}/201608/layout_result.png "布局视图的应用"
+[img_access_data_result]: {{POSTS_IMG_PATH}}/201608/access_data_result.png "传递数据"
 
 [Spring Boot]: http://projects.spring.io/spring-boot/ "Spring Boot"
 [Maven]: https://maven.apache.org/ "Maven"
@@ -153,3 +424,10 @@ nekohtml
 [Spring Initializer]: http://start.spring.io/ "Spring Initializr"
 [Thymeleaf]: http://www.thymeleaf.org/ "Thymeleaf"
 [Code Structure]: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-structuring-your-code "Structuring your code - Spring Boot Reference Guide"
+[Vue.js]: https://vuejs.org.cn/ "Vue.js"
+[NekoHTML]: http://nekohtml.sourceforge.net/ "NekoHTML"
+[Common application properties]: http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html "Common application properties - Spring Boot Reference Guide"
+[Thymeleaf Layout Dialect]: https://github.com/ultraq/thymeleaf-layout-dialect "Thymeleaf Layout Dialect"
+[WebJars]: http://www.webjars.org/ "WebJars - Web Libraries in Jars"
+[Using Thymeleaf]: http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html "Tutorial: Using Thymeleaf"
+[thymeleaf-layout-dialect-doc]: https://ultraq.github.io/thymeleaf-layout-dialect/ "Introduction · Thymeleaf Layout Dialect"
