@@ -36,11 +36,11 @@ Java项目需要搭配适当的IDE来开发，本文使用IntelliJ IDEA。
 
 ### 初始目录 ###
 
-到官方提供的[Spring Initializer][]，生成符合自己需要的项目初始目录，比如我的情况：
+到官方提供的[Spring Initializer][Spring Initializer]，生成符合自己需要的项目初始目录，比如我的情况：
 
 ![Spring Initializer][img_spring_initializer_info]
 
-一方面选择`Gradle Project`，另一方面在`Dependencies`位置输入并选择所需的依赖模块。这里选择`Web`和`Thymeleaf`就足够搭建一个简单的Web项目。其中，[Thymeleaf][]是Spring Boot常用的模板引擎。附加的`DevTools`如名所示，是Spring Boot的开发工具，它可以提供自动刷新等有用功能。
+一方面选择`Gradle Project`，另一方面在`Dependencies`位置输入并选择所需的依赖模块。这里选择`Web`和`Thymeleaf`就足够搭建一个简单的Web项目。其中，[Thymeleaf][Thymeleaf]是Spring Boot常用的模板引擎。附加的`DevTools`如名所示，是Spring Boot的开发工具，它可以提供自动刷新等有用功能。
 
 事实上，Spring Boot的`Thymeleaf`依赖包已经包含了`Web`，因此准确地说，只用`Thymeleaf`即可。
 
@@ -246,7 +246,7 @@ public class WelcomeController {
 
 这样可以得到：
 
-![布局视图的应用][img_access_data_result]
+![传递数据][img_access_data_result]
 
 在视图文件中使用thymeleaf，首先用`xmlns:th`为thymeleaf定义好名空间，然后以`th:`名空间的自定属性，来使用thymeleaf的功能。
 
