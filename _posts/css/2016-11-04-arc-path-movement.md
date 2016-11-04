@@ -12,7 +12,7 @@ description: ""
 
 在书中作者Lea Verou已经给出了解答（实际上，可以追溯到作者更早的[这篇博文][这篇博文]），不过，我认为再补充一点周边细节知识可能会更易于理解。因此，本文整理了一些东西，将尝试更详细地解答这个问题。
 
-## 并不是旋转动画 ##
+## 从旋转动画开始 ##
 
 最开始看到这个问题的时候，会很容易想到用`transform-origin`定义圆心的位置，然后用`rotate()`进行旋转。css代码大概是这样：
 
@@ -29,9 +29,21 @@ description: ""
 }
 ~~~
 
+搭配的html很简单：
+
+~~~html
+<img class="avatar" src="edwardup_avatar.jpg" alt="" />
+~~~
+
+对应的效果是：
+
 ![环形旋转][img_circle_rotate]
 
 
+
+
+
+环形 → 两个元素，内元素抵消 → 2个transform-origin 的问题 → w3c给出的transform-origin的替代做法 → 合并到1个元素上，实现多transform-origin。
 
 ## 结语 ##
 
