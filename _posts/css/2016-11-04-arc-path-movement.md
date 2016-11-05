@@ -14,7 +14,7 @@ description: ""
 
 ## 从旋转动画开始 ##
 
-最开始看到这个问题的时候，会很容易想到用`transform-origin`定义圆心的位置，然后用`rotate()`进行旋转。css代码大概是这样：
+最开始看到这个问题的时候，会很容易想到用`transform-origin`定义圆心的位置，然后用`rotate()`进行旋转。css代码大概是这样（半径为150px）：
 
 ~~~css
 @keyframes spin {
@@ -39,6 +39,14 @@ description: ""
 
 ![环形旋转][img_circle_rotate]
 
+可以看到，这是一个旋转动画，元素在沿着环形路径移动的同时，自身也会围绕圆心发生旋转。因此，这并不是我们想要的平移效果。
+
+但另一方面，元素沿环形路径移动这一点是符合我们的目标的，所以可以在这个基础上再做改进。
+
+## 利用多元素的变形相消 ##
+
+w3c的[The Transform Function Lists][The Transform Function Lists]里提到过，
+
 
 
 
@@ -54,3 +62,4 @@ description: ""
 
 [CSS Secrets]: https://github.com/cssmagic/CSS-Secrets "CSS Secrets"
 [这篇博文]: http://lea.verou.me/2012/02/moving-an-element-along-a-circle/ "Moving an element along a circle | Lea Verou"
+[The Transform Function Lists]: https://www.w3.org/TR/css-transforms-1/#transform-function-lists "The Transform Function Lists"
