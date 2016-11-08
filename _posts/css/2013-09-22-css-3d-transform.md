@@ -207,7 +207,7 @@ css：
 </div>
 {% endhighlight %}
 
-这个例子来自[The Transform Function Lists][]。
+这个例子来自[The Transform Function Lists][The Transform Function Lists]。
 
 ### 浏览器兼容性 ###
 
@@ -241,5 +241,5 @@ css：
 [Elaborate description of Stacking Contexts]: http://www.w3.org/TR/CSS2/zindex.html "Elaborate description of Stacking Contexts"
 [link_containing_block_detail]: http://www.w3help.org/zh-cn/kb/008/ "包含块( Containing block )  - W3Help"
 [Intro to CSS 3D transforms]: http://desandro.github.io/3dtransforms/docs/introduction.html "Intro to CSS 3D transforms"
-[The Transform Function Lists]: http://dev.w3.org/csswg/css-transforms/#transform-function-lists "The Transform Function Lists"
+[The Transform Function Lists]: https://www.w3.org/TR/css-transforms-1/#transform-function-lists "The Transform Function Lists"
 [caniuse.com/#feat=transforms3d]: http://caniuse.com/#feat=transforms3d "caniuse.com/#feat=transforms3d"
