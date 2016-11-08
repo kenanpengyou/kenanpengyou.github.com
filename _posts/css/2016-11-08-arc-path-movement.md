@@ -238,7 +238,7 @@ w3c的[The Transform Function Lists][The Transform Function Lists]里提到：
 
 代码虽然看起来没怎么变短，但变换函数更细致明确了。最后，注意最开始的两个`translateY()`，它们在`from`和`to`里都是一样的，因此，完全可以在动画之外，一开始就把元素放在那个位置，从而消除这两个`translateY()`。
 
-实际上，这两个`translateY()`的位移做的事就是把这个元素放到环形路径的圆心（结合最前边的`transform-origin`的例子可以体会到，这部分就可以放在动画之外来做）。
+实际上，这两个`translateY()`的位移做的事就是把这个元素放到环形路径的圆心。
 
 这样，代码再变为：
 
@@ -266,7 +266,7 @@ w3c的[The Transform Function Lists][The Transform Function Lists]里提到：
 
 ### 螺旋路径平移 ###
 
-在环形平移路径的代码的基础上，改变起始点的圆环半径，可以得到螺旋路径：
+在环形平移路径的代码的基础上，改变起点或终点的圆环半径，可以得到螺旋路径：
 
 ~~~css
 @keyframes spin {
@@ -330,7 +330,7 @@ w3c的[The Transform Function Lists][The Transform Function Lists]里提到：
 
 ## 结语 ##
 
-只通过一个`transform`加上直接看会很难理解的代码，就可以做这样特别的动画，我觉得是很有意思的。希望本文的这样一番解读，可以帮助你加深对css的`transform`的理解。
+只通过一个`transform`加上一段神秘代码，就可以做这样特别的动画，我觉得是很有意思的。希望本文的这样一番解读，可以帮助你加深对css的`transform`的理解。
 
 [img_movement_impression]: {{POSTS_IMG_PATH}}/201611/movement_impression.png "环形路径平移"
 [img_circle_rotate]: {{POSTS_IMG_PATH}}/201611/circle_rotate.png "环形旋转"
