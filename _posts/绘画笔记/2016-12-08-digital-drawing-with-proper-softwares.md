@@ -1,18 +1,91 @@
 ---
 layout: post
-title: "初级板绘教程：那些数码绘画软件的“正确”用法"
+title: "初级板绘教程：那些绘画软件的使用方法"
 category: "绘画笔记"
-description: "这是一个关于如何绘画的小教程"
+description: ""
 ---
 {% include JB/setup %}
 
+在现代，画画除了真实的纸面作画，还有一个很主要的类别就是板绘（数码绘画）。感觉上说，就是一种一定要搭配一点数码设备的绘画方式。
+
+## 数码绘画 ##
+
+### 设备 ###
+
+说起数码绘画的设备，最为人所知的大概就是数位板了：
+
+![数位板][img_graphics_tablet_normal_version]
+
+这样，一个板子，一支笔，就可以像真实绘画的纸 + 笔的搭配那样去作画。
+
+另一种叫做数位屏：
+
+![数位屏][img_graphics_tablet_screen_version]
+
+它是直接在显示屏幕上作画，相对比较昂贵，但更贴近真实的纸面绘画。
+
+此外，平板电脑，比如Surface（+ Surface Pen），iPad Pro（+ Apple Pencil）也是很不错的选择。再简单一点的话，手机等触控设备也可以（有那么多画画的APP呢，对吧？）
+
+### 数位板的选购 ###
+
+从新人入门的角度来说，考虑想认真练习绘画，又花费比较少的话，推荐的设备是数位板。
+
+数位板的品牌只推荐wacom（和冠），目前它的入门级产品Bamboo系列只要500元左右（在本文的时间点，是CTL-671中尺寸板）。即使是这样一个入门级的板子，也足够用上几年。
+
+如果有更多的预算，可以考虑wacom其他系列产品。
+
+数位板有一个参数叫压感级别（Pressure Levels），指的是笔尖压力的识别精度，一般来说达到1024就很足够（上面的入门级产品也是这个值）。比这个更高的压感级别，对于不是非常专业的作画来说，意义不大。
+
+数位板的尺寸是另一个需要注意的地方，对大部分人来说，中等尺寸是最好用的，方便携带，又不会觉得作画范围太小，施展不开。
+
+### 数位板的使用要点 ###
+
+驱动程序及配置软件（带图）
+
+屏幕映射
+
+数位板本身就是电脑的一种输入设备，在笔没有接触到数位板，但位于数位板上方一定的距离内时，笔的移动也会带着电脑里的鼠标指针一起移动。
+
+以惯用右手为例，作画的过程大概是：一边眼睛看着屏幕（不要看数位板...），一边右手拿笔在数位板上涂，同时左手操作键盘做辅助（会用到很多快捷键，如切换笔刷，保存文件）。
+
+### 特色 ###
+
+可以无限接近真实作画
+
+后期
+
+撤销
+
+永久保存作品
+
+反复印刷制品
+
+现代接稿的一般形式
+
+## 软件 ##
+
+![一些常用的绘画软件][img_logos_combined]
+
+## SAI ##
+
+## Photoshop ##
+
+## Clip Studio Paint ##
+
+## 提纲 ##
+
+几个数码绘画的通用要点：
+
+笔压，快捷键，自创笔刷（工具）
+
+数码绘画可以参考的资源：
+
+
+
 ## 结语 ##
 
-只要你画得好看，没人在意你是用什么方法画出来的，什么都可以！
-
-[img_acgtofe_multiple_views]: {{POSTS_IMG_PATH}}/201405/acgtofe_multiple_views.jpg  "不同宽度下的acgtofe"
+[img_graphics_tablet_normal_version]: {{POSTS_IMG_PATH}}/201612/graphics_tablet_normal_version.jpg  "数位板"
+[img_graphics_tablet_screen_version]: {{POSTS_IMG_PATH}}/201612/graphics_tablet_screen_version.jpg  "数位屏"
+[img_logos_combined]: {{POSTS_IMG_PATH}}/201612/logos_combined.png  "一些常用的绘画软件"
 
 [Grid]: http://www.adamkaplan.me/grid/ "Grid"
-[Font Squirrel]: http://www.fontsquirrel.com/tools/webfont-generator "Create Your Own @font-face Kits | Font Squirrel"
-[Cross Browser Retina/High Resolution Media Queries]: http://www.brettjankord.com/2012/11/28/cross-browser-retinahigh-resolution-media-queries/ "Cross Browser Retina/High Resolution Media Queries | Brett Jankord"
-[Respond]: https://github.com/scottjehl/Respond "Respond"
