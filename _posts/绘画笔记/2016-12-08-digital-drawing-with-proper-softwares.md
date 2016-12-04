@@ -85,6 +85,12 @@ SAI的界面大概这个样子：
 
 ![SAI主界面][img_sai_overview]
 
+一下子看到这么多东西可能有点慌。不用担心，我只打算介绍我认为比较重要的部分。
+
+### 文件大小与格式 ###
+
+![SAI主界面][img_sai_overview]
+
 
 
 ## Photoshop ##
