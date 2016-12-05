@@ -69,7 +69,7 @@ description: ""
 
 软件只是工具，所以不必太过拘泥，关键还是在绘画功底。只要你画得好，没人在意你是拿什么画的（<del>Windows画图，Excel等也可以</del>）。
 
-我自己的话，前后有学习和使用过的软件分别是SAI、Photoshop、CLIP STUDIO PAINT，它们都可以在上图中找到。
+我自己的话，前后有学习和使用过的软件分别是SAI、Photoshop、CLIP STUDIO PAINT（简称CSP），它们都可以在上图中找到。
 
 Photoshop是大家都知道的，功能强大，绘画只算它的其中一种用途。相比之下，其他的两个比较像更专项的“绘画软件”。
 
@@ -79,7 +79,7 @@ Photoshop是大家都知道的，功能强大，绘画只算它的其中一种�
 
 ## SAI ##
 
-[SAI](https://zh.wikipedia.org/wiki/Paint_Tool_SAI)，也叫Easy PaintTool SAI，它是一个很轻巧的软件，安装包小，资源占用也小，即使不怎么样的电脑也很可以很容易地运行它。
+[SAI](https://zh.wikipedia.org/wiki/Paint_Tool_SAI)，也叫Easy PaintTool SAI，它是一个很轻巧的软件，安装包小，资源占用也小，即使不怎么样的电脑也很可以运行它。
 
 SAI的界面大概这个样子：
 
@@ -87,9 +87,65 @@ SAI的界面大概这个样子：
 
 一下子看到这么多东西可能有点慌。不用担心，我只打算介绍我认为比较重要的部分。
 
+接下来以一个简单的绘画过程来说下SAI是怎样用的。
+
 ### 文件大小与格式 ###
 
-![SAI主界面][img_sai_overview]
+首先，是新建一个文件（`文件 → 新建文件`或`Ctrl + N`）：
+
+![新建文件][img_sai_new_file_size]
+
+这里有一个“预设尺寸”很有用，如果是正式的个人作品，包括同人或商业稿，这里选A4或B5即可，它们的分辨率都是300，放大后也很清晰。
+
+如果只是随便画画，可以取默认分辨率72，大小自定。
+
+点击“确定”后就可以看到画布了。先别急着画，这里有一个非常重要的事情：保存文件（重要x3）。在菜单选择`文件 → 另存为`或直接`Ctrl + S`，把作品源文件保存下来：
+
+![另存文件格式][img_sai_file_format]
+
+如上图，在“文件类型”一栏里，建议不使用默认的`.sai`，而选择`.psd`。一方面`.psd`更稳定可靠，另一方面`.psd`还可以被Photoshop、CSP等许多其他软件读取和使用（`.sai`就只有SAI了）。
+
+保存文件是数码绘画很重要的一件事，绘画过程中，记得随时`Ctrl + S`保存。已经画得差不多了却因为死机、软件异常关闭等事件而吐血重画的经历，还是少一点比较好。
+
+### 笔和颜色 ###
+
+已保存的文件就绪后，接下来就开始画了。像真实绘画那样，先考虑用什么笔和颜色。
+
+找到这个写着“铅笔”，“喷枪”，“笔”等字样的区域，就是选笔的地方了：
+
+![笔工具区域][img_sai_pen_select]
+
+紧贴着这个区域下边的面板，则是用于设置笔刷属性和笔刷大小。有关这里笔刷选择及设置的详细介绍，推荐阅读豆瓣上的这篇[SAI 超详细入门级教程](https://site.douban.com/214224/widget/notes/14185333/note/289187358/)。
+
+我自己用得最多的是铅笔（默认快捷键N）、笔（V）和喷枪（B）。另外，橡皮擦（E）也是在这个区域。
+
+SAI里最靓丽的这个色轮（也叫色环），用于选取颜色：
+
+![色轮][img_sai_color_cycle]
+
+这里需要一点色相、饱和度、明度的[色彩知识](https://zh.wikipedia.org/wiki/HSL%E5%92%8CHSV%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4)。外面的圆环选取色相，里面的方形选择饱和度，明度，这样得到一个颜色。
+
+### 画布 ###
+
+选取好笔和颜色后，就开始在中间的画布上动笔了。下面是一些可能有用的tips：
+
+* `Ctrl + +`和`Ctrl + -`来放大缩小，`Ctrl + 0`还原到默认缩放。
+* 某些地方以默认角度画起来比较困难，可以用下图这个旋转工具来旋转画布。双击可以设置快捷键，我用的是R，这和Photoshop的旋转工具是一致的。
+
+    ![旋转工具][img_sai_rotate_tool]
+    
+
+* 任何时候，按住空格，当前工具会变为抓手工具，此时可以移动画布。松开空格，则还原为之前的工具。
+* 按H来水平翻转视图，这可以用于确认画面的平衡。
+* 当前的一笔觉得涂得不好（比如线条扭曲了），`Ctrl + Z`撤销掉，然后重新涂。可以反复撤销直到画出满意的一笔。
+
+### 图层 ###
+
+### 透明色 ###
+
+### 抖动修正 ###
+
+### 其他参考 ###
 
 
 
@@ -115,7 +171,10 @@ SAI的界面大概这个样子：
 [img_illustrator_softwares]: {{POSTS_IMG_PATH}}/201612/illustrator_softwares.jpg "几位画师的软件"
 [img_logos_combined]: {{POSTS_IMG_PATH}}/201612/logos_combined.png  "三个常用绘画软件"
 [img_sai_overview]: {{POSTS_IMG_PATH}}/201612/sai_overview.jpg  "SAI主界面"
-
-
+[img_sai_new_file_size]: {{POSTS_IMG_PATH}}/201612/sai_new_file_size.png  "新建文件"
+[img_sai_file_format]: {{POSTS_IMG_PATH}}/201612/sai_file_format.png  "另存文件格式"
+[img_sai_pen_select]: {{POSTS_IMG_PATH}}/201612/sai_pen_select.png  "笔工具区"
+[img_sai_color_cycle]: {{POSTS_IMG_PATH}}/201612/sai_color_cycle.jpg  "色轮"
+[img_sai_rotate_tool]: {{POSTS_IMG_PATH}}/201612/sai_rotate_tool.png  "旋转工具"
 
 
