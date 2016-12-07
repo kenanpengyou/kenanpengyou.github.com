@@ -232,7 +232,11 @@ CSP的界面看上去比较复杂，作为绘画软件非常专业：
 
 ![CSP界面][img_csp_overview]
 
-对比前面的SAI，其实有许多地方是近似的。因此，在CSP中，最基本的作画方法是一致的。不过，CSP还有许多它的特色。
+对比前面的SAI，界面其实有许多地方是近似的。因此，在CSP中，最基本的作画方法是一致的。
+
+CSP也有不少地方类似Photoshop，它同样支持`.psd`文件格式，而且一定程度上也提供了滤镜和调整图层用于后期处理。
+
+此外，CSP还有许多它的特色。
 
 ### 素材库 ###
 
@@ -244,38 +248,63 @@ CSP的界面看上去比较复杂，作为绘画软件非常专业：
 
 ### 3D参考 ###
 
+CSP还在素材库里提供了3D人物：
+
 ![CSP的3D素材][img_csp_3d_ref]
+
+和其他素材一样拖拽到画布上，然后就会增加3D人物的图层。预设的姿势（POSE），则需要拖拽到人物身上。
+
+### 透视尺 ###
+
+选择`图层 → 尺子/格子框 → 新建透视尺`可以创建带透视尺的图层：
+
+![创建透视尺][img_csp_ruler]
+
+透视尺图层可以任意添加透视参考线，这对于带透视效果的作品绘制来说非常有用（图来自[wiki-透视](https://zh.wikipedia.org/wiki/%E9%80%8F%E8%A7%86)）：
+
+![透视参考][img_csp_perspective]
 
 ### 漫画 ###
 
-### 类似Photoshop的地方 ###
+漫画的绘制要求，是
+
+在素材库中，可以找到漫画分格模板、对白框、网点等丰富的漫画素材。
 
 ### 其他参考 ###
 
-## 软件的组合 ##
+CSP的教程相对较少，在此推荐下面两个：
 
-用Photoshop后期。
+* [clip studio paint 大概演示和漫画教程](http://www.bilibili.com/video/av1885080/)
+* [官方教程手册](http://www.clip-studio.com/site/gd_tc/csp/startupguide/csp_startup_tc/CSPaint_00/Chapte00_1.htm)
 
-日系插画的话，SAI负责线稿和上色
+## 一点个人使用感受 ##
 
-CSP漫画特别强。
+以上三个软件，无论哪一个都可以独立完成绘画作品。
 
-## 资源 ##
+如果考虑组合使用，我是这样的倾向：
 
-## 综合比较 ##
+* 草稿、线稿及人物的基础上色由SAI完成。
+* 背景绘制、人物的后期上色、画面整体后期处理在Photoshop中做。
+* 漫画用CSP。
+* 用CSP来准备透视参考线。
+* 多利用CSP的素材库。
 
-## 提纲 ##
+以上观点十分主观，仅供参考。
 
-几个数码绘画的通用要点：
+## 参考资料的来源 ##
 
-笔压，快捷键，自创笔刷（工具）
+画画总是要各种参考资料，素材，或者别人的作品都很有意义。在此推荐一些收集资料的网站：
 
-数码绘画可以参考的资源：
-
-在自己的电脑上修正几张截图为非高dpi缩放，win10的版本
-
+* [pixiv](http://www.pixiv.net/)，有名的插画交流网站。
+* [花瓣网](http://huaban.com/)，图片资源采集分享站点。
+* [DeviantArt](http://www.deviantart.com/)，国际性艺术创作社群网站。
+* [Posemaniacs](http://www.posemaniacs.com/)，主要是不同动作，视角的3D人物模型。
+* [Sketchfab](https://sketchfab.com)，许多不同种类的3D视图模型。
 
 ## 结语 ##
+
+绘画功底远比会一个绘画软件重要。
+
 
 [img_graphics_tablet_normal_version]: {{POSTS_IMG_PATH}}/201612/graphics_tablet_normal_version.jpg  "数位板"
 [img_graphics_tablet_screen_version]: {{POSTS_IMG_PATH}}/201612/graphics_tablet_screen_version.jpg  "数位屏"
@@ -300,4 +329,6 @@ CSP漫画特别强。
 [img_csp_overview]: {{POSTS_IMG_PATH}}/201612/csp_overview.jpg  "CSP界面"
 [img_csp_material]: {{POSTS_IMG_PATH}}/201612/csp_material.jpg  "CSP素材库"
 [img_csp_3d_ref]: {{POSTS_IMG_PATH}}/201612/csp_3d_ref.png  "CSP的3D素材"
+[img_csp_ruler]: {{POSTS_IMG_PATH}}/201612/csp_ruler.png  "创建透视尺"
+[img_csp_perspective]: {{POSTS_IMG_PATH}}/201612/csp_perspective.jpg  "透视参考"
 
