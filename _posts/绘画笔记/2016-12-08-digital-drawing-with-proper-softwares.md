@@ -146,7 +146,7 @@ SAI里最靓丽的这个色轮（也叫色环），用于选取颜色：
 
 ![图层面板][img_sai_layer_panel]
 
-如上图，从起好名字（双击改名）的图层和图层组中，可以很方便看出独立的背景、人物线稿及人物上色。
+如上图，从起好名字的图层和图层组中，可以很方便看出独立的背景、人物线稿及人物上色。
 
 SAI的图层上限是256，尽情使用吧。
 
@@ -172,35 +172,39 @@ SAI是很受欢迎的绘画软件，相关介绍及教程很多，可以自行�
 
 ## Photoshop ##
 
-Photoshop是我们很熟悉的图像软件了：
+Photoshop是我们很熟悉的大型图像软件了：
 
 ![Photoshop界面][img_ps_overview]
 
-上图中的色轮是一个叫做coolorus的Photoshop插件，它可以帮助你更好地在Photoshop中选取颜色，很推荐在使用Photoshop绘画时搭配上它。
+图中的色轮是一个Photoshop插件，叫做Coolorus，它可以帮助你更好地在Photoshop中选取颜色，很推荐在使用Photoshop绘画时搭配上它。
+
+同样，下面只介绍对绘画比较重要的部分。
 
 ### 笔刷 ###
 
 Photoshop有许多工具，不过绘画最主要使用的还是画笔工具和橡皮擦工具。画笔和橡皮擦在Photoshop中都属于画笔类工具，可以打开下面这个画笔面板来进行非常详尽的配置：
 
-![Photoshop的画笔面板]
+![Photoshop的画笔面板][img_ps_brush_panel]
 
 每一套画笔面板的配置，都可以保存为一个“画笔预设”，这就是常说的Photoshop笔刷了。
 
-在网上可以找到非常多的笔刷资源下载，比如这个xxxx（笔刷系列名字）：
+在网上可以找到非常多的笔刷资源下载。比如下面这个笔刷系列叫johnsilva smudge pack 2.0：
 
-![一套笔刷资源预览]
+![一套笔刷资源的预览][img_ps_dl_brush]
 
-这些笔刷资源可以直接使用，也可以在它们的基础上再做调整，得到新的笔刷。每个人都有自己的作画风格，可以多加尝试，摸索并制作出自己喜欢的笔刷。
-
-一些图形风格的笔刷，比如树叶笔刷可以帮助你快速画出自然界的植物。
+笔刷资源可以直接使用，也可以在它们的基础上再做调整，得到新的笔刷。每个人都有自己的作画风格，可以一点点摸索并制作出自己喜欢的笔刷。
 
 ### 工具预设和画笔预设 ###
 
-TPL和ABR的区别
+下载的笔刷资源可能有`.tpl`和`.abr`两种不同的格式，它们是有区别的：
 
+![TPL和ABR格式][img_ps_tpl_abr]
 
+`.tpl`是工具预设，`.abr`是画笔预设。如上图，工具预设位于更靠左的小箭头位置，它不仅可以保存画笔工具的预设，还可以保存其他工具的预设，而画笔预设只用于画笔类工具。简单来说，`.tpl`比`.abr`的作用范围更广一些。
 
-窗口→画笔预设  →工具预设
+不过，在绘画中使用时，并不会觉得多大区别。选择`窗口 → 工具预设 / 画笔预设`，都可以得到一个随时可切换的画笔列表：
+
+![预设列表][img_ps_brush_list]
 
 ### 画布和图层 ###
 
@@ -208,21 +212,43 @@ TPL和ABR的区别
 
 Photoshop的图层面板和SAI近似，只是更为强大。
 
-### 滤镜与调整图层 ###
+### 滤镜与调整 ###
 
-Photoshop具备强大的图像处理能力，因此数码绘画作品的后期往往由Photoshop完成。
+菜单里的`滤镜`（比如高斯模糊），以及调整图层（比如曲线）：
+
+![调整图层][img_ps_adjust_layer]
+
+可以用于作品的后期处理。
 
 ### 其他参考 ###
 
-
-
-
+不用说，Photoshop的介绍及教程非常多，自行搜索即可。不是关于绘画的也可以，Photoshop的综合熟练度总能或多或少地有助于绘画。
 
 ## CLIP STUDIO PAINT ##
 
-### 标尺 ###
+[CSP](http://www.clipstudio.net/tc/functions/)也是一个相对大型的软件，它在中国内陆对应的是由CELSYS（CSP的所属公司）的合资公司UNICORN出品的[优动漫](http://www.udongman.cn/index.php)。
 
-### 3D素材 ###
+CSP的界面看上去比较复杂，作为绘画软件非常专业：
+
+![CSP界面][img_csp_overview]
+
+对比前面的SAI，其实有许多地方是近似的。因此，在CSP中，最基本的作画方法是一致的。不过，CSP还有许多它的特色。
+
+### 素材库 ###
+
+点开前面图中“素材集”的任意图标，可以打开CSP内置的这个强大的素材库：
+
+![CSP素材库][img_csp_material]
+
+找到喜欢的素材后，拖拽到画布上就可以使用。除官方初始提供的素材外，可以从网上下载到更多的素材资源。此外，也可以自己制作素材，然后保存到这个库内。
+
+### 3D参考 ###
+
+![CSP的3D素材][img_csp_3d_ref]
+
+### 漫画 ###
+
+### 类似Photoshop的地方 ###
 
 ### 其他参考 ###
 
@@ -253,7 +279,7 @@ CSP漫画特别强。
 
 [img_graphics_tablet_normal_version]: {{POSTS_IMG_PATH}}/201612/graphics_tablet_normal_version.jpg  "数位板"
 [img_graphics_tablet_screen_version]: {{POSTS_IMG_PATH}}/201612/graphics_tablet_screen_version.jpg  "数位屏"
-[img_wacom_config]: {{POSTS_IMG_PATH}}/201612/wacom_config.png  "wacom的数位板驱动程序之一"
+[img_wacom_config]: {{POSTS_IMG_PATH}}/201612/wacom_config.jpg  "wacom的数位板驱动程序之一"
 [img_illustrator_softwares]: {{POSTS_IMG_PATH}}/201612/illustrator_softwares.jpg "几位画师的软件"
 [img_logos_combined]: {{POSTS_IMG_PATH}}/201612/logos_combined.png  "三个常用绘画软件"
 [img_sai_overview]: {{POSTS_IMG_PATH}}/201612/sai_overview.jpg  "SAI主界面"
@@ -266,3 +292,12 @@ CSP漫画特别强。
 [img_sai_transparent]: {{POSTS_IMG_PATH}}/201612/sai_transparent.png  "透明色"
 [img_sai_revise]: {{POSTS_IMG_PATH}}/201612/sai_revise.png  "抖动修正"
 [img_ps_overview]: {{POSTS_IMG_PATH}}/201612/ps_overview.jpg  "Photoshop界面"
+[img_ps_brush_panel]: {{POSTS_IMG_PATH}}/201612/ps_brush_panel.png  "Photoshop的画笔面板"
+[img_ps_dl_brush]: {{POSTS_IMG_PATH}}/201612/ps_dl_brush.jpg  "一套笔刷资源的预览"
+[img_ps_tpl_abr]: {{POSTS_IMG_PATH}}/201612/ps_tpl_abr.png  "TPL和ABR格式"
+[img_ps_brush_list]: {{POSTS_IMG_PATH}}/201612/ps_brush_list.png  "预设列表"
+[img_ps_adjust_layer]: {{POSTS_IMG_PATH}}/201612/ps_adjust_layer.png  "调整图层"
+[img_csp_overview]: {{POSTS_IMG_PATH}}/201612/csp_overview.jpg  "CSP界面"
+[img_csp_material]: {{POSTS_IMG_PATH}}/201612/csp_material.jpg  "CSP素材库"
+[img_csp_3d_ref]: {{POSTS_IMG_PATH}}/201612/csp_3d_ref.png  "CSP的3D素材"
+
