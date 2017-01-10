@@ -279,7 +279,7 @@ CSP特别为漫画制作准备了一系列工具，如分镜格子框、对白�
 CSP的教程相对较少，在此推荐下面两个：
 
 * [clip studio paint 大概演示和漫画教程](http://www.bilibili.com/video/av1885080/)
-* [官方教程手册](http://www.clip-studio.com/site/gd_tc/csp/startupguide/csp_startup_tc/CSPaint_00/Chapte00_1.htm)
+* [官方教程手册](http://www.clip-studio.com/site/gd_tc/csp/startupguide/csp_startup_tc/CSPaint_00/Chapter00_1.htm)
 
 ## 一点个人使用感受 ##
 

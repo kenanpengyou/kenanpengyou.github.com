@@ -219,7 +219,7 @@ css：
 
 <div class="post_display">
     <div class="badge_container">
-        <div class="angel_beats_badge"><img width="150" height="165" src="{{POSTS_IMG_PATH}}/201309/angel_beats_badge.png "alt="Angel Beats!"></div>
+        <div class="angel_beats_badge" style="background: url({{POSTS_IMG_PATH}}/201309/angel_beats_badge.png) no-repeat;"></div>
     </div>
 </div>
 
@@ -236,6 +236,7 @@ css：
 [img_transform_style_result_1]: {{POSTS_IMG_PATH}}/201309/transform_style_result_1.png "不设置transform-style时的覆盖关系"
 [img_transform_style_result_2]: {{POSTS_IMG_PATH}}/201309/transform_style_result_2.png "设置transform-style后的覆盖关系"
 [img_backface_visibility_explain]: {{POSTS_IMG_PATH}}/201309/backface_visibility_explain.png "backface-visibility的作用"
+[smile]: {{POSTS_IMG_PATH}}/201309/angel_beats_badge.png "angelBeats"
 
 [Elaborate description of Stacking Contexts]: http://www.w3.org/TR/CSS2/zindex.html "Elaborate description of Stacking Contexts"
 [link_containing_block_detail]: http://www.w3help.org/zh-cn/kb/008/ "包含块( Containing block )  - W3Help"

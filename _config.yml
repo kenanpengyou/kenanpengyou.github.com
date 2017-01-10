@@ -29,6 +29,10 @@ name: "acgtofe"
 description: "acgtofe - 动漫与前端技术的综合博客"
 url: http://acgtofe.com
 
+# Markdown Processors
+kramdown:
+  parse_span_html: true
+
 # Custom plugin
 # Liang Zhu(kenanpengyou@gmail.com)
 # 2013-04-13
