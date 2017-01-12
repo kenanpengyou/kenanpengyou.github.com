@@ -68,12 +68,24 @@ rscss推荐组件**至少使用两个单词**的命名，中间用短横线（`-
 
 ## 多种属性或状态 ##
 
-无论是组件还是元素，都可以有多种属性或状态：
+无论是组件还是元素，都可以有多种属性或状态（Variants）：
 
 ![可变的属性或状态][img_variants_from_rscss]
 
-
 ### 属性或状态的命名 ###
+
+使用短横线（`-`）开头来命名表示属性或状态的class。
+
+~~~css
+/* component variants */
+.like-button.-wide { /* ... */ }
+.like-button.-disabled { /* ... */ }
+
+/* element variants */
+.shopping-card > .title.-small { /* ... */ }
+~~~
+
+### 对此命名方式的解释 ###
 
 
 
@@ -90,3 +102,4 @@ rscss推荐组件**至少使用两个单词**的命名，中间用短横线（`-
 [rsjs]: http://ricostacruz.com/rsjs/ "rsjs"
 [Bootstrap]: https://v4-alpha.getbootstrap.com/ "Bootstrap"
 [Materialize]: http://materializecss.com/ "Materialize"
+[W3C关于命名标识符的说明]: https://www.w3.org/TR/CSS22/syndata.html#characters "W3C关于命名标识符的说明"
