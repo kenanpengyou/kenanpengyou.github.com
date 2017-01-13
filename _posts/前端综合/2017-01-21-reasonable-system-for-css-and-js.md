@@ -73,7 +73,7 @@ rscss推荐组件**至少使用两个单词**的命名，中间用短横线（`-
 
 ## 多种属性或状态 ##
 
-无论是组件还是元素，都可以有多种属性或状态（Variants）：
+无论是组件还是元素，都可以有多种属性或状态（Variants，也可以叫变体）：
 
 ![可变的属性或状态][img_variants_from_rscss]
 
@@ -187,6 +187,19 @@ rscss推荐辅助类（Helpers）单独存放一个文件，且class名以下划
 下划线（`_`）作为前缀的class名，如前文已经解释过的那样，也是作为一个特殊的标记提醒你这是一个辅助类，请谨慎使用它。
 
 辅助类在前端框架中也很常见。
+
+## rscss与其他css理论的比较 ##
+
+rscss的组件（Component），元素（Element）等概念，在BEM、SMACSS这些css理论中也有类似的存在。它们比较起来是这样的：
+
+| RSCSS | BEM | SMACSS |
+|----
+| Component | Block | Module |
+| Element | Element | Sub-Component |
+| Layout | ? | Layout |
+| Variant | Modifier | Sub-Module & State |
+
+
 
 ## 结语 ##
 
