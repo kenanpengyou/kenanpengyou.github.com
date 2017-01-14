@@ -8,7 +8,7 @@ description: ""
 
 在前端开发中，我们会尝试去定一些规则和约定，来让项目质量更高，更易于维护。而对于这些规则和约定，我们也会希望它内容简单，容易理解。
 
-[rscss][rscss]和[rsjs][rsjs]是一套比较新，也比较小巧的前端开发规则和约定，其中`rs`代表`Reasonable System`，所以可以理解为，追求“合理”的css和js。本文除了介绍它们，还会有一些补充以及我自己的看法，也推荐你点击链接阅读原作者给出的完整内容。
+[rscss][rscss]和[rsjs][rsjs]是一套比较新，也比较小巧的前端开发规则和约定，其中`rs`代表`Reasonable System`，所以可以理解为，追求“合理”的css和js。本文除了介绍它们，还会有一点补充以及我自己的看法，也推荐你点击链接阅读原作者给出的完整内容。
 
 ## 从css的疑问开始 ##
 
@@ -199,6 +199,15 @@ rscss的组件（Component），元素（Element）等概念，在BEM、SMACSS�
 | Layout | ? | Layout |
 | Variant | Modifier | Sub-Module & State |
 
+总的来说，rscss
+
+关于BEM、SMACSS以及前文出现过的OOCSS的介绍，可以参考以前的[这篇文章][这篇文章]。
+
+
+rscss的部分到此，下面是rsjs。
+
+## 关注传统web应用的rsjs ##
+
 
 
 ## 结语 ##
@@ -215,3 +224,4 @@ rscss的组件（Component），元素（Element）等概念，在BEM、SMACSS�
 [Bootstrap]: https://v4-alpha.getbootstrap.com/ "Bootstrap"
 [Materialize]: http://materializecss.com/ "Materialize"
 [w3c对css标识符的解释]: https://www.w3.org/TR/CSS22/syndata.html#characters "w3c对css标识符的解释"
+[这篇文章]: http://localhost:4000/posts/2014/09/valuable-theories-of-css "值得参考的css理论：OOCSS、SMACSS与BEM - acgtofe"
