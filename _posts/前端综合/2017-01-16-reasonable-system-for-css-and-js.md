@@ -2,7 +2,7 @@
 layout: post
 title: "小而合理的前端理论：rscss和rsjs"
 category: "前端综合"
-description: ""
+description: "前端开发有一些简单、易于遵循的规则和约定吗？这里有rscss和rsjs推荐给你。"
 ---
 {% include JB/setup %}
 
@@ -199,19 +199,154 @@ rscss的组件（Component），元素（Element）等概念，在BEM、SMACSS�
 | Layout | ? | Layout |
 | Variant | Modifier | Sub-Module & State |
 
-总的来说，rscss
-
 关于BEM、SMACSS以及前文出现过的OOCSS的介绍，可以参考以前的[这篇文章][这篇文章]。
 
-
-rscss的部分到此，下面是rsjs。
+以上就是rscss的主要内容了，下面来看看rsjs。
 
 ## 关注传统web应用的rsjs ##
 
+rsjs关注的是非单页应用（non-SPA web application），也就是我们通常理解的有很多页，使用jQuery，而且每个页都可以有自己的`.js`文件的传统网站。
 
+现在已经有了可遵循的JavaScript代码本身的[风格指南][风格指南]，因此，rsjs只对一些其他的要点提出建议，如命名空间，文件组织方式。
+
+## 行为原则 ##
+
+rsjs推荐把由JavaScript实现的交互功能当做一次只影响一个组件（Component）的行为（Behavior）。下面是一个参考示例：
+
+~~~html
+<!-- Component -->
+<div class="main-navbar" data-js-collapsible-nav>
+  <button class="expand" data-js-expand>Expand</button>
+
+  <a href="/">Home</a>
+  <ul>...</ul>
+</div>
+~~~
+
+~~~js
+/* Behavior - behaviors/collapsible-nav.js */
+
+$(function () {
+  var $nav = $("[data-js-collapsible-nav]");
+  if (!$nav.length) return;
+
+  $nav
+    .on("click", "[data-js-expand]", function () {
+      $nav.addClass("-expanded");
+    })
+    .on("mouseout", function () {
+      $nav.removeClass("-expanded");
+    });
+});
+~~~
+
+这其中包含了多项建议。
+
+### 使用data属性 ###
+
+建议使用html5的data自定义属性`data-js-___`来标记和一个行为有关的DOM元素。
+
+相比用ID和class来选取元素，这种data属性的形式一方面更具有明确的意义，提醒你这是一个和交互行为有关的元素，另一方面更易于复用，在任何DOM结构里添加这样的data属性即可获得对应的行为。
+
+### 为每个行为单独建立文件 ###
+
+建议每一个行为对应的JavaScript代码都分离到单独的文件里，并以文件名明示。文件名可以参照`data-js-___`这个属性名里的对应名称，这样，根据属性名就很容易找到对应的JavaScript代码。
+
+一个可能的文件目录结构：
+
+~~~
+└── javascripts/
+    └── behaviors/
+            ├── collapsible-nav.js
+            ├── avatar-hover.js
+            ├── popup-dialog.js
+            └── notification.js
+~~~
+
+### 不使用行内JavaScript ###
+
+建议在html中不要以`<script>...</script>`或`onclick=""`等形式添加行内JavaScript代码。通过保持行为的逻辑代码独立于html，可以使代码更易于维护。
+
+从rsjs的内容来看，在已有React、Vue等库的今天，“行为独立于内容”的约定仍然对传统的以jQuery为主的Web应用有一定意义。
+
+### 初始数据的获取方式 ###
+
+传统Web站点的一个常见的场景是，后端语言在页面中预先输出某些数据，然后JavaScript会使用它们。你可能见到过下面这样`<script>`标签的实现方式，但显然，根据上一条建议，这是应避免的。
+
+~~~html
+<!-- ✗ Avoid -->
+<script>
+window.UserData = { email: "john@gmail.com", id: 9283 }
+</script>
+~~~
+
+rsjs建议的方案是，如果这些数据只需要一个组件使用，可以利用之前提到的data属性，由行为的JavaScript代码来自行取出。
+
+~~~js
+<!-- ✓ Used by the user-info behavior -->
+<div class="user-info" data-js-user-info='{"email":"john@gmail.com","id":9283}'>
+~~~
+
+如果是多个组件使用的数据，可以使用`<head>`里的meta标签。
+
+~~~html
+<head>
+  ...
+  <!-- option 1 -->
+  <meta property="app:user_data" content='{"email":"john@gmail.com","id":9283}'>
+
+  <!-- option 2 -->
+  <meta property="app:user_data:email" content="john@gmail.com">
+  <meta property="app:user_data:id" content="9283">
+~~~
+
+## 命名空间 ##
+
+rsjs建议使用尽可能少的全局变量。共用的类，函数，放到单个Object里，比如叫`App`：
+
+~~~js
+if (!window.App) window.App = {};
+
+App.Editor = function() {
+  // ...
+};
+~~~
+
+在多个行为之间可复用的帮助方法，可以单独建立Object，并将它们分文件保存在`helpers/`：
+
+~~~js
+/* helpers/format_error.js */
+if (!window.Helpers) window.Helpers = {};
+
+Helpers.formatError = function (err) {
+  return "" + err.project_id + " error: " + err.message;
+};
+~~~
+
+## 第三方库的处理 ##
+
+rsjs建议如果引入第三方库，也做成组件行为的形式。比如，[Select2][Select2]的功能，可以只影响带有属性`data-js-select2`的元素。
+
+~~~js
+// select2.js -- affects `[data-js-select2]`
+$(function () {
+  $("[data-js-select2]").select2();
+});
+~~~
+
+所有第三方库的代码可以集中到一个类似`vendor.js`的文件，并和站点本身的代码各自独立。这样，当站点更新代码的时候，用户可以直接利用缓存，而并不需要再次获取这些第三方库代码。
+
+### rsjs对自己的归纳 ###
+
+rsjs认为自身的内容更偏向于对开发者友好，也就是更易于维护，而在性能上（对用户友好）可能不够好。以上提到的各项建议，也是有利有弊，rsjs只是在权衡了利弊的基础上提出的更利于长期维护的约定。
+
+rsjs不适用于单页应用（SPA）等前端功能复杂的情况。它关注的是的那种多个网页，每个网页一点JavaScript交互的传统网站。
 
 ## 结语 ##
 
+rscss和rsjs所用的“合理”是一个很取巧的表述，不是完美，不是最好，也不是出色，它只是在说希望代码能“合乎道理”。rscss和rsjs大概就是这样，以简约的风格，不长的篇幅，追求着“小而合理”。
+
+目前rsjs还在更新中（work-in-progress），rscss则已经比较成熟。很推荐试试其中你也觉得很有道理的建议！
 
 [img_components_in_frameworks]: {{POSTS_IMG_PATH}}/201701/components_in_frameworks.png "前端框架里的组件"
 [img_component_from_rscss]: {{POSTS_IMG_PATH}}/201701/component_from_rscss.png "组件"
@@ -225,3 +360,5 @@ rscss的部分到此，下面是rsjs。
 [Materialize]: http://materializecss.com/ "Materialize"
 [w3c对css标识符的解释]: https://www.w3.org/TR/CSS22/syndata.html#characters "w3c对css标识符的解释"
 [这篇文章]: http://localhost:4000/posts/2014/09/valuable-theories-of-css "值得参考的css理论：OOCSS、SMACSS与BEM - acgtofe"
+[风格指南]: https://github.com/airbnb/javascript "Airbnb JavaScript Style Guide"
+[Select2]: https://github.com/select2/select2 "Select2"
