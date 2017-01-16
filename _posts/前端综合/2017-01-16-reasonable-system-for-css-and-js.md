@@ -8,7 +8,7 @@ description: "前端开发有一些简单、易于遵循的规则和约定吗？
 
 在前端开发中，我们会尝试去定一些规则和约定，来让项目质量更高，更易于维护。而对于这些规则和约定，我们也会希望它内容简单，容易理解。
 
-[rscss][rscss]和[rsjs][rsjs]是一套比较新，也比较小巧的前端开发规则和约定，其中`rs`代表`Reasonable System`，所以可以理解为，追求“合理”的css和js。本文除了介绍它们，还会有一点补充以及我自己的看法，也推荐你点击链接阅读原作者给出的完整内容。
+**[rscss][rscss]**和**[rsjs][rsjs]**是一套比较新，也比较小巧的前端开发规则和约定，其中`rs`代表`Reasonable System`，所以可以理解为，追求“合理”的css和js。本文除了介绍它们，还会有一点补充以及我自己的看法，也推荐你点击链接阅读原作者给出的完整内容。
 
 ## 从css的疑问开始 ##
 
@@ -73,13 +73,13 @@ rscss推荐组件**至少使用两个单词**的命名，中间用短横线（`-
 
 ## 多种属性或状态 ##
 
-无论是组件还是元素，都可以有多种属性或状态（Variants，也可以叫变体）：
+无论是组件还是元素，都可以有多种**属性或状态**（**Variants**，也可以叫变体）：
 
 ![可变的属性或状态][img_variants_from_rscss]
 
 ### 属性或状态的命名 ###
 
-使用短横线（`-`）开头来命名表示属性或状态的class。
+**使用短横线（`-`）开头**来命名表示属性或状态的class。
 
 ~~~css
 /* component variants */
@@ -177,7 +177,7 @@ rscss推荐除一些具有固定宽高的特定元素（如头像，logo）外�
 
 ## 辅助类 ##
 
-rscss推荐辅助类（Helpers）单独存放一个文件，且class名以下划线（`_`）开头。辅助类也常会用到`!important`，对应的，应尽可能少使用辅助类。
+rscss推荐**辅助类**（**Helpers**）单独存放一个文件，且class名**以下划线（`_`）开头**。辅助类也常会用到`!important`，对应的，应尽可能少使用辅助类。
 
 ~~~css
 ._pull-left { float: left !important; }
@@ -205,7 +205,7 @@ rscss的组件（Component），元素（Element）等概念，在BEM、SMACSS�
 
 ## 关注传统web应用的rsjs ##
 
-rsjs关注的是非单页应用（non-SPA web application），也就是我们通常理解的有很多页，使用jQuery，而且每个页都可以有自己的`.js`文件的传统网站。
+rsjs关注的是非单页应用（non-SPA web application），也就是我们通常理解的有很多页，主要使用jQuery，而且每个页都可以有自己的`.js`文件的传统网站。
 
 现在已经有了可遵循的JavaScript代码本身的[风格指南][风格指南]，因此，rsjs只对一些其他的要点提出建议，如命名空间，文件组织方式。
 
@@ -265,13 +265,13 @@ $(function () {
 
 ### 不使用行内JavaScript ###
 
-建议在html中不要以`<script>...</script>`或`onclick=""`等形式添加行内JavaScript代码。通过保持行为的逻辑代码独立于html，可以使代码更易于维护。
+在html中不要以`<script>...</script>`或`onclick=""`等形式添加行内JavaScript代码。通过保持行为的逻辑代码独立于html，可以使代码更易于维护。
 
 从rsjs的内容来看，在已有React、Vue等库的今天，“行为独立于内容”的约定仍然对传统的以jQuery为主的Web应用有一定意义。
 
 ### 初始数据的获取方式 ###
 
-传统Web站点的一个常见的场景是，后端语言在页面中预先输出某些数据，然后JavaScript会使用它们。你可能见到过下面这样`<script>`标签的实现方式，但显然，根据上一条建议，这是应避免的。
+传统Web站点的一个常见的场景是，后端语言在页面中预先输出某些数据，然后JavaScript会取用它们。你可能见到过下面这样`<script>`标签的实现方式，但显然，根据上一条建议，这是应避免的。
 
 ~~~html
 <!-- ✗ Avoid -->
@@ -280,7 +280,7 @@ window.UserData = { email: "john@gmail.com", id: 9283 }
 </script>
 ~~~
 
-rsjs建议的方案是，如果这些数据只需要一个组件使用，可以利用之前提到的data属性，由行为的JavaScript代码来自行取出。
+rsjs建议的方案是，如果这些数据只需要一个组件使用，可以利用之前提到的data属性（保存为值），由行为的JavaScript代码来自行取出。
 
 ~~~js
 <!-- ✓ Used by the user-info behavior -->
@@ -338,15 +338,15 @@ $(function () {
 
 ### rsjs对自己的归纳 ###
 
-rsjs认为自身的内容更偏向于对开发者友好，也就是更易于维护，而在性能上（对用户友好）可能不够好。以上提到的各项建议，也是有利有弊，rsjs只是在权衡了利弊的基础上提出的更利于长期维护的约定。
+rsjs认为自身的内容更偏向于对开发者友好，也就是更易于维护，而在性能上（对用户友好）可能没有做到最好。以上提到的各项建议，也是有利有弊，rsjs只是在权衡了利弊的基础上得到的更利于长期维护的结论。
 
-rsjs不适用于单页应用（SPA）等前端功能复杂的情况。它关注的是的那种多个网页，每个网页一点JavaScript交互的传统网站。
+rsjs不是万金油，它不适用于单页应用（SPA）等前端功能很复杂的情况。它关注的是的那种多个网页，每个网页一点JavaScript交互的传统网站。
 
 ## 结语 ##
 
 rscss和rsjs所用的“合理”是一个很取巧的表述，不是完美，不是最好，也不是出色，它只是在说希望代码能“合乎道理”。rscss和rsjs大概就是这样，以简约的风格，不长的篇幅，追求着“小而合理”。
 
-目前rsjs还在更新中（work-in-progress），rscss则已经比较成熟。很推荐试试其中你也觉得很有道理的建议！
+目前rsjs还在更新中（work-in-progress），rscss则已经比较成熟。很推荐试试其中你也认为合理的建议！
 
 [img_components_in_frameworks]: {{POSTS_IMG_PATH}}/201701/components_in_frameworks.png "前端框架里的组件"
 [img_component_from_rscss]: {{POSTS_IMG_PATH}}/201701/component_from_rscss.png "组件"
@@ -359,6 +359,6 @@ rscss和rsjs所用的“合理”是一个很取巧的表述，不是完美，�
 [Bootstrap]: https://v4-alpha.getbootstrap.com/ "Bootstrap"
 [Materialize]: http://materializecss.com/ "Materialize"
 [w3c对css标识符的解释]: https://www.w3.org/TR/CSS22/syndata.html#characters "w3c对css标识符的解释"
-[这篇文章]: http://localhost:4000/posts/2014/09/valuable-theories-of-css "值得参考的css理论：OOCSS、SMACSS与BEM - acgtofe"
+[这篇文章]: http://acgtofe.com/posts/2014/09/valuable-theories-of-css "值得参考的css理论：OOCSS、SMACSS与BEM - acgtofe"
 [风格指南]: https://github.com/airbnb/javascript "Airbnb JavaScript Style Guide"
 [Select2]: https://github.com/select2/select2 "Select2"
