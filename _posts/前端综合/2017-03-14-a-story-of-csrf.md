@@ -3,6 +3,7 @@ layout: post
 title: "有关CSRF的安全小册子"
 category: "前端综合"
 description: "CSRF的故事"
+published: false
 ---
 {% include JB/setup %}
 
