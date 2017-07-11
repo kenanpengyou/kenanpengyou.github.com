@@ -18,7 +18,7 @@ page1_bundle_54e8c56e.js
 
 ## 在webpack中配置hash ##
 
-一个带hash输出的webpack配置
+下面是一个带hash输出的webpack配置的例子(webpack v3.0.0)：
 
 ```js
 var env = {
@@ -35,7 +35,7 @@ module.exports = {
     context: env.src,
     output: {
         path: env.output,
-*     filename: './[name]/bundle_<span class="vivid">[chunkhash:8]</span>.js',
+        filename: './[name]/bundle_[chunkhash:8].js',
         publicPath: env.publicPath
     },
     devtool: false,
@@ -58,6 +58,16 @@ module.exports = {
     ]
 };
 ```
+
+可以看到，有多个地方都出现了`hash`这个词，但形式不太一样。
+
+### output的情况 ###
+
+output的`filename`可以指定hash。有两个值可以选择：
+
+* `[hash]`。hash值是特定于整个构建过程的。
+* `[chunkhash]`。hash值是特定于每一个文件的内容的。
+
 
 
 当静态资源的文件名变成这样的带哈希值的版本后，引用这些静态资源就需要稍多花一点工夫。
