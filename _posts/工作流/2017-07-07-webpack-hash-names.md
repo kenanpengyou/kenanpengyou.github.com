@@ -6,15 +6,15 @@ description: ""
 ---
 {% include JB/setup %}
 
-在[webpack][webpack]的配置项中，可能会见到`[hash]`这样的字符。
+在[webpack][webpack]的配置项中，可能会见到`hash`这样的字符。
 
-当存在`[hash]`配置的时候，webpack的输出将可以得到形如这样的文件：
+当存在`hash`配置的时候，webpack的输出将可以得到形如这样的文件：
 
 ```
 page1_bundle_54e8c56e.js
 ```
 
-这种带哈希值的文件名，将可以帮助实现静态资源的长期缓存，尤其常用于生产环境。关于这一点的详细内容，可以参考这篇久远的[大公司里怎样开发和部署前端代码][blog_issue]。
+这种带哈希值的文件名，可以帮助实现静态资源的长期缓存，在生产环境中非常有用。关于这一点的详细内容，可以参考这篇久远的[大公司里怎样开发和部署前端代码][blog_issue]。
 
 ## 在webpack中配置hash ##
 
@@ -68,14 +68,48 @@ output的`filename`可以指定hash。有两个值可以选择：
 * `[hash]`。hash值是特定于整个构建过程的。
 * `[chunkhash]`。hash值是特定于每一个文件的内容的。
 
+我们理想的缓存设计是，在一次版本更新(重新构建)后，只有当一个文件的内容确实发生了变化，它才需要被重新下载，否则应使用缓存。
 
+因此，以上两个值中更推荐的是`[chunkhash]`。你也可以阅读这篇官方的[缓存指南][缓存指南]了解更多细节。
+
+### file-loader的情况 ###
+
+`url-loader`和`file-loader`是同一家，参照[file-loader文档][file-loader文档]可知，文件名`name`可以使用标识符`[hash]`来启用hash。此外，你还可以按照`[<hashType>:hash:<digestType>:<length>]`的格式更详细地定制hash结果。
+
+`[hash:8]`中的`:8`则和前面output的一样，指定了hash结果的截取长度。
+
+### extract-text-webpack-plugin的情况 ###
+
+被引用的css通过`extract-text-webpack-plugin`来得到带hash的文件。参照[extract-text-webpack-plugin文档][extract-text-webpack-plugin文档]，在指定生成文件的文件名`filename`时可以使用标识符`[contenthash]`(可以看到，和之前的并不相同)。
+
+## 引用带hash的文件 ##
 
 当静态资源的文件名变成这样的带哈希值的版本后，引用这些静态资源就需要稍多花一点工夫。
 
+### 纯前端的情况 ###
+
+如果没有任何服务端，只是纯html、css、js的前端应用的话，一般使用[html-webpack-plugin][html-webpack-plugin]。下面是一个示例。
+
+定义一个`index.ejs`()
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App Example</title>
+</head>
+<body>
+    <main id="root"></main>
+</body>
+</html>
+```
 
 ### 提纲 ###
 
-
+hash帮助使用缓存。 只用于生产环境。
 
 
 ![Spring Initializer][img_spring_initializer_info]
@@ -87,3 +121,7 @@ output的`filename`可以指定hash。有两个值可以选择：
 
 [webpack]: https://webpack.js.org/ "webpack"
 [blog_issue]: https://github.com/fouber/blog/issues/6 "大公司里怎样开发和部署前端代码？"
+[缓存指南]: https://doc.webpack-china.org/guides/caching/ "缓存 - webpack"
+[file-loader文档]: https://github.com/webpack-contrib/file-loader "webpack-contrib/file-loader: file loader for webpack"
+[extract-text-webpack-plugin文档]: https://github.com/webpack-contrib/extract-text-webpack-plugin "webpack-contrib/extract-text-webpack-plugin: Extract text from bundle into a file."
+[html-webpack-plugin]: https://github.com/jantimon/html-webpack-plugin "jantimon/html-webpack-plugin: Simplifies creation of HTML files to serve your webpack bundles"
