@@ -88,24 +88,84 @@ output的`filename`可以指定hash。有两个值可以选择：
 
 ### 纯前端的情况 ###
 
-如果没有任何服务端，只是纯html、css、js的前端应用的话，一般使用[html-webpack-plugin][html-webpack-plugin]。下面是一个示例。
+如果没有任何服务端，只是纯html、css、js的前端应用的话，一般使用[html-webpack-plugin][html-webpack-plugin]。
 
-定义一个`index.ejs`()
+例如，新建一个`index.ejs`模板文件如下：
 
 ```html
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>App Example</title>
 </head>
+
 <body>
     <main id="root"></main>
 </body>
+
 </html>
 ```
+
+然后增加html-webpack-plugin到webpack：
+
+```js
+{
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.ejs'
+    })
+  ]
+}
+```
+
+执行一次webpack构建，得到生成的`index.html`：
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App Example</title>
+    <link href="/page1/style_626f7c3f.css" rel="stylesheet">
+</head>
+
+<body>
+    <main id="root"></main>
+    <script type="text/javascript" src="/page1/bundle_0f33bdc8.js"></script>
+</body>
+
+</html>
+```
+
+可以看到，html-webpack-plugin在模板文件内容的基础上，就添加好了需要引用的bundle js。如果还有生成的css文件(通过[extract-text-webpack-plugin][extract-text-webpack-plugin])，也会被添加到适当的位置。
+
+### 纯前端、多页的情况 ###
+
+如果webpack有多个entry文件，例如本文最前面给出的例子：
+
+```js
+{
+    entry: {
+        'page1': './page1',
+        'page2': './page2'
+    }
+}
+```
+
+在这种情况下，html-webpack-plugin会把全部entry的输出都集中到一个`.html`里。所以，这可能并不是我们想要的。
+
+我们更希望的是为每一个entry生成一个`.html`。这时候，需要使用的是[multipage-webpack-plugin][multipage-webpack-plugin]。这个插件实际也依赖了html-webpack-plugin。
+
+例如，
+
+multipage-webpack-plugin
 
 ### 提纲 ###
 
@@ -125,3 +185,5 @@ hash帮助使用缓存。 只用于生产环境。
 [file-loader文档]: https://github.com/webpack-contrib/file-loader "webpack-contrib/file-loader: file loader for webpack"
 [extract-text-webpack-plugin文档]: https://github.com/webpack-contrib/extract-text-webpack-plugin "webpack-contrib/extract-text-webpack-plugin: Extract text from bundle into a file."
 [html-webpack-plugin]: https://github.com/jantimon/html-webpack-plugin "jantimon/html-webpack-plugin: Simplifies creation of HTML files to serve your webpack bundles"
+[extract-text-webpack-plugin]: https://github.com/webpack-contrib/extract-text-webpack-plugin "webpack-contrib/extract-text-webpack-plugin: Extract text from bundle into a file."
+[multipage-webpack-plugin]: https://github.com/mutualofomaha/multipage-webpack-plugin "mutualofomaha/multipage-webpack-plugin: A plugin that makes handling templates and asset distribution for multi-page applications using webpack trivial"
