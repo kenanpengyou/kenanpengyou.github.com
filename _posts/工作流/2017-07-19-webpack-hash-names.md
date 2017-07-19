@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "webpack的hash"
+title: "Webpack中hash的用法"
 category: "工作流"
-description: ""
+description: "Webpack的构建除了常规的输出之外，还可以选择带hash的输出。这种输出文件很有用，但处理起来并不是很容易。本文将针对这个问题，展示一些可行的方案。"
 ---
 {% include JB/setup %}
 
@@ -144,7 +144,7 @@ output的`filename`可以指定hash。有两个值可以选择：
 </html>
 ```
 
-可以看到，html-webpack-plugin在模板文件内容的基础上，就添加好了需要引用的bundle js。如果还有生成的css文件(通过[extract-text-webpack-plugin][extract-text-webpack-plugin])，也会被添加到适当的位置。
+可以看到，html-webpack-plugin在模板文件内容的基础上，就添加好了需要引用的bundle js。如果还有生成的css文件(通过`extract-text-webpack-plugin`)，也会被添加到适当的位置。
 
 ### 纯前端、多页的情况 ###
 
@@ -292,7 +292,7 @@ public class ResourceFormatter{
 
     public String format(String originPath){
 
-        if(resourceMap.has(originPath)){
+        if(resourceMap != null && resourceMap.has(originPath)){
             return "/" + resourceMap.get(originPath).asText();
         }
 
@@ -364,14 +364,52 @@ public class ThymeleafConfig {
 
 ### 服务端例子 - Koa ###
 
-看完了一个传统Java应用的例子，再来看看相对现代的Node应用。[Koa][Koa]是小巧的Node服务框架，在它上面引用带hash的资源文件，也是类似的思路。
+看完了一个传统Java应用的例子，再来看看现代的Node应用。[Koa][Koa](v2)是简洁的Node服务端框架，在它的基础上引用带hash的资源文件，也是同样的思路。
 
+首先，同样是在webpack配置中加入webpack-manifest-plugin。
 
+运行webpack构建生成`manifest.json`，内容大概会像这样：
 
+```
+{
+  "page1.css": "page1/style_0b5ab6ef.css",
+  "page1.js": "page1/bundle_0f33bdc8.js",
+  "page1\\potofu.jpg": "page1/potofu_26766d43.jpg"
+}
+```
 
+然后，读取这个json，为Koa(通过`ctx.state`)添加一个资源路径转换的帮助方法：
 
+```js
+import manifest from './public/manifest.json';
+
+app.use(async(ctx, next) => {
+    ctx.state.resourceFormat = (originPath) => {
+
+        if (originPath in manifest) {
+            return "/" + manifest[originPath];
+        }
+
+        return "/" + originPath;
+    };
+    await next();
+});
+```
+
+最后，在视图模板(这里的模板引擎是[ejs][ejs])内，引用所需的静态资源：
+
+```html
+<link rel="stylesheet" href="<%= resourceFormat('page1.css') %>">
+<!-- ... -->
+<script src="<%= resourceFormat('page1.js') %>"></script>
+```
+
+到此，Koa的例子就完成了。
 
 ## 结语 ##
+
+带hash的文件是现在web启用缓存来提升性能比较建议的形式，如果你也有类似的生产环境优化的需要，很推荐你也试试。
+
 
 [webpack]: https://webpack.js.org/ "webpack"
 [blog_issue]: https://github.com/fouber/blog/issues/6 "大公司里怎样开发和部署前端代码？"
@@ -379,9 +417,9 @@ public class ThymeleafConfig {
 [file-loader文档]: https://github.com/webpack-contrib/file-loader "webpack-contrib/file-loader: file loader for webpack"
 [extract-text-webpack-plugin文档]: https://github.com/webpack-contrib/extract-text-webpack-plugin "webpack-contrib/extract-text-webpack-plugin: Extract text from bundle into a file."
 [html-webpack-plugin]: https://github.com/jantimon/html-webpack-plugin "jantimon/html-webpack-plugin: Simplifies creation of HTML files to serve your webpack bundles"
-[extract-text-webpack-plugin]: https://github.com/webpack-contrib/extract-text-webpack-plugin "webpack-contrib/extract-text-webpack-plugin: Extract text from bundle into a file."
 [multipage-webpack-plugin]: https://github.com/mutualofomaha/multipage-webpack-plugin "mutualofomaha/multipage-webpack-plugin: A plugin that makes handling templates and asset distribution for multi-page applications using webpack trivial"
 [webpack-manifest-plugin]: https://github.com/danethurber/webpack-manifest-plugin "danethurber/webpack-manifest-plugin: webpack plugin for generating asset manifests"
 [assets-webpack-plugin]: https://github.com/kossnocorp/assets-webpack-plugin "kossnocorp/assets-webpack-plugin: Webpack plugin that emits a json file with assets paths"
-[Koa]: http://koajs.com/ "Koa - next generation web framework for node.js"
 [spring-boot-angular2-seed]: https://github.com/Efk3/spring-boot-angular2-seed "Efk3/spring-boot-angular2-seed"
+[Koa]: http://koajs.com/ "Koa - next generation web framework for node.js"
+[ejs]: https://github.com/tj/ejs "tj/ejs: Embedded JavaScript templates for node"
