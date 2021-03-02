@@ -87,7 +87,7 @@ Selection已经表示了“当前选择”，那Range是做什么的呢？简单
 
 除Firefox外，其他浏览器的Selection都只支持单个Range，因此，**我们一般在同一时间只能应用一个Range到Selection**。
 
-一个Range由两个边界点组成，分别是起始边界点和结尾边界点。这两个边界点在一起，就可以描述任意的“选择”状态。当两个边界点完全相同时，这个“选择”状态是折叠的（Collapsed），也就是闪烁光标的状态。
+一个Range由两个边界点组成，分别是起始边界点和结尾边界点。这两个边界点在一起，就可以描述任意的“选择”状态。当两个边界点完全相同时，这个“选择”状态就称为**折叠的**（**Collapsed**），也就是闪烁光标的状态。
 
 Selection的和Range有关的方法很重要，具体如下：
 
@@ -97,7 +97,7 @@ Selection的和Range有关的方法很重要，具体如下：
 * `removeAllRanges()` - 取消应用所有Range。
 * `empty()` - 等同于`removeAllRanges()`。
 
-关于Selection和Range的更详细的解释，推荐你阅读这篇[Selection And Range][Selection And Range]。
+关于Selection和Range的更详细的介绍和说明，推荐阅读这篇[Selection And Range][Selection And Range]。
 
 ## 符合光标位置的表情插入 ##
 
@@ -130,7 +130,7 @@ document.onselectionchange = () => {
 
 这段代码的作用是，在“当前选择”发生变化（鼠标点击或触摸动作等）后，如果变化后的Selection位于输入框`inputBox`内部，就用变量`rangeOfInputBox`保存它。这里也可以看到，Selection是用Range来保存的。
 
-`selection.rangeCount`是`Selection`的属性，它表示Selection正在应用的Range数目。当它大于`0`时，说明当前是有选择的。
+`selection.rangeCount`是`Selection`的属性，它表示Selection正在应用的Range数目。当它大于`0`时，说明当前是“有选择”的状态。
 
 `range.commonAncestorContainer`是`Range`的属性，它表示Range的两个边界点的距离最近的共同父元素。这里用于判断Range发生在`inputBox`内。
 
@@ -160,9 +160,53 @@ insertEmoji (name) {
 
 如果`rangeOfInputBox`不存在，说明还没有过任何发生在输入框内的选择事件，此时就指定一个默认的Range。`selectNodeContents(node)`是`Range`的方法，将一个Range设定为选中整个`node`元素内容。
 
-`insertNode(node)`是核心方法，用来插入表情HTML元素。`insertNode(node)`是`Range`的方法，将`node`元素插入到Range的起始边界点。如果Range是折叠的（闪烁光标），直接插入表情元素，如果Range不是折叠的（选中了一部分输入框内容），就先删除选中的内容，再插入表情元素。
+`insertNode(node)`是`Range`的方法，可以将`node`元素插入到Range的起始边界点。它是本示例的关键方法，用于完成表情HTML元素插入。这里需要对Range的状态做判断，如果Range是折叠的（闪烁光标），直接插入表情元素，如果Range不是折叠的（选中了一部分输入框内容），就先删除选中的内容，再插入表情元素（相当于替换内容的效果）。`deleteContent()`也是`Range`的方法，可以将Range包含的内容从网页文档中删除。
 
+结尾调用的`collapse(toStart)`仍然是`Range`的方法，它可以将Range的两个边界点变成相同的，也就是折叠的状态。如果参数`toStart`为`true`则取起始边界点的位置，如果为`false`则是取结尾边界点。这里取的是结尾边界点，这样就好像是在插入一个表情后，自动将光标移动到刚插入的表情元素后方，从而支持表情的**连续输入**。
 
+到此，微博风格的表情输入就已经实现了：
+
+![微博风格表情输入 - 结果演示][img_works_preview_weibo]
+
+把输入框内的内容作为HTML代码（富文本），就可以提交给后台，或者像图里这样简单展示在上方的聊天窗口内。
+
+### 完善点击表情时的光标置位 ###
+
+这种文字和表情图混合在一起的风格还存在一个待完善的地方：如果点击文字，光标会正确定位到选中的文字前方，而点击表情图，就没有任何动作。这个光标置位的功能我们可以手动补全。
+
+为输入框增加`click`事件处理：
+
+~~~html
+<div 
+    ref="inputBox" 
+    @click="handleBoxClick"
+    class="input-box" 
+    contenteditable="true"></div>
+~~~
+
+对应的`handleBoxClick()`事件处理方法如下：
+
+~~~js
+handleBoxClick (event) {
+    let target = event.target;
+    this.setCaretForEmoji(target);
+},
+setCaretForEmoji (target) {
+    if (target.tagName.toLowerCase() === "img") {
+        let range = new Range();
+        range.setStartBefore(target);
+        range.collapse(true);
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(range);
+    }
+},
+~~~
+
+`setStartBefore(node)`是`Range`的方法，可以设定边界起始点的位置到一个元素之前。这段代码整体来说就是，如果当前`click`的是`<img>`元素，就创建一个Range，设定它为折叠状态，位置在刚才点击的表情图之前，然后应用这个Range到Selection，变成真实可见的选择效果。
+
+## 用纯文本符号来替代表情的场景 ##
+
+现在我们回到微信的风格。
 
 
 
@@ -174,10 +218,11 @@ GSAP有一份包含丰富参考代码的[备忘单][备忘单]（Cheat Sheet）�
 
 GSAP里的很它的原因的
 
-[img_emoji_design_wechat]: {{POSTS_IMG_PATH}}/202102/emoji_design_wechat.jpg "微信的表情输入"
-[img_emoji_design_weibo]: {{POSTS_IMG_PATH}}/202102/emoji_design_weibo.jpg "微博的表情输入"
-[img_contenteditable_ui]: {{POSTS_IMG_PATH}}/202102/contenteditable_ui.png "表情输入界面"
-[img_selection_type]: {{POSTS_IMG_PATH}}/202102/selection_type.png "不同类型的Selection"
+[img_emoji_design_wechat]: {{POSTS_IMG_PATH}}/202103/emoji_design_wechat.jpg "微信的表情输入"
+[img_emoji_design_weibo]: {{POSTS_IMG_PATH}}/202103/emoji_design_weibo.jpg "微博的表情输入"
+[img_contenteditable_ui]: {{POSTS_IMG_PATH}}/202103/contenteditable_ui.png "表情输入界面"
+[img_selection_type]: {{POSTS_IMG_PATH}}/202103/selection_type.png "不同类型的Selection"
+[img_works_preview_weibo]: {{POSTS_IMG_PATH}}/202103/works_preview_weibo.gif "微博风格表情输入 - 结果演示"
 
 
 [Selection And Range]: https://javascript.info/selection-range "Selection And Range"
