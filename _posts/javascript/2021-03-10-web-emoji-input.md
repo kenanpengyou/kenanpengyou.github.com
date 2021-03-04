@@ -206,7 +206,89 @@ setCaretForEmoji (target) {
 
 ## 用纯文本符号来替代表情的场景 ##
 
-现在我们回到微信的风格。
+现在，我们重新开工，来实现微信风格的表情输入。
+
+前面说过，微信是使用类似`[旺柴]`这样的符号标识来替代表情的风格。这种风格全部使用纯文本，因此，输入框会很容易实现，可以直接使用表单元素的文本输入框：
+
+~~~html
+<input
+    ref="formInput"
+    @keydown="handleFormInputKeydown" 
+    class="form-input"
+    type="text">
+~~~
+
+这里预留的`handleFormInputKeydown()`输入事件处理方法，将在后文中使用。
+
+和微博风格类似，接下来也是可以分成两个实现要点：
+
+* 点击下方的表情，就将该表情对应的纯文本符号插入到输入框`<input>`。
+* 纯文本符号的插入位置要**符合输入框`<input>`的当前光标位置**。
+
+虽然同样是结合Selection和Range的概念，按光标位置来插入纯文本符号，但`<input>`会更加简单。
+
+### 按光标位置来插入纯文本 ###
+
+表单元素`<input>`自身有以下3个属性是关于“选择”的：
+
+* `input.selectionStart` - 选择的起始位置。它的值是一个索引数字，比如`6`。
+* `input.selectionEnd` - 选择的结尾位置。值的格式同上。
+* `input.selectionDirection` - 选择的方向。可选值`"forward"`,`"backward"`和`"none"`。一般对应的情况是指鼠标拖拽选择时是从前向后，还是从后向前，又或者是双击选中。
+
+通过这些属性，就可以实现对“选择”状态的读取和写入，而无需使用`Selection`和`Range`。
+
+现在，点击表情时，执行插入表情的方法`insertEmojiText`：
+
+~~~js
+insertEmojiText (name) {
+    let input = this.$refs.formInput;
+    let emojiText = `[${name}]`;
+    input.focus();
+    input.setRangeText(emojiText, input.selectionStart, input.selectionEnd, "end");
+    input.blur();
+}
+~~~
+
+可以看到纯文本的表情插入非常简单。这里也是用`[name]`的符号来表示表情。
+
+`input.setRangeText(replacement, [start], [end], [selectionMode])`是`input`的方法，可以将索引位置从`start`到`end`的文本，替换成`replacement`的文本。而如果`start`等于`end`，就相当于闪烁光标的状态，没有文本会被替换，变成了插入文本的效果。末尾参数`selectionMode`决定了在文本替换（或插入）操作完毕后，`input`如何更新选择状态。这里取`"end"`表示将选择状态设定为“闪烁光标，位置在新插入文本的后方”，从而支持表情连续输入。
+
+使用`input.setRangeText()`，无论当前状态是闪烁光标，还是已经选择了一些文本，都会以符合我们输入习惯的方式插入表情文本。
+
+关于`input.setRangeText()`的更详细的说明，同样推荐阅读这篇[Selection And Range][Selection And Range]。
+
+这段代码中的`input.focus()`和`input.blur()`，是因为仅在`<input>`元素被focus的情况下进行文本编辑操作，才能确保`input.selectionStart`和`input.selectionEnd`两个值正确更新。同时，这里又并不希望`<input>`元素被真地focus，所以又用了`input.blur()`来取消。
+
+到这里，微信风格的表情输入就基本可用了。但是，这种纯文本符号的风格也有一个应完善的地方：**用退格键（Backspace）来删除文本时，代表一个表情的纯文本符号应该以作为一个整体被删除**。比如`[旺柴]`这样的表情符号，在光标位于`]`的后方时，一个退格键就应该删除这一整段文本。这也是微信里存在的功能。
+
+### 退格键支持 - 以表情符号为整体删除文本 ###
+
+前文示例中为`<input>`元素预留的`handleFormInputKeydown()`方法，就是用于实现这一功能：
+
+~~~js
+handleFormInputKeydown (event) {
+    let input = this.$refs.formInput;
+    let chatString = input.value;
+
+    // "Backspace" and selection type "Caret"
+    if (event.keyCode === 8 && input.selectionStart === input.selectionEnd) {
+        let indexEnd = input.selectionStart - 1;
+        let charToDelete = chatString.charAt(indexEnd);
+
+        // delete the whole [***]
+        if (charToDelete === "]") {
+            event.preventDefault();
+            let indexStart = chatString.lastIndexOf("[", indexEnd);
+            input.setRangeText("", indexStart, indexEnd + 1, "end");
+        }
+    }
+}
+~~~
+
+这段代码是判断当选择状态为闪烁光标，且刚好位于字符`]`后按下了退格键的时候，就找出整个`[name]`表情文本，使用`input.setRangeText()`实现整段删除。
+
+有了这个文本删除
+
 
 
 
