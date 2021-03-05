@@ -206,7 +206,7 @@ setCaretForEmoji (target) {
 
 ## 用纯文本符号来替代表情的场景 ##
 
-现在，我们重新开工，来实现微信风格的表情输入。
+现在，我们重新开始，来实现微信风格的表情输入。
 
 前面说过，微信是使用类似`[旺柴]`这样的符号标识来替代表情的风格。这种风格全部使用纯文本，因此，输入框会很容易实现，可以直接使用表单元素的文本输入框：
 
@@ -287,24 +287,74 @@ handleFormInputKeydown (event) {
 
 这段代码是判断当选择状态为闪烁光标，且刚好位于字符`]`后按下了退格键的时候，就找出整个`[name]`表情文本，使用`input.setRangeText()`实现整段删除。
 
-有了这个文本删除
+到此，微信风格的表情输入也就完成了：
 
+![微信风格表情输入 - 结果演示][img_works_preview_wechat]
 
+在提交给后台或者图中这样展示在上方聊天窗口内的时候，取输入框内的纯文本，然后将所有`[name]`格式的文本符号，替换成对应表情的HTML（比如`[1]`变成`<img src="/path/to/emoji/1.gif">`）即可。
 
+## 完整代码示例 ##
 
-### 备忘单 ###
+两种风格的完整代码示例：
 
-GSAP有一份包含丰富参考代码的[备忘单][备忘单]（Cheat Sheet），可以帮助你节约时间。
+* [微博风格（表情图和文字一起）](https://codesandbox.io/s/emoji-input-contenteditable-75qe8)
+* [微信风格（表情用纯文本符号替代）](https://codesandbox.io/s/emoji-input-text-yqfe3)
+
+## 补充 ##
+
+### 光标颜色 ###
+
+Selection在可输入元素内的折叠状态，也就是闪烁光标，它的颜色也是可以修改的，比如：
+
+~~~css
+input {
+    caret-color: red;
+}
+~~~
+
+会将闪烁光标修改为红色。更详细的说明请查看[MDN上的caret-color][MDN上的caret-color]。
+
+### 输入法里的表情字符 ###
+
+![输入法里的表情字符][img_IME_emoji]
+
+在手机上，你可能注意到像搜狗这样的输入法也给你提供了一套表情（上图中的Emoji），它们在微信中也可以使用，而且可以直接显示在微信的输入框内。这种不依赖其他东西就可以使用的表情，本质上是Unicode字符，你可以到[Unicode Character Table][Unicode Character Table]上查找更多的表情字符。
+
+Unicode字符表情最终呈现的样子取决于它所处的环境。比如不同手机，不同操作系统，都可能有不同的外观。
+
+### 定义虚拟键盘的动作键 ###
+
+![定义虚拟键盘的动作键][img_IME_enterkeyhint]
+
+手机上的输入法键盘，右下角的动作键可以通过HTML属性`enterkeyhint`设置为不同的类型：
+
+~~~html
+<div
+    ref="inputBox" 
+    enterkeyhint="send"
+    contenteditable="true"></div>
+~~~
+
+这里值`send`对应的就是前面图中的“发送”。其他可用的值可以参考[MDN上的enterkeyhint][MDN上的enterkeyhint]。
+
+如果想要像微信那样，点击虚拟键盘右下角的“发送”就可以发送消息（而不是点击网页上的按钮），监听输入元素的键盘事件，并确认按键为`enter`键即可。
 
 ## 结语 ##
 
-GSAP里的很它的原因的
+“可以输入表情”对于聊天交流而言可以说是非常棒的一项增强。不管具体用哪一种风格实现，最终都是让大家可以表达出更多。
+
+希望本文的表情功能开发指南可以帮到你。
 
 [img_emoji_design_wechat]: {{POSTS_IMG_PATH}}/202103/emoji_design_wechat.jpg "微信的表情输入"
 [img_emoji_design_weibo]: {{POSTS_IMG_PATH}}/202103/emoji_design_weibo.jpg "微博的表情输入"
 [img_contenteditable_ui]: {{POSTS_IMG_PATH}}/202103/contenteditable_ui.png "表情输入界面"
 [img_selection_type]: {{POSTS_IMG_PATH}}/202103/selection_type.png "不同类型的Selection"
 [img_works_preview_weibo]: {{POSTS_IMG_PATH}}/202103/works_preview_weibo.gif "微博风格表情输入 - 结果演示"
-
+[img_works_preview_wechat]: {{POSTS_IMG_PATH}}/202103/works_preview_wechat.gif "微信风格表情输入 - 结果演示"
+[img_IME_emoji]: {{POSTS_IMG_PATH}}/202103/IME_emoji.jpg "输入法里的表情字符"
+[img_IME_enterkeyhint]: {{POSTS_IMG_PATH}}/202103/IME_enterkeyhint.jpg "定义虚拟键盘的动作键"
 
 [Selection And Range]: https://javascript.info/selection-range "Selection And Range"
+[MDN上的caret-color]: https://developer.mozilla.org/zh-CN/docs/Web/CSS/caret-color "caret-color - CSS（层叠样式表） | MDN"
+[Unicode Character Table]: https://unicode-table.com/cn/ "基本拉丁字母 — ✔️ ❤️ ★ Unicode 字符百科"
+[MDN上的enterkeyhint]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint "enterkeyhint - HTML: HyperText Markup Language | MDN"
